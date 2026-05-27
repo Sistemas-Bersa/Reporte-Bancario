@@ -1,0 +1,16 @@
+{
+  "name": "bank-extractor-app",
+  "version": "1.0.0",
+  "description": "Extractor Bancario PDF → Excel (Vite + React + Express)",
+  "scripts": {
+    "install:all": "npm i && cd client && npm i && cd ../server && npm i",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

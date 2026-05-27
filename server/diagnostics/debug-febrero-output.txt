@@ -1,0 +1,588 @@
+Cargando SANTANDER BERSA 223 FEBRERO 2024.pdf...
+Extraidas 572 transacciones. OCR: true
+
+IDX | FECHA       | MONTO_R             | MONTO_D             | SALDO_EXT       | SALDO_CALC      | STATUS   | CONCEPTO
+----------------------------------------------------------------------------------------------------------------------------------
+  1 | 01-FEB-2024 |                     |                0.01 |       299667.06 |       299667.06 | OK         | ABO POR INTERESES DEL PERIODO 01-01-2024 AL 31-01-2024
+  2 | 01-FEB-2024 |                0.01 |                     |       299667.05 |       299667.05 | OK         | RETENCION SR 01-01-2024 AL 31-01-2024
+  3 | 01-FEB-2024 |              400.00 |                     |       299267.05 |       299267.05 | OK         | COBRO POR BAJA FACTURACION AFIL.-008225896
+  4 | 01-FEB-2024 |               64.00 |                     |       299203.05 |       299203.05 | OK         | COBRO IVA AFIL.-008225896
+  5 | 01-FEB-2024 |            8,902.15 |                     |        290300.9 |        290300.9 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+  6 | 01-FEB-2024 |                     |              499.00 |        290799.9 |        290799.9 | OK         | BONI COM MEMBRESIA CTA E PYME 27167
+  7 | 01-FEB-2024 |                     |               79.84 |       290879.74 |       290879.74 | OK         | ANUL O BONI IVA COM 27168
+  8 | 01-FEB-2024 |            3,495.38 |                     |       287384.36 |       287384.36 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+  9 | 01-FEB-2024 |                     |        5,000,000.00 |      5287384.36 |      5287384.36 | OK         | ABONO TRANSFERENCIA ENLACE DISPOSICION DE CREDITO
+ 10 | 01-FEB-2024 |        2,900,000.00 |                     |      2387384.36 |      2387384.36 | OK         | CARGO TRANSFERENCIA ENLACE PRESTAMO
+ 11 | 01-FEB-2024 |                     |          400,000.00 |      2787384.36 |      2787384.36 | OK         | ABONO TRANSFERENCIA SPEI HORA 17:18:54 RECIBIDO DE BANORTE D
+ 12 | 01-FEB-2024 |           29,580.00 |                     |      2757804.36 |      2757804.36 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:43 ENVIADO A BBVA MEXICO 
+ 13 | 01-FEB-2024 |            4,616.35 |                     |      2753188.01 |      2753188.01 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:43 ENVIADO A BANORTE A LA
+ 14 | 01-FEB-2024 |            8,125.00 |                     |      2745063.01 |      2745063.01 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:43 ENVIADO A SCOTIABANK A
+ 15 | 01-FEB-2024 |            7,525.75 |                     |      2737537.26 |      2737537.26 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURA GOLEM
+ 16 | 01-FEB-2024 |           58,422.26 |                     |         2679115 |         2679115 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:43 ENVIADO A BANAMEX ALA 
+ 17 | 01-FEB-2024 |           55,514.88 |                     |      2623600.12 |      2623600.12 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ANA LILIA
+ 18 | 01-FEB-2024 |           24,564.28 |                     |      2599035.84 |      2599035.84 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:43 ENVIADO A BBVA MEXICO 
+ 19 | 01-FEB-2024 |           98,840.46 |                     |      2500195.38 |      2500195.38 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:44 ENVIADO A BBVA MEXICO 
+ 20 | 01-FEB-2024 |           45,519.00 |                     |      2454676.38 |      2454676.38 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS CARMEN BERNAVE
+ 21 | 01-FEB-2024 |           54,273.60 |                     |      2400402.78 |      2400402.78 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS CHEF MART
+ 22 | 01-FEB-2024 |           13,928.00 |                     |                 |      2386474.78 | NO_SALDO   | PAGO TRANSFERENCIA SPEI HORA 17:34:44 ENVIADO A BBVA MEXICO 
+ 23 | 01-FEB-2024 |           35,761.09 |                     |      2350713.69 |      2364641.69 | ERR      13928 | ¡CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ALGANI d Santander
+ 24 | 01-FEB-2024 |            8,908.23 |                     |      2341805.46 |      2341805.46 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:44 ENVIADO A BBVA MEXICO 
+ 25 | 01-FEB-2024 |           23,135.94 |                     |      2318669.52 |      2318669.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:44 ENVIADO A BAJO ALA CUE
+ 26 | 01-FEB-2024 |           46,519.50 |                     |      2272150.02 |      2272150.02 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:44 ENVIADO A SCOTIABANK A
+ 27 | 01-FEB-2024 |           53,946.40 |                     |      2218203.62 |      2218203.62 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:44 ENVIADO A BANAMEX ALA 
+ 28 | 01-FEB-2024 |          127,347.40 |                     |      2090856.22 |      2090856.22 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:44 ENVIADO A BANORTE ALA 
+ 29 | 01-FEB-2024 |           45,020.00 |                     |      2045836.22 |      2045836.22 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:44 ENVIADO A AFIRME ALA C
+ 30 | 01-FEB-2024 |           37,919.50 |                     |      2007916.72 |      2007916.72 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:44 ENVIADO A BANAMEX ALA 
+ 31 | 01-FEB-2024 |            1,805.07 |                     |      2006111.65 |      2006111.65 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:34:44 ENVIADO A HSBC ALA CUE
+ 32 | 01-FEB-2024 |           46,075.57 |                     |      1960036.08 |      1960036.08 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ABENAMAR
+ 33 | 01-FEB-2024 |           83,929.33 |                     |      1876106.75 |      1876106.75 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURA EMILIA PEREZ
+ 34 | 01-FEB-2024 |            5,056.92 |                     |      1871049.83 |      1871049.83 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURA EMILIA PEREZ
+ 35 | 01-FEB-2024 |           88,155.77 |                     |      1782894.06 |      1782894.06 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURA EMILIA PEREZ
+ 36 | 01-FEB-2024 |            3,044.94 |                     |      1779849.12 |      1779849.12 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURA EMILIA PEREZ
+ 37 | 01-FEB-2024 |           25,902.50 |                     |      1753946.62 |      1753946.62 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:37 ENVIADO A BBVA MEXICO 
+ 38 | 01-FEB-2024 |           58,562.98 |                     |      1695383.64 |      1695383.64 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ALPHA
+ 39 | 01-FEB-2024 |          205,366.04 |                     |       1490017.6 |       1490017.6 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:37 ENVIADO A BANAMEX ALA 
+ 40 | 01-FEB-2024 |            9,008.00 |                     |       1481009.6 |       1481009.6 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:37 ENVIADO A BANORTE ALA 
+ 41 | 01-FEB-2024 |              781.46 |                     |      1480228.14 |      1480228.14 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:37 ENVIADO A BANAMEX ALA 
+ 42 | 01-FEB-2024 |           24,205.00 |                     |      1456023.14 |      1456023.14 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:37 ENVIADO A BBVA MEXICO 
+ 43 | 01-FEB-2024 |           54,298.50 |                     |      1401724.64 |      1401724.64 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:37 ENVIADO A BANORTE ALA 
+ 44 | 01-FEB-2024 |           67,407.00 |                     |      1334317.64 |      1334317.64 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS HUGO ENRIQUE
+ 45 | 01-FEB-2024 |            5,883.70 |                     |      1328433.94 |      1328433.94 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:37 ENVIADO A BANORTE ALA 
+ 46 | 01-FEB-2024 |           12,943.20 |                     |      1315490.74 |      1315490.74 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS PATRONA
+ 47 | 01-FEB-2024 |            6,400.00 |                     |      1309090.74 |      1309090.74 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:37 ENVIADO A BAJIO ALA CU
+ 48 | 01-FEB-2024 |           37,704.11 |                     |      1271386.63 |      1271386.63 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:37 ENVIADO A BANORTE ALA 
+ 49 | 01-FEB-2024 |           44,911.74 |                     |      1226474.89 |      1226474.89 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:37 ENVIADO A BANREGIO A L
+ 50 | 01-FEB-2024 |            1,479.94 |                     |      1224994.95 |      1224994.95 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:37 ENVIADO A BANREGIO A L
+ 51 | 01-FEB-2024 |            4,550.00 |                     |      1220444.95 |      1220444.95 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:37 ENVIADO A INBURSA A LA
+ 52 | 01-FEB-2024 |            7,250.00 |                     |      1213194.95 |      1213194.95 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS JOCELYN MICHELLE
+ 53 | 01-FEB-2024 |           40,204.40 |                     |      1172990.55 |      1172990.55 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS JSB
+ 54 | 01-FEB-2024 |            2,081.67 |                     |      1170908.88 |      1170908.88 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:27 ENVIADO A BANAMEX A LA
+ 55 | 01-FEB-2024 |           62,560.50 |                     |      1108348.38 |      1108348.38 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:27 ENVIADO A BBVA MEXICO 
+ 56 | 01-FEB-2024 |           14,785.50 |                     |      1093562.88 |      1093562.88 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:27 ENVIADO A BBVA MEXICO 
+ 57 | 01-FEB-2024 |           11,195.00 |                     |      1082367.88 |      1082367.88 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:27 ENVIADO A BBVA MEXICO 
+ 58 | 01-FEB-2024 |           14,684.33 |                     |      1067683.55 |      1067683.55 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:27 ENVIADO A BAJIO ALA CU
+ 59 | 01-FEB-2024 |           13,688.99 |                     |      1053994.56 |      1053994.56 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:27 ENVIADO A HSBC ALA CUE
+ 60 | 01-FEB-2024 |            2,430.00 |                     |      1051564.56 |      1051564.56 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:27 ENVIADO A BBVA MEXICO 
+ 61 | 01-FEB-2024 |           12,100.00 |                     |      1039464.56 |      1039464.56 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:27 ENVIADO A BANORTE ALA 
+ 62 | 01-FEB-2024 |          233,579.80 |                     |       805884.76 |       805884.76 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS MARTINA ERNESTIN A
+ 63 | 01-FEB-2024 |              920.00 |                     |       804964.76 |       804964.76 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:27 ENVIADO A BANAMEX ALA 
+ 64 | 01-FEB-2024 |            4,738.00 |                     |       800226.76 |       800226.76 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:27 ENVIADO A AZTECA ALA C
+ 65 | 01-FEB-2024 |           12,200.00 |                     |       788026.76 |       788026.76 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:27 ENVIADO A BBVA MEXICO 
+ 66 | 01-FEB-2024 |           11,430.00 |                     |       776596.76 |       776596.76 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:27 ENVIADO A BANAMEX ALA 
+ 67 | 01-FEB-2024 |           20,564.69 |                     |       756032.07 |       756032.07 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:28 ENVIADO A BANCOPPEL AL
+ 68 | 01-FEB-2024 |            3,885.00 |                     |       752147.07 |       752147.07 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:28 ENVIADO A AZTECA ALA C
+ 69 | 01-FEB-2024 |           34,298.77 |                     |        717848.3 |        717848.3 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:28 ENVIADO A BBVA MEXICO 
+ 70 | 01-FEB-2024 |           16,892.50 |                     |        700955.8 |        700955.8 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:55:28 ENVIADO A BANORTE ALA 
+ 71 | 01-FEB-2024 |           66,477.71 |                     |       634478.09 |       634478.09 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS MEXICANA
+ 72 | 01-FEB-2024 |          135,786.04 |                     |       498692.05 |       498692.05 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:00:18 ENVIADO A BANREGIO A L
+ 73 | 01-FEB-2024 |           49,043.27 |                     |       449648.78 |       449648.78 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:00:18 ENVIADO A BANORTE ALA 
+ 74 | 01-FEB-2024 |           30,503.50 |                     |       419145.28 |       419145.28 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:00:18 ENVIADO A AFIRME ALA C
+ 75 | 01-FEB-2024 |           35,627.48 |                     |        383517.8 |        383517.8 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:00:18 ENVIADO A BANORTE (— A
+ 76 | 01-FEB-2024 |           50,820.64 |                     |       332697.16 |       332697.16 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:00:18 ENVIADO A BANORTE ALA 
+ 77 | 01-FEB-2024 |            3,150.00 |                     |       329547.16 |       329547.16 | OK         | (0323524 CARGO TRANSFERENCIA ENLACE PAGO FACTURAS PRACTIHIEL
+ 78 | 01-FEB-2024 |            1,612.38 |                     |       327934.78 |       327934.78 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A BANAMEX ALA 
+ 79 | 01-FEB-2024 |            2,351.12 |                     |       325583.66 |       325583.66 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A BANAMEX ALA 
+ 80 | 01-FEB-2024 |            1,903.00 |                     |       323680.66 |       323680.66 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A BANAMEX ALA 
+ 81 | 01-FEB-2024 |            2,784.00 |                     |       320896.66 |       320896.66 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A BANORTE A LA
+ 82 | 01-FEB-2024 |            4,060.00 |                     |       316836.66 |       316836.66 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A BANORTE ALA 
+ 83 | 01-FEB-2024 |            6,322.00 |                     |       310514.66 |       310514.66 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A BANORTE A LA
+ 84 | 01-FEB-2024 |            2,213.28 |                     |       308301.38 |       308301.38 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A INBURSA A LA
+ 85 | 01-FEB-2024 |            2,213.28 |                     |        306088.1 |        306088.1 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A INBURSA A LA
+ 86 | 01-FEB-2024 |              290.00 |                     |        305798.1 |        305798.1 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A INBURSA A LA
+ 87 | 01-FEB-2024 |              290.00 |                     |        305508.1 |        305508.1 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A INBURSA A LA
+ 88 | 01-FEB-2024 |            4,816.75 |                     |       300691.35 |       300691.35 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A BANAMEX ALA 
+ 89 | 01-FEB-2024 |            1,740.00 |                     |       298951.35 |       298951.35 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A BANAMEX ALA 
+ 90 | 01-FEB-2024 |            1,508.00 |                     |       297443.35 |       297443.35 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A BANAMEX ALA 
+ 91 | 01-FEB-2024 |            1,508.00 |                     |       295935.35 |       295935.35 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:55:42 ENVIADO A BANAMEX ALA 
+ 92 | 02-FEB-2024 |            3,871.30 |                     |       292064.05 |       292064.05 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:17:49 ENVIADO A BBVA MEXICO 
+ 93 | 02-FEB-2024 |            8,880.00 |                     |       283184.05 |       283184.05 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:17:49 ENVIADO A BANREGIO ALA
+ 94 | 02-FEB-2024 |           17,168.00 |                     |       266016.05 |       266016.05 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:17:49 ENVIADO A BANORTE ALA 
+ 95 | 02-FEB-2024 |           10,572.00 |                     |       255444.05 |       255444.05 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:17:49 ENVIADO A HSBC ALA CUE
+ 96 | 02-FEB-2024 |           18,525.50 |                     |       236918.55 |       236918.55 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:17:49 ENVIADO A BANAMEX ALA 
+ 97 | 02-FEB-2024 |                     |          100,000.00 |       336918.55 |       336918.55 | OK         | ABONO TRANSFERENCIA ENLACE DISPOSICION DE CREDITO
+ 98 | 02-FEB-2024 |           35,322.00 |                     |       301596.55 |       301596.55 | OK         | PAGO TRANSFERENCIA SPEI HORA 13:27:53 ENVIADO A BANAMEX ALA 
+ 99 | 02-FEB-2024 |           14,848.55 |                     |          286748 |          286748 | OK         | PAGO TRANSFERENCIA SPEI HORA 13:27:53 ENVIADO A BANORTE A LA
+100 | 02-FEB-2024 |          100,000.00 |                     |          186748 |          186748 | OK         | CARGO TRANSFERENCIA ENLACE PRESTAMO
+101 | 02-FEB-2024 |            4,394.43 |                     |       182353.57 |       182353.57 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+102 | 02-FEB-2024 |              588.88 |                     |       181764.69 |       181764.69 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+103 | 02-FEB-2024 |           30,000.00 |                     |       151764.69 |       151764.69 | OK         | (0000000 CARGO TRANSFERENCIA ENLACE PAGO CARLOS SALGADO
+104 | 02-FEB-2024 |            1,187.97 |                     |       150576.72 |       150576.72 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+105 | 02-FEB-2024 |            5,303.38 |                     |       145273.34 |       145273.34 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+106 | 02-FEB-2024 |           30,732.17 |                     |       114541.17 |       114541.17 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+107 | 02-FEB-2024 |                     |            1,892.89 |       116434.06 |       116434.06 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+108 | 02-FEB-2024 |           28,596.66 |                     |         87837.4 |         87837.4 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+109 | 02-FEB-2024 |                     |              716.88 |        88554.28 |        88554.28 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+110 | 02-FEB-2024 |           45,286.52 |                     |        43267.76 |        43267.76 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+111 | 02-FEB-2024 |            6,850.00 |                     |        36417.76 |        36417.76 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURA FERNANDO VALDEZ
+112 | 02-FEB-2024 |            4,000.00 |                     |        32417.76 |        32417.76 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:18:45 ENVIADO A AZTECA ALA C
+113 | 06-FEB-2024 |              716.88 |                     |        31700.88 |        31700.88 | OK         | (0000000 CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+114 | 06-FEB-2024 |            2,804.62 |                     |        28896.26 |        28896.26 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+115 | 06-FEB-2024 |              952.59 |                     |        27943.67 |        27943.67 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+116 | 06-FEB-2024 |            1,924.41 |                     |        26019.26 |        26019.26 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA d Santander Ban
+117 | 06-FEB-2024 |                     |        1,000,000.00 |      1026019.26 |      1026019.26 | OK         | ABONO TRANSFERENCIA SPEI HORA 12:24:13 RECIBIDO DE BBVA MEXI
+118 | 06-FEB-2024 |                     |          600,000.00 |      1626019.26 |      1626019.26 | OK         | ABONO TRANSFERENCIA SPEI HORA 12:26:07 RECIBIDO DE BBVA MEXI
+119 | 06-FEB-2024 |          300,000.00 |                     |      1326019.26 |      1326019.26 | OK         | CARGO TRANSFERENCIA ENLACE PRESTAMO
+120 | 06-FEB-2024 |        1,000,000.00 |                     |       326019.26 |       326019.26 | OK         | CARGO TRANSFERENCIA ENLACE ABONO A CREDITO
+121 | 06-FEB-2024 |            1,794.00 |                     |       324225.26 |       324225.26 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:24:50 ENVIADO A SCOTIABANK A
+122 | 06-FEB-2024 |           41,858.60 |                     |       282366.66 |       282366.66 | OK         | PAGO TRANSFERENCIA SPEI HORA 18:25:49 ENVIADO A BANAMEX A LA
+123 | 07-FEB-2024 |            5,278.00 |                     |       277088.66 |       277088.66 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:04:31 ENVIADO A BBVA MEXICO 
+124 | 07-FEB-2024 |              470.30 |                     |       276618.36 |       276618.36 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+125 | 07-FEB-2024 |            5,473.12 |                     |       271145.24 |       271145.24 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+126 | 08-FEB-2024 |              135.00 |                     |       271010.24 |       271010.24 | OK         | CARGO TRANSFERENCIA ENLACE 017332205511882402080000001356
+127 | 08-FEB-2024 |            6,696.00 |                     |       264314.24 |       264314.24 | OK         | CARGO TRANSFERENCIA ENLACE 017332205511702402080000066968
+128 | 08-FEB-2024 |            1,018.16 |                     |       263296.08 |       263296.08 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA d Santander Ban
+129 | 08-FEB-2024 |                     |          500,000.00 |       763296.08 |       763296.08 | OK         | ABONO TRANSFERENCIA SPEI HORA 16:47:21 RECIBIDO DE BANAMEX D
+130 | 09-FEB-2024 |                     |        3,000,000.00 |      3763296.08 |      3763296.08 | OK         | ABONO TRANSFERENCIA SPEI HORA 09:16:59 RECIBIDO DE BANAMEX D
+131 | 09-FEB-2024 |                     |        3,000,000.00 |      6763296.08 |      6763296.08 | OK         | ABONO TRANSFERENCIA SPEI HORA 09:19:01 RECIBIDO DE BANAMEX D
+132 | 09-FEB-2024 |                     |          650,000.00 |      7413296.08 |      7413296.08 | OK         | ABONO TRANSFERENCIA SPEI HORA 09:25:37 RECIBIDO DE BANAMEX D
+133 | 09-FEB-2024 |        6,000,000.00 |                     |        13296.08 |      1413296.08 | ERR    1400000 | CARGO TRANSFERENCIA ENLACE ABONO A CREDITO
+134 | 09-FEB-2024 |                     |        3,200,000.00 |      4613296.08 |      3213296.08 | ERR    1400000 | ABONO TRANSFERENCIA ENLACE DISPOSICION DE CREDITO
+135 | 09-FEB-2024 |        2,300,000.00 |                     |      2313296.08 |      2313296.08 | OK         | CARGO TRANSFERENCIA ENLACE PRESTAMO
+136 | 09-FEB-2024 |            4,635.37 |                     |      2308660.71 |      2308660.71 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURA GOLEM
+137 | 09-FEB-2024 |           34,105.00 |                     |      2274555.71 |      2274555.71 | OK         | (0000000 CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ANA LILIA
+138 | 09-FEB-2024 |            4,515.00 |                     |      2270040.71 |      2270040.71 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS BERNAVE
+139 | 09-FEB-2024 |           44,417.72 |                     |      2225622.99 |      2225622.99 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS CHEF MART
+140 | 09-FEB-2024 |           50,125.19 |                     |       2175497.8 |       2175497.8 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ALGANI
+141 | 09-FEB-2024 |           18,576.00 |                     |                 |       2156921.8 | NO_SALDO   | PAGO TRANSFERENCIA SPEI HORA 10:52:57 ENVIADO A SCOTIABANK A
+142 | 09-FEB-2024 |            3,934.19 |                     |      2152987.61 |      2171563.61 | ERR      18576 | PAGO TRANSFERENCIA SPEI HORA 10:52:57 ENVIADO A BBVA MEXICO 
+143 | 09-FEB-2024 |           17,548.18 |                     |      2135439.43 |      2135439.43 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:52:57 ENVIADO A BBVA MEXICO 
+144 | 09-FEB-2024 |           20,855.31 |                     |      2114584.12 |      2114584.12 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:52:57 ENVIADO A BBVA MEXICO 
+145 | 09-FEB-2024 |          312,805.64 |                     |      1801778.48 |      1801778.48 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:52:57 ENVIADO A BANAMEX ALA 
+146 | 09-FEB-2024 |            5,695.23 |                     |      1796083.25 |      1796083.25 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:52:57 ENVIADO A BANAMEX ALA 
+147 | 09-FEB-2024 |            5,214.50 |                     |      1790868.75 |      1790868.75 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:52:57 ENVIADO A BBVA MEXICO 
+148 | 09-FEB-2024 |           43,859.95 |                     |       1747008.8 |       1747008.8 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:52:57 ENVIADO A BBVA MEXICO 
+149 | 09-FEB-2024 |            5,238.21 |                     |      1741770.59 |      1741770.59 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:52:57 ENVIADO A BAJO ALA CUE
+150 | 09-FEB-2024 |           38,459.80 |                     |      1703310.79 |      1703310.79 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:52:57 ENVIADO A BANAMEX ALA 
+151 | 09-FEB-2024 |           21,486.50 |                     |      1681824.29 |      1681824.29 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:52:57 ENVIADO ASCOTIABANK A 
+152 | 09-FEB-2024 |          149,189.66 |                     |      1532634.63 |      1532634.63 | OK         | PAGO TRANSFERENCIA SPEI HORA 10:52:57 ENVIADO A BANORTE ALA 
+153 | 09-FEB-2024 |           13,030.00 |                     |      1519604.63 |      1519604.63 | OK         | (0000000 CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ABENAMAR
+154 | 09-FEB-2024 |            4,000.00 |                     |      1515604.63 |      1515604.63 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:17 ENVIADO A AZTECA ALA C
+155 | 09-FEB-2024 |            1,518.73 |                     |       1514085.9 |       1514085.9 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:17 ENVIADO A BANAMEX A LA
+156 | 09-FEB-2024 |            2,722.49 |                     |      1511363.41 |      1511363.41 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:17 ENVIADO A BANAMEX ALA 
+157 | 09-FEB-2024 |            6,166.18 |                     |      1505197.23 |      1505197.23 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A HSBC A LA CU
+158 | 09-FEB-2024 |            2,000.07 |                     |      1503197.16 |      1503197.16 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A HSBC ALA CUE
+159 | 09-FEB-2024 |           31,038.79 |                     |      1472158.37 |      1472158.37 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ALPHA
+160 | 09-FEB-2024 |           13,809.00 |                     |      1458349.37 |      1458349.37 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BBVA MEXICO 
+161 | 09-FEB-2024 |          300,481.01 |                     |      1157868.36 |      1157868.36 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BANAMEX A LA
+162 | 09-FEB-2024 |           11,597.80 |                     |      1146270.56 |      1146270.56 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BANORTE ALA 
+163 | 09-FEB-2024 |           52,544.50 |                     |      1093726.06 |      1093726.06 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BBVA MEXICO 
+164 | 09-FEB-2024 |            2,157.54 |                     |      1091568.52 |      1091568.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BBVA MEXICO 
+165 | 09-FEB-2024 |           22,264.00 |                     |      1069304.52 |      1069304.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BANORTE ALA 
+166 | 09-FEB-2024 |           71,148.98 |                     |       998155.54 |       998155.54 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BANORTE ALA 
+167 | 09-FEB-2024 |            6,960.00 |                     |       991195.54 |       991195.54 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BBVA MEXICO 
+168 | 09-FEB-2024 |            3,480.00 |                     |       987715.54 |       987715.54 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BBVA MEXICO 
+169 | 09-FEB-2024 |           38,009.00 |                     |       949706.54 |       949706.54 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS HUGO ENRIQUE
+170 | 09-FEB-2024 |            4,640.00 |                     |       945066.54 |       945066.54 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BBVA MEXICO 
+171 | 09-FEB-2024 |            4,640.00 |                     |       940426.54 |       940426.54 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BBVA MEXICO 
+172 | 09-FEB-2024 |            8,120.00 |                     |       932306.54 |       932306.54 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BBVA MEXICO 
+173 | 09-FEB-2024 |            6,960.00 |                     |       925346.54 |       925346.54 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BBVA MEXICO 
+174 | 09-FEB-2024 |            4,640.00 |                     |       920706.54 |       920706.54 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:09:18 ENVIADO A BBVA MEXICO 
+175 | 09-FEB-2024 |           13,234.80 |                     |       907471.74 |       907471.74 | OK         | (0000000 CARGO TRANSFERENCIA ENLACE PAGO FACTURAS PATRONA | 
+176 | 09-FEB-2024 |           28,703.50 |                     |       878768.24 |       878768.24 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BBVA MEXICO 
+177 | 09-FEB-2024 |            1,450.00 |                     |       877318.24 |       877318.24 | OK         | (0000000 CARGO TRANSFERENCIA ENLACE MT012005858
+178 | 09-FEB-2024 |           45,715.00 |                     |       831603.24 |       831603.24 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A INBURSA ALA 
+179 | 09-FEB-2024 |           15,660.00 |                     |       815943.24 |       815943.24 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BANORTE ALA 
+180 | 09-FEB-2024 |            6,000.00 |                     |       809943.24 |       809943.24 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BBVA MEXICO 
+181 | 09-FEB-2024 |            1,856.00 |                     |       808087.24 |       808087.24 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BANAMEX (— A
+182 | 09-FEB-2024 |            4,820.00 |                     |       803267.24 |       803267.24 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BBVA MEXICO 
+183 | 09-FEB-2024 |           12,915.00 |                     |       790352.24 |       790352.24 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BANORTE A LA
+184 | 09-FEB-2024 |            1,199.00 |                     |       789153.24 |       789153.24 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BANAMEX A LA
+185 | 09-FEB-2024 |          244,053.23 |                     |       545100.01 |       545100.01 | OK         | pooo000 CARO TRANSFERENCIA ENLACE PAGO FACTURAS MARTINA ERNE
+186 | 09-FEB-2024 |            7,540.00 |                     |       537560.01 |       537560.01 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BANREGIO ALA
+187 | 09-FEB-2024 |           27,003.05 |                     |       510556.96 |       510556.96 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS MEXICANA
+188 | 09-FEB-2024 |           16,472.50 |                     |       494084.46 |       494084.46 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BANORTE A LA
+189 | 09-FEB-2024 |           16,200.00 |                     |       477884.46 |       477884.46 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BANAMEX (— A
+190 | 09-FEB-2024 |           36,689.97 |                     |       441194.49 |       441194.49 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BBVA MEXICO 
+191 | 09-FEB-2024 |           24,006.12 |                     |       417188.37 |       417188.37 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BANCOPPEL AL
+192 | 09-FEB-2024 |            1,080.00 |                     |       416108.37 |       416108.37 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS PRACTIHIELO
+193 | 09-FEB-2024 |           11,957.50 |                     |       404150.87 |       404150.87 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BANAMEX ALA 
+194 | 09-FEB-2024 |            8,500.81 |                     |       395650.06 |       395650.06 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BANAMEX ALA 
+195 | 09-FEB-2024 |           29,745.67 |                     |       365904.39 |       365904.39 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:10 ENVIADO A BANREGIO A L
+196 | 09-FEB-2024 |           17,377.10 |                     |       348527.29 |       348527.29 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:20:11 ENVIADO A BANORTE — AL
+197 | 09-FEB-2024 |           46,276.78 |                     |       302250.51 |       302250.51 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A BBVA MEXICO 
+198 | 09-FEB-2024 |           20,800.00 |                     |       281450.51 |       281450.51 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A BANREGIO ALA
+199 | 09-FEB-2024 |            5,567.99 |                     |       275882.52 |       275882.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A BANAMEX ALA 
+200 | 09-FEB-2024 |            6,213.00 |                     |       269669.52 |       269669.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A AZTECA ALA C
+201 | 09-FEB-2024 |           20,095.84 |                     |       249573.68 |       249573.68 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A BANAMEX ALA 
+202 | 09-FEB-2024 |           12,721.42 |                     |       236852.26 |       236852.26 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A BBVA MEXICO 
+203 | 09-FEB-2024 |           59,850.13 |                     |       177002.13 |       177002.13 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A BANORTE A LA
+204 | 09-FEB-2024 |           24,167.00 |                     |       152835.13 |       152835.13 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A BANORTE ALA 
+205 | 09-FEB-2024 |            1,129.00 |                     |       151706.13 |       151706.13 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A BANAMEX ALA 
+206 | 09-FEB-2024 |            2,213.28 |                     |       149492.85 |       149492.85 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A INBURSA A LA
+207 | 09-FEB-2024 |            2,213.28 |                     |       147279.57 |       147279.57 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A INBURSA A LA
+208 | 09-FEB-2024 |            2,213.28 |                     |       145066.29 |       145066.29 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A INBURSA A LA
+209 | 09-FEB-2024 |            3,132.00 |                     |       141934.29 |       141934.29 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A INBURSA A LA
+210 | 09-FEB-2024 |            2,213.28 |                     |       139721.01 |       139721.01 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A INBURSA A LA
+211 | 09-FEB-2024 |            3,319.92 |                     |       136401.09 |       136401.09 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A INBURSA A LA
+212 | 09-FEB-2024 |            3,393.71 |                     |       133007.38 |       133007.38 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A BANAMEX ALA 
+213 | 09-FEB-2024 |           36,922.58 |                     |         96084.8 |         96084.8 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A HSBC ALA CUE
+214 | 09-FEB-2024 |           13,458.50 |                     |         82626.3 |         82626.3 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:32:16 ENVIADO A BANAMEX ALA 
+215 | 09-FEB-2024 |            1,418.40 |                     |         81207.9 |         81207.9 | OK         | pooo000 CARO TRANSFERENCIA ENLACE PAGO FACTURA VERACRUZANA D
+216 | 09-FEB-2024 |            2,176.19 |                     |        79031.71 |        79031.71 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURA VERACRUZANA DE GA s
+217 | 09-FEB-2024 |            2,215.95 |                     |        76815.76 |        76815.76 | OK         | poooooo CO TRANSFERENCIA ENLACE PAGO FACTURA VERACRUZANA DE 
+218 | 09-FEB-2024 |           33,246.92 |                     |        43568.84 |        43568.84 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+219 | 09-FEB-2024 |           29,663.20 |                     |        13905.64 |        13905.64 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA | d Santander B
+220 | 09-FEB-2024 |                     |           50,000.00 |        63905.64 |        63905.64 | OK         | (0492081 ABONO TRANSFERENCIA SPEI HORA 15:14:40 RECIBIDO DE 
+221 | 09-FEB-2024 |           48,486.35 |                     |        15419.29 |        15419.29 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+222 | 09-FEB-2024 |            2,193.18 |                     |        13226.11 |        13226.11 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+223 | 12-FEB-2024 |                     |          100,000.00 |       113226.11 |       113226.11 | OK         | ABONO TRANSFERENCIA SPEI HORA 13:11:50 RECIBIDO DE BANAMEX D
+224 | 12-FEB-2024 |                     |          300,000.00 |       413226.11 |       413226.11 | OK         | ABONO TRANSFERENCIA ENLACE DISPOSICION DE CREDITO
+225 | 12-FEB-2024 |          367,180.00 |                     |        46046.11 |        46046.11 | OK         | PAGO TRANSFERENCIA SPEI HORA 13:27:55 ENVIADO A BBVA MEXICO 
+226 | 12-FEB-2024 |           14,992.78 |                     |        31053.33 |        31053.33 | OK         | PAGO TRANSFERENCIA SPEI HORA 13:27:55 ENVIADO A BANAMEX ALA 
+227 | 14-FEB-2024 |                     |          250,000.00 |                 |       281053.33 | NO_SALDO   | ABONO TRANSFERENCIA TEF HORA 03:08:28 RECIBIDO DE BBVA MEXIC
+228 | 14-FEB-2024 |            4,772.00 |                     |       276281.33 |        26281.33 | ERR     250000 | CARGO TRANSFERENCIA ENLACE 019652007005842402220000047722
+229 | 14-FEB-2024 |                     |        2,700,000.00 |      2976281.33 |      2976281.33 | OK         | ABONO TRANSFERENCIA ENLACE DISPOSICION DE CREDITO
+230 | 14-FEB-2024 |          450,000.00 |                     |      2526281.33 |      2526281.33 | OK         | (0000000 CARGO TRANSFERENCIA ENLACE PRESTAMO dd Santander Ba
+231 | 14-FEB-2024 |            4,721.94 |                     |      2521559.39 |      2521559.39 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:14:24 ENVIADO A SCOTIABANK A
+232 | 14-FEB-2024 |          420,000.00 |                     |      2101559.39 |      2101559.39 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:14:24 ENVIADO A BBVA MEXICO 
+233 | 14-FEB-2024 |           40,000.00 |                     |      2061559.39 |      2061559.39 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:14:24 ENVIADO A BANORTE ALA 
+234 | 14-FEB-2024 |          100,000.00 |                     |      1961559.39 |      1961559.39 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:14:24 ENVIADO A BANORTE ALA 
+235 | 14-FEB-2024 |          720,000.00 |                     |      1241559.39 |      1241559.39 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:14:24 ENVIADO A BANAMEX ALA 
+236 | 15-FEB-2024 |           90,644.40 |                     |      1150914.99 |      1150914.99 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+237 | 15-FEB-2024 |                     |            5,934.58 |      1156849.57 |      1156849.57 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+238 | 15-FEB-2024 |           13,609.65 |                     |      1143239.92 |      1143239.92 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+239 | 15-FEB-2024 |           50,628.23 |                     |      1092611.69 |      1092611.69 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+240 | 15-FEB-2024 |                     |            4,056.49 |      1096668.18 |      1096668.18 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+241 | 15-FEB-2024 |                     |            4,619.93 |      1101288.11 |      1101288.11 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+242 | 15-FEB-2024 |           16,592.20 |                     |      1084695.91 |      1084695.91 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+243 | 15-FEB-2024 |          415,487.76 |                     |       669208.15 |       669208.15 | OK         | (0000000 CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+244 | 15-FEB-2024 |          106,993.51 |                     |       562214.64 |       562214.64 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+245 | 15-FEB-2024 |           17,511.05 |                     |       544703.59 |       544703.59 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+246 | 15-FEB-2024 |                     |            3,552.37 |       548255.96 |       548255.96 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA d Santander Ba
+247 | 15-FEB-2024 |           19,538.11 |                     |       528717.85 |       528717.85 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+248 | 15-FEB-2024 |                     |        3,200,000.00 |      3728717.85 |      3728717.85 | OK         | ABONO TRANSFERENCIA ENLACE DISPOSICION DE CREDITO
+249 | 15-FEB-2024 |        1,250,000.00 |                     |      2478717.85 |      2478717.85 | OK         | (0000000 CARGO TRANSFERENCIA ENLACE PRESTAMO
+250 | 15-FEB-2024 |          550,000.00 |                     |      1928717.85 |      1928717.85 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:48:09 ENVIADO A BANAMEX A LA
+251 | 15-FEB-2024 |            1,424.64 |                     |      1927293.21 |      1927293.21 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS GOLEM
+252 | 15-FEB-2024 |           12,503.50 |                     |      1914789.71 |      1914789.71 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:53:38 ENVIADO A BANORTE A LA
+253 | 15-FEB-2024 |           33,811.76 |                     |      1880977.95 |      1880977.95 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:53:38 ENVIADO A BANAMEX A LA
+254 | 15-FEB-2024 |           25,465.53 |                     |      1855512.42 |      1855512.42 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS CHEF MART
+255 | 15-FEB-2024 |           19,092.57 |                     |      1836419.85 |      1836419.85 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:53:38 ENVIADO A BBVA MEXICO 
+256 | 15-FEB-2024 |          106,137.35 |                     |       1730282.5 |       1730282.5 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:53:38 ENVIADO A BBVA MEXICO 
+257 | 15-FEB-2024 |           13,505.50 |                     |         1716777 |         1716777 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:53:38 ENVIADO A BBVA MEXICO 
+258 | 15-FEB-2024 |           28,776.76 |                     |      1688000.24 |      1688000.24 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ALGANI
+259 | 15-FEB-2024 |            6,149.66 |                     |      1681850.58 |      1681850.58 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:53:38 ENVIADO A BBVA MEXICO 
+260 | 15-FEB-2024 |           13,326.90 |                     |      1668523.68 |      1668523.68 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:53:39 ENVIADO A BAJIO A LA C
+261 | 15-FEB-2024 |           59,249.46 |                     |      1609274.22 |      1609274.22 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ABENAMAR
+262 | 15-FEB-2024 |           14,076.00 |                     |      1595198.22 |      1595198.22 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:53:39 ENVIADO A SCOTIABANK A
+263 | 15-FEB-2024 |           45,304.10 |                     |      1549894.12 |      1549894.12 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:53:39 ENVIADO A BANORTE A LA
+264 | 15-FEB-2024 |           15,390.00 |                     |      1534504.12 |      1534504.12 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:53:39 ENVIADO A AFIRME ALA C
+265 | 15-FEB-2024 |          270,320.76 |                     |      1264183.36 |      1264183.36 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:53:39 ENVIADO A BANAMEX A LA
+266 | 15-FEB-2024 |           56,650.50 |                     |      1207532.86 |      1207532.86 | OK         | PAGO TRANSFERENCIA SPEI HORA 15:53:39 ENVIADO A BBVA MEXICO 
+267 | 15-FEB-2024 |            8,189.81 |                     |      1199343.05 |      1199343.05 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ALPHA
+268 | 15-FEB-2024 |           43,070.50 |                     |      1156272.55 |      1156272.55 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BBVA MEXICO 
+269 | 15-FEB-2024 |            8,631.70 |                     |      1147640.85 |      1147640.85 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BBVA MEXICO 
+270 | 15-FEB-2024 |           22,603.00 |                     |      1125037.85 |      1125037.85 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BANORTE ALA 
+271 | 15-FEB-2024 |            6,109.02 |                     |      1118928.83 |      1118928.83 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BBVA MEXICO 
+272 | 15-FEB-2024 |           24,482.11 |                     |      1094446.72 |      1094446.72 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BANREGIO ALA
+273 | 15-FEB-2024 |           99,172.05 |                     |       995274.67 |       995274.67 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BANREGIO A L
+274 | 15-FEB-2024 |           13,384.00 |                     |       981890.67 |       981890.67 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BBVA MEXICO 
+275 | 15-FEB-2024 |              810.00 |                     |       981080.67 |       981080.67 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BBVA MEXICO 
+276 | 15-FEB-2024 |            6,957.00 |                     |       974123.67 |       974123.67 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS PRACTIHIELO
+277 | 15-FEB-2024 |              939.00 |                     |       973184.67 |       973184.67 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BANAMEX (— A
+278 | 15-FEB-2024 |              966.00 |                     |       972218.67 |       972218.67 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A AZTECA ALA C
+279 | 15-FEB-2024 |            3,750.00 |                     |       968468.67 |       968468.67 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BANORTE A LA
+280 | 15-FEB-2024 |              910.00 |                     |       967558.67 |       967558.67 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BANAMEX A LA
+281 | 15-FEB-2024 |           16,465.17 |                     |        951093.5 |        951093.5 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BANAMEX A LA
+282 | 15-FEB-2024 |           55,955.36 |                     |       895138.14 |       895138.14 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:00:26 ENVIADO A BANREGIO ALA
+283 | 15-FEB-2024 |          117,380.41 |                     |       771157.73 |       777757.73 | ERR       6600 | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+284 | 15-FEB-2024 |            2,017.60 |                     |       775740.13 |       769140.13 | ERR       6600 | PAGO TRANSFERENCIA SPEI HORA 16:04:15 ENVIADO A BBVA MEXICO 
+285 | 15-FEB-2024 |           14,853.00 |                     |       760887.13 |       760887.13 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:04:15 ENVIADO A BANAMEX A LA
+286 | 15-FEB-2024 |           78,886.24 |                     |       682000.89 |       682000.89 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:04:15 ENVIADO A BANAMEX A LA
+287 | 15-FEB-2024 |                     |           78,886.24 |       760887.13 |       760887.13 | OK         | ABONO POR DEVOLUCIONES SPEI HORA 16:04:35 DEVUELTO POR BANAM
+288 | 15-FEB-2024 |           42,744.89 |                     |       718142.24 |       718142.24 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+289 | 15-FEB-2024 |            5,934.58 |                     |       712207.66 |       712207.66 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+290 | 15-FEB-2024 |           11,251.80 |                     |       700955.86 |       700955.86 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+291 | 15-FEB-2024 |            3,552.37 |                     |       697403.49 |       697403.49 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+292 | 15-FEB-2024 |            3,467.96 |                     |       693935.53 |       693935.53 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+293 | 16-FEB-2024 |                     |            6,031.87 |        699967.4 |        699967.4 | OK         | ABONO TRANSF RAPIDA SANTANDER Transferencia a CAFE BERSA S
+294 | 16-FEB-2024 |            7,789.03 |                     |       692178.37 |       692178.37 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+295 | 16-FEB-2024 |                     |            3,732.54 |       695910.91 |       695910.91 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+296 | 16-FEB-2024 |          100,000.00 |                     |       595910.91 |       595910.91 | OK         | PAGO TRANSFERENCIA SPEI HORA 13:51:47 ENVIADO A BANAMEX A LA
+297 | 16-FEB-2024 |            4,060.00 |                     |       591850.91 |       591850.91 | OK         | PAGO TRANSFERENCIA SPEI HORA 13:56:23 ENVIADO A INBURSA A LA
+298 | 16-FEB-2024 |            2,500.00 |                     |       589350.91 |       589350.91 | OK         | PAGO TRANSFERENCIA SPEI HORA 13:56:23 ENVIADO A BBVA MEXICO 
+299 | 16-FEB-2024 |           78,886.24 |                     |       510464.67 |       510464.67 | OK         | PAGO TRANSFERENCIA SPEI HORA 13:56:23 ENVIADO A BANAMEX A LA
+300 | 16-FEB-2024 |                     |           78,886.24 |       589350.91 |       589350.91 | OK         | ABONO POR DEVOLUCIONES SPEI HORA 13:56:43 DEVUELTO POR BANAM
+301 | 16-FEB-2024 |            3,732.54 |                     |       585618.37 |       585618.37 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+302 | 16-FEB-2024 |            4,828.68 |                     |       580789.69 |       580789.69 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+303 | 16-FEB-2024 |              200.00 |                     |       580589.69 |       580589.69 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+304 | 16-FEB-2024 |           20,829.51 |                     |       559760.18 |       559760.18 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+305 | 16-FEB-2024 |                     |            1,278.87 |       561039.05 |       561039.05 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+306 | 16-FEB-2024 |           39,825.82 |                     |       521213.23 |       521213.23 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+307 | 16-FEB-2024 |           17,470.45 |                     |       503742.78 |       503742.78 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+308 | 16-FEB-2024 |                1.00 |                     |       503741.78 |       503741.78 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+309 | 16-FEB-2024 |                     |                1.00 |       503742.78 |       503742.78 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+310 | 16-FEB-2024 |            1,278.87 |                     |       502463.91 |       502463.91 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+311 | 19-FEB-2024 |            3,976.23 |                     |       498487.68 |       498487.68 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+312 | 19-FEB-2024 |            5,189.00 |                     |       493298.68 |       493298.68 | OK         | PAGO TRANSFERENCIA SPEI HORA 12:10:56 ENVIADO A BBVA MEXICO 
+313 | 19-FEB-2024 |            5,865.00 |                     |       487433.68 |       487433.68 | OK         | PAGO TRANSFERENCIA SPEI HORA 12:10:56 ENVIADO A BBVA MEXICO 
+314 | 19-FEB-2024 |          100,000.00 |                     |       387433.68 |       387433.68 | OK         | PAGO TRANSFERENCIA SPEI HORA 12:25:55 ENVIADO A BANORTE A LA
+315 | 19-FEB-2024 |           29,819.94 |                     |       357613.74 |       357613.74 | OK         | APORT LINEA CAPTURA INTERNET 065502503839
+316 | 19-FEB-2024 |           80,266.96 |                     |       277346.78 |       277346.78 | OK         | APORT LINEA CAPTURA INTERNET 065502503839 dd Santander Banco
+317 | 19-FEB-2024 |          199,079.09 |                     |        78267.69 |        78267.69 | OK         | APORT LINEA CAPTURA INTERNET 065502503839
+318 | 19-FEB-2024 |                     |        2,350,000.00 |      2428267.69 |      2428267.69 | OK         | ABONO TRANSFERENCIA ENLACE DISPOSICION DE CREDITO
+319 | 19-FEB-2024 |          830,000.00 |                     |      1598267.69 |      1598267.69 | OK         | CARGO TRANSFERENCIA ENLACE PRESTAMO
+320 | 19-FEB-2024 |           10,849.00 |                     |      1587418.69 |      1587418.69 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ANA LILIA
+321 | 19-FEB-2024 |           54,629.50 |                     |      1532789.19 |      1532789.19 | OK         | CARGO TRANSFERENCIA ENLACE PAGO CARMEN BERNAVE
+322 | 19-FEB-2024 |           30,344.25 |                     |      1502444.94 |      1502444.94 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:24 ENVIADO A BANAMEX ALA 
+323 | 19-FEB-2024 |            6,960.00 |                     |      1495484.94 |      1495484.94 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:24 ENVIADO A AZTECA ALA C
+324 | 19-FEB-2024 |            5,691.45 |                     |      1489793.49 |      1489793.49 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:24 ENVIADO A HSBC ALA CUE
+325 | 19-FEB-2024 |            7,688.25 |                     |      1482105.24 |      1482105.24 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:24 ENVIADO A BBVA MEXICO 
+326 | 19-FEB-2024 |          103,798.00 |                     |      1378307.24 |      1378307.24 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:24 ENVIADO A HSBC — ALA C
+327 | 19-FEB-2024 |           28,051.00 |                     |      1350256.24 |      1350256.24 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS HUGO ENRIQUE | dd S
+328 | 19-FEB-2024 |            2,737.60 |                     |      1347518.64 |      1347518.64 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:24 ENVIADO A BANAMEX ALA 
+329 | 19-FEB-2024 |            8,239.20 |                     |      1339279.44 |      1339279.44 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS PATRONA
+330 | 19-FEB-2024 |            4,067.28 |                     |      1335212.16 |      1335212.16 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:24 ENVIADO A BANORTE ALA 
+331 | 19-FEB-2024 |           40,354.31 |                     |      1294857.85 |      1294857.85 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:24 ENVIADO A BANORTE ALA 
+332 | 19-FEB-2024 |            4,400.00 |                     |      1290457.85 |      1290457.85 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS JOCELYN OVALLE
+333 | 19-FEB-2024 |            8,000.00 |                     |      1282457.85 |      1282457.85 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:24 ENVIADO A INBURSA ALA 
+334 | 19-FEB-2024 |              349.62 |                     |      1282108.23 |      1282108.23 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:24 ENVIADO A BBVA MEXICO 
+335 | 19-FEB-2024 |           17,434.80 |                     |      1264673.43 |      1264673.43 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:24 ENVIADO A BANAMEX ALA 
+336 | 19-FEB-2024 |           16,938.98 |                     |      1247734.45 |      1247734.45 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:24 ENVIADO A BAJO ALA CUE
+337 | 19-FEB-2024 |           35,975.28 |                     |      1211759.17 |      1211759.17 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:25 ENVIADO A HSBC ALA CUE
+338 | 19-FEB-2024 |            6,780.00 |                     |      1204979.17 |      1204979.17 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:25 ENVIADO A BANORTE ALA 
+339 | 19-FEB-2024 |            2,312.11 |                     |      1202667.06 |      1202667.06 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:01:25 ENVIADO A BBVA MEXICO 
+340 | 19-FEB-2024 |            7,215.20 |                     |      1195451.86 |      1195451.86 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:31 ENVIADO A BANORTE ALA 
+341 | 19-FEB-2024 |          206,744.45 |                     |       988707.41 |       988707.41 | OK         | poo0000 CARGO TRANSFERENCIA ENLACE PAGO FACTURAS MARTINA ERN
+342 | 19-FEB-2024 |          142,160.86 |                     |       846546.55 |       846546.55 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS MEXICANA
+343 | 19-FEB-2024 |            3,245.97 |                     |       843300.58 |       843300.58 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANORTE ALA 
+344 | 19-FEB-2024 |            1,160.00 |                     |       842140.58 |       842140.58 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BBVA MEXICO 
+345 | 19-FEB-2024 |           33,850.42 |                     |       808290.16 |       808290.16 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BBVA MEXICO 
+346 | 19-FEB-2024 |           23,419.55 |                     |       784870.61 |       784870.61 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANCOPPEL AL
+347 | 19-FEB-2024 |           14,210.00 |                     |       770660.61 |       770660.61 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANAMEX ALA 
+348 | 19-FEB-2024 |           18,275.68 |                     |       752384.93 |       752384.93 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BAJO A LA CU
+349 | 19-FEB-2024 |           22,667.49 |                     |       729717.44 |       729717.44 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANAMEX A LA
+350 | 19-FEB-2024 |           10,969.70 |                     |       718747.74 |       718747.74 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANORTE ALA 
+351 | 19-FEB-2024 |           17,094.00 |                     |       701653.74 |       701653.74 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A AFIRME ALA C
+352 | 19-FEB-2024 |           43,165.54 |                     |        658488.2 |        658488.2 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANORTE ALA 
+353 | 19-FEB-2024 |           14,746.60 |                     |        643741.6 |        643741.6 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANORTE ALA 
+354 | 19-FEB-2024 |            2,610.00 |                     |        641131.6 |        641131.6 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANAMEX ALA 
+355 | 19-FEB-2024 |           10,300.80 |                     |        630830.8 |        630830.8 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANORTE A LA
+356 | 19-FEB-2024 |           25,752.00 |                     |        605078.8 |        605078.8 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANORTE ALA 
+357 | 19-FEB-2024 |           10,300.80 |                     |          594778 |          594778 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANORTE A LA
+358 | 19-FEB-2024 |           13,734.40 |                     |        581043.6 |        581043.6 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANORTE ALA 
+359 | 19-FEB-2024 |            1,508.00 |                     |        579535.6 |        579535.6 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A BANAMEX ALA 
+360 | 19-FEB-2024 |           32,865.60 |                     |          546670 |          546670 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:10:32 ENVIADO A HSBC ALA CUE
+361 | 19-FEB-2024 |            9,050.00 |                     |          537620 |          537620 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:29:22 ENVIADO A BBVA MEXICO 
+362 | 19-FEB-2024 |           17,460.00 |                     |          520160 |          520160 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:29:22 ENVIADO A BANAMEX A LA
+363 | 19-FEB-2024 |            1,218.00 |                     |          518942 |          518942 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:29:22 ENVIADO A BBVA MEXICO 
+364 | 19-FEB-2024 |           78,886.24 |                     |       440055.76 |       440055.76 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:29:22 ENVIADO A BANAMEX ALA 
+365 | 19-FEB-2024 |          432,258.47 |                     |         7797.29 |         7797.29 | OK         | APORT LINEA CAPTURA INTERNET 065502503839
+366 | 20-FEB-2024 |                     |        1,300,000.00 |      1307797.29 |      1307797.29 | OK         | ABONO TRANSFERENCIA SPEI HORA 15:47:01 RECIBIDO DE BANAMEX D
+367 | 20-FEB-2024 |            7,119.09 |                     |       1300678.2 |       1300678.2 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+368 | 20-FEB-2024 |            2,107.38 |                     |      1298570.82 |      1298570.82 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+369 | 20-FEB-2024 |            2,075.07 |                     |      1296495.75 |      1296495.75 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+370 | 21-FEB-2024 |        1,150,000.00 |                     |       146495.75 |       146495.75 | OK         | CARGO TRANSFERENCIA ENLACE ABONO LINEA DE CREDITO
+371 | 21-FEB-2024 |                     |        1,200,000.00 |      1346495.75 |      1346495.75 | OK         | ABONO TRANSFERENCIA ENLACE DISPOSICION DE CREDITO
+372 | 21-FEB-2024 |          398,718.00 |                     |       947777.75 |       947777.75 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:44:12 ENVIADO A BBVA MEXICO 
+373 | 21-FEB-2024 |          419,016.00 |                     |       528761.75 |       528761.75 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:44:12 ENVIADO A BBVA MEXICO 
+374 | 21-FEB-2024 |          489,320.00 |                     |        39441.75 |        39441.75 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:44:12 ENVIADO A BBVA MEXICO 
+375 | 22-FEB-2024 |                     |           51,172.88 |        90614.63 |        90614.63 | OK         | ABONO TRANSFERENCIA SPEI HORA 12:02:47 RECIBIDO DE MUFG DE L
+376 | 22-FEB-2024 |                     |        3,300,000.00 |      3390614.63 |      3390614.63 | OK         | ABONO TRANSFERENCIA ENLACE DISPOSICION DE CREDITO
+377 | 22-FEB-2024 |          350,000.00 |                     |      3040614.63 |      3040614.63 | OK         | PAGO TRANSFERENCIA SPEI HORA 13:32:59 ENVIADO A BANAMEX ALA 
+378 | 22-FEB-2024 |           34,483.53 |                     |       3006131.1 |       3006131.1 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURA GOLEM
+379 | 22-FEB-2024 |           22,690.38 |                     |      2983440.72 |      2983440.72 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:31 ENVIADO A BBVA MEXICO 
+380 | 22-FEB-2024 |           36,330.00 |                     |      2947110.72 |      2947110.72 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:31 ENVIADO A SCOTIABANK A
+381 | 22-FEB-2024 |           11,092.00 |                     |      2936018.72 |      2936018.72 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS CARMEN BERNAVE dd S
+382 | 22-FEB-2024 |          183,803.74 |                     |      2752214.98 |      2752214.98 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:31 ENVIADO A BANAMEX ALA 
+383 | 22-FEB-2024 |            9,118.69 |                     |      2743096.29 |      2743096.29 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:32 ENVIADO A BBVA MEXICO 
+384 | 22-FEB-2024 |           11,851.45 |                     |      2731244.84 |      2731244.84 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS CHEF MART
+385 | 22-FEB-2024 |           12,386.70 |                     |      2718858.14 |      2718858.14 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:32 ENVIADO A BBVA MEXICO 
+386 | 22-FEB-2024 |          143,266.84 |                     |       2575591.3 |       2575591.3 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:32 ENVIADO A BBVA MEXICO 
+387 | 22-FEB-2024 |           13,372.00 |                     |       2562219.3 |       2562219.3 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:32 ENVIADO A BBVA MEXICO 
+388 | 22-FEB-2024 |           42,530.92 |                     |      2519688.38 |      2519688.38 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ALGANI
+389 | 22-FEB-2024 |            4,258.78 |                     |       2515429.6 |       2515429.6 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:32 ENVIADO A BBVA MEXICO 
+390 | 22-FEB-2024 |           20,001.50 |                     |       2495428.1 |       2495428.1 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ABENAMAR dd Santand
+391 | 22-FEB-2024 |            6,939.95 |                     |      2488488.15 |      2488488.15 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:32 ENVIADO A BAJIO ALA CU
+392 | 22-FEB-2024 |           50,517.00 |                     |      2437971.15 |      2437971.15 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:32 ENVIADO A BANAMEX ALA 
+393 | 22-FEB-2024 |           36,808.21 |                     |      2401162.94 |      2401162.94 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:32 ENVIADO A BANORTE ALA 
+394 | 22-FEB-2024 |          500,000.00 |                     |      1901162.94 |      1901162.94 | OK         | CARGO TRANSFERENCIA ENLACE PRESTAMO
+395 | 22-FEB-2024 |          209,107.42 |                     |      1692055.52 |      1692055.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:32 ENVIADO A BANAMEX ALA 
+396 | 22-FEB-2024 |           15,450.00 |                     |      1676605.52 |      1676605.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:32 ENVIADO A AFIRME — ALA
+397 | 22-FEB-2024 |           34,838.10 |                     |      1641767.42 |      1641767.42 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:32 ENVIADO A BBVA MEXICO 
+398 | 22-FEB-2024 |           16,701.00 |                     |      1625066.42 |      1625066.42 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:04:32 ENVIADO A BBVA MEXICO 
+399 | 22-FEB-2024 |           30,361.48 |                     |      1594704.94 |      1594704.94 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ALPHA
+400 | 22-FEB-2024 |           40,486.00 |                     |      1554218.94 |      1554218.94 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS HUGO ENRIQUE
+401 | 22-FEB-2024 |           43,249.00 |                     |      1510969.94 |      1510969.94 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:09 ENVIADO A BBVA MEXICO 
+402 | 22-FEB-2024 |           17,094.00 |                     |      1493875.94 |      1493875.94 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS PATRONA
+403 | 22-FEB-2024 |              112.60 |                     |      1493763.34 |      1493763.34 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:09 ENVIADO A BANORTE ALA 
+404 | 22-FEB-2024 |           48,503.80 |                     |      1445259.54 |      1445259.54 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:09 ENVIADO A BBVA MEXICO 
+405 | 22-FEB-2024 |            4,400.00 |                     |      1440859.54 |      1440859.54 | OK         | 088 CARGO TRANSFERENCIA ENLACE PAGO FACTURAS JOCELYN MICHELL
+406 | 22-FEB-2024 |           15,225.00 |                     |      1425634.54 |      1425634.54 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:10 ENVIADO A BBVA MEXICO 
+407 | 22-FEB-2024 |           17,189.91 |                     |      1408444.63 |      1408444.63 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:10 ENVIADO A BAJIO ALA CU
+408 | 22-FEB-2024 |           28,513.66 |                     |      1379930.97 |      1379930.97 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:10 ENVIADO A HSBC ALA CUE
+409 | 22-FEB-2024 |            7,405.00 |                     |      1372525.97 |      1372525.97 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:10 ENVIADO A BANORTE ALA 
+410 | 22-FEB-2024 |            2,312.11 |                     |      1370213.86 |      1370213.86 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:10 ENVIADO A BBVA MEXICO 
+411 | 22-FEB-2024 |           99,768.69 |                     |      1270445.17 |      1270445.17 | OK         | a TRANSFERENCIA ENLACE PAGO FACTURAS MARTINA ERNESTIN A
+412 | 22-FEB-2024 |           30,202.60 |                     |      1240242.57 |      1240242.57 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:10 ENVIADO A BANORTE ALA 
+413 | 22-FEB-2024 |           16,650.00 |                     |      1223592.57 |      1223592.57 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:10 ENVIADO A BANAMEX ALA 
+414 | 22-FEB-2024 |          103,375.58 |                     |      1120216.99 |      1120216.99 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS MEXICANA
+415 | 22-FEB-2024 |           33,850.42 |                     |      1086366.57 |      1086366.57 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:10 ENVIADO A BBVA MEXICO 
+416 | 22-FEB-2024 |            6,386.00 |                     |      1079980.57 |      1079980.57 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:10 ENVIADO A BANAMEX ALA 
+417 | 22-FEB-2024 |           23,732.58 |                     |      1056247.99 |      1056247.99 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:10 ENVIADO A BANCOPPEL AL
+418 | 22-FEB-2024 |            1,200.00 |                     |      1055047.99 |      1055047.99 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:12:10 ENVIADO A BANORTE ALA 
+419 | 22-FEB-2024 |            6,480.00 |                     |      1048567.99 |      1048567.99 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS PRACTIHIELO
+420 | 22-FEB-2024 |            4,460.44 |                     |      1044107.55 |      1044107.55 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:19:06 ENVIADO A BBVA MEXICO 
+421 | 22-FEB-2024 |            2,088.00 |                     |      1042019.55 |      1042019.55 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:19:06 ENVIADO A BBVA MEXICO 
+422 | 22-FEB-2024 |            1,200.00 |                     |      1040819.55 |      1040819.55 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:19:06 ENVIADO A BANORTE ALA 
+423 | 22-FEB-2024 |            1,200.00 |                     |      1039619.55 |      1039619.55 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:19:06 ENVIADO A BANORTE A LA
+424 | 22-FEB-2024 |              895.38 |                     |      1038724.17 |      1038724.17 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:19:07 ENVIADO A BANAMEX A LA
+425 | 22-FEB-2024 |           43,440.60 |                     |       995283.57 |       995283.57 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:19:07 ENVIADO A BANREGIO A L
+426 | 22-FEB-2024 |           21,971.50 |                     |       973312.07 |       973312.07 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:19:07 ENVIADO A BANORTE A LA
+427 | 22-FEB-2024 |            2,588.00 |                     |       970724.07 |       970724.07 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:19:07 ENVIADO A BANAMEX A LA
+428 | 22-FEB-2024 |           47,659.72 |                     |       923064.35 |       923064.35 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:19:07 ENVIADO A HSBC A LA CU
+429 | 22-FEB-2024 |           31,100.00 |                     |       891964.35 |       891964.35 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:28:17 ENVIADO A BANREGIO A L
+430 | 22-FEB-2024 |           17,816.44 |                     |       874147.91 |       874147.91 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:28:17 ENVIADO A BANAMEX A LA
+431 | 22-FEB-2024 |            2,197.17 |                     |       871950.74 |       871950.74 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:28:17 ENVIADO A INBURSA A LA
+432 | 22-FEB-2024 |            2,633.20 |                     |       869317.54 |       869317.54 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:28:17 ENVIADO A BANAMEX A LA
+433 | 22-FEB-2024 |            1,508.00 |                     |       867809.54 |       867809.54 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:28:17 ENVIADO A BANAMEX A LA
+434 | 22-FEB-2024 |            2,551.44 |                     |        865258.1 |        865258.1 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:28:17 ENVIADO A BANAMEX ALA 
+435 | 22-FEB-2024 |            3,097.20 |                     |        862160.9 |        862160.9 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:28:18 ENVIADO A BBVA MEXICO 
+436 | 22-FEB-2024 |            2,006.80 |                     |        860154.1 |        860154.1 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:28:18 ENVIADO A BANAMEX A LA
+437 | 22-FEB-2024 |                     |           36,693.61 |       896847.71 |       896847.71 | OK         | ABONO TRANSFERENCIA SPEI HORA 14:49:16 RECIBIDO DE BANK OF A
+438 | 22-FEB-2024 |                     |        1,000,000.00 |      1896847.71 |      1896847.71 | OK         | ABONO TRANSFERENCIA SPEI HORA 16:25:10 RECIBIDO DE BBVA MEXI
+439 | 22-FEB-2024 |           28,882.00 |                     |      1867965.71 |      1867965.71 | OK         | CGO IMPTO FED TRANSF ELECT 042417Q1240041488422
+440 | 22-FEB-2024 |          770,619.00 |                     |      1097346.71 |      1097346.71 | OK         | CGO IMPTO FED TRANSF ELECT 042417RL 150041480435
+441 | 22-FEB-2024 |        1,000,000.00 |                     |        97346.71 |        97346.71 | OK         | CARGO TRANSFERENCIA ENLACE ABONO A LINEA DE CREDITO
+442 | 23-FEB-2024 |                     |          350,000.00 |                 |       447346.71 | NO_SALDO   | ABONO TRANSFERENCIA ENLACE DISPOSICION
+443 | 23-FEB-2024 |          100,000.00 |                     |       347346.71 |        -2653.29 | ERR     350000 | PAGO TRANSFERENCIA SPEI HORA 14:56:26 ENVIADO A BANAMEX A LA
+444 | 23-FEB-2024 |          100,000.00 |                     |       247346.71 |       247346.71 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:56:26 ENVIADO A BANORTE A LA
+445 | 23-FEB-2024 |          100,000.00 |                     |       147346.71 |       147346.71 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:07:02 ENVIADO A BANORTE ALA 
+446 | 23-FEB-2024 |           31,278.04 |                     |       116068.67 |       116068.67 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+447 | 23-FEB-2024 |                     |              943.78 |       117012.45 |       117012.45 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+448 | 23-FEB-2024 |           38,501.84 |                     |        78510.61 |        78510.61 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+449 | 23-FEB-2024 |           24,378.01 |                     |         54132.6 |         54132.6 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+450 | 23-FEB-2024 |                     |            1,643.96 |        55776.56 |        55776.56 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+451 | 23-FEB-2024 |            3,889.19 |                     |        51887.37 |        51887.37 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+452 | 23-FEB-2024 |              943.78 |                     |        50943.59 |        50943.59 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+453 | 23-FEB-2024 |            1,643.96 |                     |        49299.63 |        49299.63 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+454 | 23-FEB-2024 |            4,040.85 |                     |        45258.78 |        45258.78 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+455 | 26-FEB-2024 |            2,171.40 |                     |        43087.38 |        43087.38 | OK         | CARGO TRANSFERENCIA ENLACE CBE051028DVO
+456 | 26-FEB-2024 |            5,221.12 |                     |        37866.26 |        37866.26 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:49:33 ENVIADO A BANCOPPEL AL
+457 | 27-FEB-2024 |            5,104.00 |                     |        32762.26 |        32762.26 | OK         | PAGO TRANSFERENCIA SPEI HORA 16:21:16 ENVIADO A BANAMEX ALA 
+458 | 27-FEB-2024 |                     |          300,000.00 |       332762.26 |       332762.26 | OK         | ABONO TRANSFERENCIA ENLACE DISPOSICION DE CREDITO
+459 | 27-FEB-2024 |          233,291.30 |                     |        99470.95 |        99470.96 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:36 ENVIADO A BBVA MEXICO 
+460 | 27-FEB-2024 |           35,178.19 |                     |        64292.77 |        64292.76 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:44:36 ENVIADO A BAJIO ALA CU
+461 | 27-FEB-2024 |                     |          114,890.46 |       179183.23 |       179183.23 | OK         | ABONO TRANSFERENCIA SPEI HORA 18:29:35 RECIBIDO DE BANORTE D
+462 | 27-FEB-2024 |                     |          376,651.70 |       555834.93 |       555834.93 | OK         | ABONO TRANSFERENCIA SPEI HORA 18:32:36 RECIBIDO DE HSBC DE L
+463 | 28-FEB-2024 |                     |        3,744,247.41 |      4300082.34 |      4300082.34 | OK         | ABONO TRANSFERENCIA SPEI HORA 09:02:13 RECIBIDO DE BBVA MEXI
+464 | 28-FEB-2024 |          160,000.00 |                     |      4140082.34 |      4140082.34 | OK         | CARGO TRANSFERENCIA ENLACE PRESTAMO
+465 | 28-FEB-2024 |        1,500,000.00 |                     |      2640082.34 |      2640082.34 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:05:42 ENVIADO A BANAMEX ALA 
+466 | 28-FEB-2024 |          400,000.00 |                     |      2240082.34 |      2240082.34 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:05:42 ENVIADO A BBVA MEXICO 
+467 | 28-FEB-2024 |           70,000.00 |                     |      2170082.34 |      2170082.34 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:05:42 ENVIADO A BANORTE ALA 
+468 | 28-FEB-2024 |           51,241.38 |                     |      2118840.96 |      2118840.96 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ALGANI d Santander 
+469 | 28-FEB-2024 |           39,789.00 |                     |      2079051.96 |      2079051.96 | OK         | PAGO TRANSFERENCIA SPEI HORA 14:07:50 ENVIADO A BBVA MEXICO 
+470 | 28-FEB-2024 |              600.00 |                     |      2078451.96 |      2078451.96 | OK         | COMISION REPOSICION TOKEN GATB00643232
+471 | 28-FEB-2024 |               96.00 |                     |      2078355.96 |      2078355.96 | OK         | (0000000 | V A POR COMISION GATB00643232
+472 | 28-FEB-2024 |              600.00 |                     |      2077755.96 |      2077755.96 | OK         | COMISION REPOSICION TOKEN GATB00643240
+473 | 28-FEB-2024 |               96.00 |                     |      2077659.96 |      2077659.96 | OK         | | VAPOR COMISION GATB00643240
+474 | 28-FEB-2024 |           87,643.25 |                     |      1990016.71 |      1990016.71 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+475 | 28-FEB-2024 |          380,045.73 |                     |      1609970.98 |      1609970.98 | OK         | (0000000 CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+476 | 28-FEB-2024 |                     |            3,495.38 |      1613466.36 |      1613466.36 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+477 | 28-FEB-2024 |                     |            4,558.97 |      1618025.33 |      1618025.33 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+478 | 28-FEB-2024 |                     |            3,486.47 |       1621511.8 |       1621511.8 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+479 | 28-FEB-2024 |                     |            3,785.80 |       1625297.6 |       1625297.6 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+480 | 28-FEB-2024 |                     |            3,785.80 |       1629083.4 |       1629083.4 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+481 | 28-FEB-2024 |           13,555.80 |                     |       1615527.6 |       1615527.6 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+482 | 28-FEB-2024 |                     |        6,592,309.26 |      8207836.86 |      8207836.86 | OK         | ABONO TRANSFERENCIA SPEI HORA 18:50:53 RECIBIDO DE BANORTE D
+483 | 29-FEB-2024 |          300,000.00 |                     |      7907836.86 |      7907836.86 | OK         | CARGO TRANSFERENCIA ENLACE PRESTAMO
+484 | 29-FEB-2024 |          300,000.00 |                     |      7607836.86 |      7607836.86 | OK         | CARGO TRANSFERENCIA ENLACE PRESTAMO
+485 | 29-FEB-2024 |           75,267.40 |                     |      7532569.46 |      7532569.46 | OK         | PAGO TRANSFERENCIA SPEI HORA 11:04:44 ENVIADO A BANORTE A LA
+486 | 29-FEB-2024 |                     |        1,500,000.00 |      9032569.46 |      9032569.46 | OK         | ABONO TRANSFERENCIA SPEI HORA 11:41:08 RECIBIDO DE BANAMEX D
+487 | 29-FFB-2024 |                     |        1,500,000.00 |     10532569.46 |     10532569.46 | OK         | ABONO TRANSFERENCIA SPEI HORA 11:42:13 RECIBIDO DE BANAMEX D
+488 | 29-FEB-2024 |                0.02 |                     |     10532569.48 |     10532569.44 | OK         | COMPENSACION SPEI COMPENSACION SPEI REF 0000000
+489 | 29-FEB-2024 |                     |        1,500,000.00 |     12032569.48 |     12032569.48 | OK         | ABONO TRANSFERENCIA SPEI HORA 11:45:57 RECIBIDO DE BANAMEX D
+490 | 29-FEB-2024 |            9,855.68 |                     |      12022713.8 |      12022713.8 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+491 | 29-FEB-2024 |           83,939.11 |                     |     11938774.69 |     11938774.69 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+492 | 29-FEB-2024 |                     |            3,495.38 |     11942270.07 |     11942270.07 | OK         | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA
+493 | 29-FEB-2024 |           53,434.60 |                     |     11888835.47 |     11888835.47 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+494 | 29-FEB-2024 |                     |       11,892,568.01 |                 |     23781403.48 | NO_SALDO   | ABO POR DEVOLUCION PAGO NOMINA PAGO DE NOMINA 3732.54
+495 | 29-FEB-2024 |           15,943.71 |                     |      11876624.3 |     11872891.76 | ERR       3733 | (0000000 CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+496 | 29-FEB-2024 |           17,013.36 |                     |     11859610.94 |     11859610.94 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+497 | 29-FEB-2024 |            7,912.07 |                     |     11851698.87 |     11851698.87 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+498 | 29-FEB-2024 |          115,916.09 |                     |     11735782.78 |     11735782.78 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+499 | 29-FEB-2024 |           23,931.15 |                     |     11711851.63 |     11711851.63 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+500 | 29-FEB-2024 |           19,112.42 |                     |     11692739.21 |     11692739.21 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+501 | 29-FEB-2024 |            3,495.38 |                     |     11689243.83 |     11689243.83 | OK         | (0000000 CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+502 | 29-FEB-2024 |       11,685,511.29 |                     |                 |         3732.54 | NO_SALDO   | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA 3732.54
+503 | 29-FFB-2024 |                     |          500,000.00 |     12185511.29 |     12189243.83 | ERR       3733 | ABONO TRANSFERENCIA SPEI HORA 15:59:05 RECIBIDO DE BANORTE D
+504 | 29-FEB-2024 |                     |        2,000,000.00 |     14185511.29 |     14185511.29 | OK         | ABONO TRANSFERENCIA SPEI HORA 16:55:32 RECIBIDO DE BANAMEX D
+505 | 29-FEB-2024 |            4,250.12 |                     |     14181261.17 |     14181261.17 | OK         | (0000000 CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+506 | 29-FEB-2024 |              900.00 |                     |     14180361.17 |     14180361.17 | OK         | COM MEMBRESIA CUENTA E PYME MEMBRESIA
+507 | 29-FEB-2024 |              144.00 |                     |     14180217.17 |     14180217.17 | OK         | | V A POR COMISION MEMBRESIA
+508 | 29-FEB-2024 |            3,605.76 |                     |                 |     14176611.41 | NO_SALDO   | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA dd Santander Ba
+509 | 29-FEB-2024 |            4,565.56 |                     |     14172045.85 |     14175651.61 | ERR       3606 | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+510 | 29-FEB-2024 |            3,239.33 |                     |     14168806.52 |     14168806.52 | OK         | CARGO PAGO NOMINA POR APLICAR PAGO DE NOMINA
+511 | 29-FEB-2024 |           20,528.58 |                     |     14148277.94 |     14148277.94 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS GOLEM
+512 | 29-FEB-2024 |          169,572.91 |                     |     13978705.03 |     13978705.03 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BANAMEX ALA 
+513 | 29-FEB-2024 |           22,867.00 |                     |     13955838.03 |     13955838.03 | OK         | (0000000 CARGO TRANSFERENCIA ENLACE PAGO FACTURA CARMEN BERN
+514 | 29-FEB-2024 |            9,172.35 |                     |     13946665.68 |     13946665.68 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BANORTE ALA 
+515 | 29-FEB-2024 |           13,800.32 |                     |     13932865.36 |     13932865.36 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BBVA MEXICO 
+516 | 29-FEB-2024 |           41,091.27 |                     |     13891774.09 |     13891774.09 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS CHEF MART
+517 | 29-FEB-2024 |           43,059.23 |                     |     13848714.86 |     13848714.86 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BBVA MEXICO 
+518 | 29-FEB-2024 |           27,530.88 |                     |     13821183.98 |     13821183.98 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BBVA MEXICO 
+519 | 29-FEB-2024 |           10,156.00 |                     |     13811027.98 |     13811027.98 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BBVA MEXICO 
+520 | 29-FEB-2024 |           67,453.00 |                     |     13743574.98 |     13743574.98 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ABENAMAR
+521 | 29-FEB-2024 |            6,871.12 |                     |     13736703.86 |     13736703.86 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BBVA MEXICO 
+522 | 29-FEB-2024 |           14,996.75 |                     |     13721707.11 |     13721707.11 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A SCOTIABANK A
+523 | 29-FEB-2024 |            8,235.31 |                     |      13713471.8 |      13713471.8 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BAJIO ALA CU
+524 | 29-FEB-2024 |          400,000.00 |                     |      13313471.8 |      13313471.8 | OK         | CARGO TRANSFERENCIA ENLACE PRESTAMO
+525 | 29-FEB-2024 |           55,796.40 |                     |      13257675.4 |      13257675.4 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BANAMEX — AL
+526 | 29-FEB-2024 |           87,977.87 |                     |     13169697.53 |     13169697.53 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BANORTE ALA 
+527 | 29-FEB-2024 |           14,990.00 |                     |     13154707.53 |     13154707.53 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A AFIRME ALA C
+528 | 29-FEB-2024 |          181,553.87 |                     |     12973153.66 |     12973153.66 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BANAMEX ALA 
+529 | 29-FEB-2024 |            6,368.62 |                     |     12966785.04 |     12966785.04 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BBVA MEXICO 
+530 | 29-FEB-2024 |            3,265.40 |                     |     12963519.64 |     12963519.64 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:13:16 ENVIADO A BANORTE ALA 
+531 | 29-FEB-2024 |           31,380.00 |                     |     12932139.64 |     12932139.64 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:18 ENVIADO A BBVA MEXICO 
+532 | 29-FEB-2024 |           32,196.06 |                     |     12899943.58 |     12899943.58 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS ALPHA
+533 | 29-FEB-2024 |           92,043.10 |                     |     12807900.48 |     12807900.48 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:18 ENVIADO A BBVA MEXICO 
+534 | 29-FEB-2024 |           35,234.60 |                     |     12772665.88 |     12772665.88 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:18 ENVIADO A BANORTE ALA 
+535 | 29-FEB-2024 |           34,674.00 |                     |     12737991.88 |     12737991.88 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS HUGO ENRIQUE
+536 | 29-FEB-2024 |            9,132.30 |                     |     12728859.58 |     12728859.58 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:18 ENVIADO A BBVA MEXICO 
+537 | 29-FEB-2024 |           13,284.00 |                     |     12715575.58 |     12715575.58 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS PATRONA
+538 | 29-FEB-2024 |            6,306.00 |                     |     12709269.58 |     12709269.58 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:18 ENVIADO A BBVA MEXICO 
+539 | 29-FEB-2024 |           22,866.40 |                     |     12686403.18 |     12686403.18 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:18 ENVIADO A BANREGIO A L
+540 | 29-FEB-2024 |           18,864.50 |                     |     12667538.68 |     12667538.68 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:18 ENVIADO A BBVA MEXICO 
+541 | 29-FEB-2024 |           11,983.00 |                     |     12655555.68 |     12655555.68 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:18 ENVIADO A BBVA MEXICO 
+542 | 29-FEB-2024 |            8,888.04 |                     |     12646667.64 |     12646667.64 | OK         | (0000000 CARGO TRANSFERENCIA ENLACE PAGO FACTURAS JSB d Sant
+543 | 29-FEB-2024 |           15,112.70 |                     |     12631554.94 |     12631554.94 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:18 ENVIADO A BAJIO A LA C
+544 | 29-FEB-2024 |            4,770.00 |                     |     12626784.94 |     12626784.94 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:18 ENVIADO A BBVA MEXICO 
+545 | 29-FEB-2024 |           10,687.42 |                     |     12616097.52 |     12616097.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:18 ENVIADO A HSBC A LA CU
+546 | 29-FEB-2024 |            5,750.00 |                     |     12610347.52 |     12610347.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:19 ENVIADO A BANORTE A LA
+547 | 29-FEB-2024 |            2,260.00 |                     |     12608087.52 |     12608087.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:19 ENVIADO A BBVA MEXICO 
+548 | 29-FEB-2024 |            5,175.00 |                     |     12602912.52 |     12602912.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:19 ENVIADO A AZTECA A LA 
+549 | 29-FEB-2024 |           14,630.00 |                     |     12588282.52 |     12588282.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:19 ENVIADO A BANORTE A LA
+550 | 29-FEB-2024 |           17,244.00 |                     |     12571038.52 |     12571038.52 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:17:19 ENVIADO A BANAMEX ALA 
+551 | 29-FEB-2024 |            5,336.00 |                     |     12565702.52 |     12565702.52 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURA FERNANDO VALDEZ
+552 | 29-FEB-2024 |          146,337.99 |                     |     12419364.53 |     12419364.53 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS MARTINA ERNESTIN A
+553 | 29-FEB-2024 |           27,266.85 |                     |     12392097.68 |     12392097.68 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:21:33 ENVIADO A BANCOPPEL A 
+554 | 29-FEB-2024 |           51,011.87 |                     |     12341085.81 |     12341085.81 | OK         | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS MEXICANA
+555 | 29-FEB-2024 |            8,577.00 |                     |                 |     12332508.81 | NO_SALDO   | CARGO TRANSFERENCIA ENLACE PAGO FACTURAS PRECTI HIELO
+556 | 29-FEB-2024 |            1,257.59 |                     |     12331251.22 |     12339828.22 | ERR       8577 | PAGO TRANSFERENCIA SPEI HORA 17:21:34 ENVIADO A BANAMEX A LA
+557 | 29-FEB-2024 |           24,730.40 |                     |     12306520.82 |     12306520.82 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:21:34 ENVIADO A BANREGIO — A
+558 | 29-FEB-2024 |           24,268.50 |                     |     12282252.32 |     12282252.32 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:21:34 ENVIADO A BANORTE A LA
+559 | 29-FEB-2024 |            2,452.00 |                     |     12279800.32 |     12279800.32 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:21:34 ENVIADO A BANAMEX A LA
+560 | 29-FEB-2024 |            2,213.28 |                     |     12277587.04 |     12277587.04 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:21:34 ENVIADO A INBURSA ALA 
+561 | 29-FEB-2024 |            1,792.99 |                     |     12275794.05 |     12275794.05 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:21:34 ENVIADO A BANAMEX ALA 
+562 | 29-FEB-2024 |            1,508.00 |                     |     12274286.05 |     12274286.05 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:21:34 ENVIADO A BANAMEX A LA
+563 | 29-FEB-2024 |            1,508.00 |                     |     12272778.05 |     12272778.05 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:21:34 ENVIADO A BANAMEX A LA
+564 | 29-FEB-2024 |              348.00 |                     |     12272430.05 |     12272430.05 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:21:35 ENVIADO A BANAMEX A LA
+565 | 29-FEB-2024 |            1,508.00 |                     |     12270922.05 |     12270922.05 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:21:35 ENVIADO A BANAMEX ALA 
+566 | 29-FEB-2024 |           35,651.10 |                     |     12235270.95 |     12235270.95 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:21:35 ENVIADO A HSBC ALA CUE
+567 | 29-FEB-2024 |           11,618.50 |                     |     12223652.45 |     12223652.45 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:21:35 ENVIADO A BANAMEX ALA 
+568 | 29-FEB-2024 |       12,000,000.00 |                     |       223652.45 |       223652.45 | OK         | CARGO TRANSFERENCIA ENLACE ABONO A CREDITO
+569 | 29-FEB-2024 |            1,694.55 |                     |        221957.9 |        221957.9 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:23:26 ENVIADO A BANAMEX ALA 
+570 | 29-FEB-2024 |            2,213.28 |                     |       219744.62 |       219744.62 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:23:26 ENVIADO A INBURSA ALA 
+571 | 29-FEB-2024 |           21,650.00 |                     |       198094.62 |       198094.62 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:23:26 ENVIADO A BANREGIO ALA
+572 | 29-FEB-2024 |            3,816.28 |                     |       194278.34 |       194278.34 | OK         | PAGO TRANSFERENCIA SPEI HORA 17:23:27 ENVIADO A BANAMEX ALA 
+
+================================================================================
+Total transacciones  : 572
+Filas con ERR saldo  : 12
+Total Retiros        : 63,772,229.65
+Total Depositos      : 63,873,897.62
+Esperado Retiros     : 52,090,450.88
+Esperado Depositos   : 51,985,062.17
+Diff Retiros         : 11681778.77
+Diff Depositos       : 11888835.45
+Saldo final calculado: 194278.34  (esperado: 194,278.34)

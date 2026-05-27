@@ -1,0 +1,33 @@
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.title  { font-size: 1rem; font-weight: 600; color: var(--text); }
+.badge  {
+  font-size: .78rem;
+  font-weight: 600;
+  background: var(--primary);
+  color: #fff;
+  padding: 3px 12px;
+  border-radius: 12px;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .82rem;
+  white-space: nowrap;
+}
+.table thead tr              { background: var(--primary); color: #fff; }
+.table th                    { padding: 10px 14px; text-align: left; font-weight: 600; letter-spacing: .03em; }
+.table td                    { padding: 8px 14px; border-top: 1px solid var(--border); }
+.table tbody tr:nth-child(even) { background: #f9f8f7; }
+.table tbody tr:hover           { background: #e6f0fa; }

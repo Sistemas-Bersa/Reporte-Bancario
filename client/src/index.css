@@ -1,0 +1,22 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary:    #0078d4;
+  --primary-dk: #005a9e;
+  --success:    #107c10;
+  --warning:    #d83b01;
+  --bg:         #f3f2f1;
+  --surface:    #ffffff;
+  --border:     #e1dfdd;
+  --text:       #201f1e;
+  --text-muted: #605e5c;
+  --radius:     8px;
+  --shadow:     0 2px 8px rgba(0,0,0,.10);
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}

@@ -1,0 +1,12 @@
+{
+  "name": "bank-extractor",
+  "version": "1.0.0",
+  "description": "Extractor de transacciones bancarias desde PDF — port de Python a Node.js",
+  "main": "index.js",
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "exceljs": "^4.4.0",
+    "pdfjs-dist": "^3.11.174",
+    "tesseract.js": "^5.1.1"
+  }
+}
