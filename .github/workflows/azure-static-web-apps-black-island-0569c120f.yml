@@ -20,26 +20,6 @@ jobs:
           submodules: true
           lfs: false
 
-      - name: Setup Node.js 18
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      # ── Build del cliente (Vite/React) ──────────────────────────────────────
-      - name: Install client dependencies
-        run: npm ci
-        working-directory: client
-
-      - name: Build client
-        run: npm run build
-        working-directory: client
-
-      # ── Instalar dependencias del servidor (Azure Functions) ────────────────
-      - name: Install server dependencies
-        run: npm ci
-        working-directory: server
-
-      # ── Deploy a Azure Static Web Apps ──────────────────────────────────────
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -50,8 +30,6 @@ jobs:
           app_location: "./client"
           api_location: "server"
           output_location: "dist"
-          skip_app_build: true
-          skip_api_build: true
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
