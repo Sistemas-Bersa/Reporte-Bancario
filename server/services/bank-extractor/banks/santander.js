@@ -55,7 +55,10 @@ class SantanderExtractor extends BankExtractorBase {
     const keywordsAbono = [
       'ABONO', 'DEPOSITO', 'ABO ', 'RECIBIDO', 'TRASPASO A FAVOR',
       'INTERESES', 'PAGO ANTICIPADO', 'DEV', 'DISPOSICION DE CREDITO',
-      'DISPOSICION CREDITO', 'BONI', 'BONIFICACION'
+      'DISPOSICION CREDITO', 'BONI', 'BONIFICACION',
+      'REEMBOLSO',           // devolución/reembolso de comisiones → abono
+      'COMPENSACION SPEI',   // ajuste de centavos vía SPEI → abono
+      'IVA POR COMISION MEM' // IVA del reembolso de membresía → abono
     ];
     const keywordsRetiro = ['RETENCION', 'COBRO', 'CARGO', 'PAGO', 'RET ', 'CARGO CAPITAL'];
 
@@ -111,8 +114,21 @@ class SantanderExtractor extends BankExtractorBase {
                 }
               }
               for (const seg of segments.slice(1)) {
-                if (isAmountSeg(seg)) foundAmounts.push(seg);
-                else conceptParts.push(seg);
+                if (isAmountSeg(seg)) {
+                  foundAmounts.push(seg);
+                } else {
+                  // El segmento puede contener dos montos separados por un espacio simple
+                  // (ocurre cuando RETIRO/DEPOSITO y SALDO tienen gap < 15pt en el PDF)
+                  // Ej: "14,100.00 448,434.40" → dos montos sin separador de columna
+                  const amtRe = /\b\d{1,3}(?:,\d{3})*\.[0-9oO]{1,2}\b/g;
+                  const parts = [...seg.matchAll(amtRe)].map(m => m[0]);
+                  const textRem = seg.replace(amtRe, '').trim();
+                  if (parts.length > 0 && !textRem) {
+                    foundAmounts.push(...parts);
+                  } else {
+                    conceptParts.push(seg);
+                  }
+                }
               }
             } else {
               // Formato digital: todo en un segmento, montos pegados al final
@@ -201,7 +217,9 @@ class SantanderExtractor extends BankExtractorBase {
           } else {
             // Línea de continuación del concepto
             const skipKw = ['FECHA', 'FOLIO', 'SALDO', 'PAGINA', 'P-P', 'CODIGO DE CLIENTE', 'GRUPO FINANCIERO'];
-            if (currentTx && !skipKw.some(kw => lineNorm.includes(kw))) {
+            // Saltar líneas de resumen TOTAL al final de la sección de movimientos
+            const isTotalSummary = /^\s*TOTAL\s+[\d,]+\.\d{2}/i.test(line);
+            if (currentTx && !isTotalSummary && !skipKw.some(kw => lineNorm.includes(kw))) {
               currentTx['CONCEPTO'] += ' ' + line.trim();
             }
           }

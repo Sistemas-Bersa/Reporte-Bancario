@@ -2,12 +2,14 @@
   "name": "bank-extractor-server",
   "version": "1.0.0",
   "description": "Express API — Extractor Bancario PDF a Excel",
-  "main": "index.js",
+  "main": "src/functions/bankExtractor.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "func:start": "func start"
   },
   "dependencies": {
+    "@azure/functions": "^4.16.0",
     "@napi-rs/canvas": "^0.1.53",
     "archiver": "^8.0.0",
     "cors": "^2.8.5",

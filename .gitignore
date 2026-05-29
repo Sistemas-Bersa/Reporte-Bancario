@@ -5,3 +5,6 @@ client/dist/
 .env
 *.log
 .DS_Store
+
+# Azure Functions — nunca subir configuración local (tokens/conexiones)
+server/local.settings.json

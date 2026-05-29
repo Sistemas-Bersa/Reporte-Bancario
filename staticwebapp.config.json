@@ -7,19 +7,20 @@
   ],
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/api/*", "*.xlsx", "*.pdf"]
+    "exclude": ["/api/*", "*.xlsx", "*.pdf", "*.zip"]
   },
   "responseOverrides": {
     "404": {
-      "rewrite": "/index.html"
+      "rewrite": "/index.html",
+      "statusCode": 200
     }
+  },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "X-XSS-Protection": "1; mode=block"
   },
   "platform": {
     "apiRuntime": "node:18"
-  },
-  "buildConfig": {
-    "appLocation": "client",
-    "outputLocation": "dist",
-    "apiLocation": "server"
   }
 }
