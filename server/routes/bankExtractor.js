@@ -2,7 +2,7 @@
 
 const express  = require('express');
 const multer   = require('multer');
-const { ZipArchive } = require('archiver');
+const archiver = require('archiver');
 const path     = require('path');
 const os       = require('os');
 const fs       = require('fs');
@@ -113,7 +113,7 @@ router.post('/extract-multiple', upload.array('pdfs', 30), async (req, res) => {
     res.setHeader('Content-Type', 'application/zip');
     res.setHeader('Content-Disposition', 'attachment; filename="estados_de_cuenta.zip"');
 
-    const archive = new ZipArchive({ zlib: { level: 6 } });
+    const archive = archiver('zip', { zlib: { level: 6 } });
     archive.pipe(res);
 
     for (const r of successful) {
