@@ -41,7 +41,9 @@ class BankExtractorBase {
       if (this.onOcrCallback) this.onOcrCallback();
 
       const { ocrPage } = require('./ocr-utils');
-      const BATCH = 4;
+      // En Azure Functions reducimos la concurrencia para no exceder la
+      // memoria disponible (cada página requiere ~20 MB de canvas + pdfjs).
+      const BATCH = process.env.FUNCTIONS_WORKER_RUNTIME ? 1 : 4;
 
       for (let b = 0; b < ocrIndexes.length; b += BATCH) {
         const batch = ocrIndexes.slice(b, b + BATCH);

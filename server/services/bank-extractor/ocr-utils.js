@@ -1,6 +1,7 @@
 'use strict';
 
-const fs = require('fs');
+const fs   = require('fs');
+const path = require('path');
 
 /**
  * NodeCanvasFactory personalizada que usa @napi-rs/canvas.
@@ -19,44 +20,61 @@ class NodeCanvasFactory {
     cc.canvas.height = height;
   }
   destroy(cc) {
+    // Liberar memoria explícitamente
     cc.canvas.width  = 0;
     cc.canvas.height = 0;
   }
 }
 
 /**
+ * Directorio que contiene spa.traineddata (incluido en el repo).
+ * Tesseract.js lo usará en lugar de descargarlo desde la CDN.
+ * __dirname → server/services/bank-extractor/  →  ../.. → server/
+ */
+const LANG_PATH = path.join(__dirname, '../..');
+
+/**
  * OCRea una página de PDF usando pdfjs-dist (render) + tesseract.js.
- * Reemplaza el winrt (Windows Runtime) original — compatible con Azure Linux.
+ * Compatible con Azure Functions (Linux) y Node.js local.
  */
 async function ocrPage(pdfPath, pageIndex) {
+  let doc = null;
+  let cc  = null;
   try {
     const pdfjsLib  = require('pdfjs-dist/legacy/build/pdf.js');
     const Tesseract = require('tesseract.js');
 
-    const data           = new Uint8Array(fs.readFileSync(pdfPath));
-    const canvasFactory  = new NodeCanvasFactory();
+    const data          = new Uint8Array(fs.readFileSync(pdfPath));
+    const canvasFactory = new NodeCanvasFactory();
 
-    const doc  = await pdfjsLib.getDocument({ data, canvasFactory }).promise;
+    doc = await pdfjsLib.getDocument({ data, canvasFactory }).promise;
     const page = await doc.getPage(pageIndex + 1);
 
-    const scale    = 3; // ≈ 300 DPI
+    // En Azure reducimos a 200 DPI para ahorrar memoria; local a 300 DPI
+    const scale    = process.env.FUNCTIONS_WORKER_RUNTIME ? 2 : 3;
     const viewport = page.getViewport({ scale });
-    const cc       = canvasFactory.create(viewport.width, viewport.height);
+    cc             = canvasFactory.create(viewport.width, viewport.height);
 
     await page.render({ canvasContext: cc.context, viewport }).promise;
-    await doc.destroy();
+    await page.cleanup();
 
     // @napi-rs/canvas usa encode() async, no toBuffer()
     const imageBuffer = await cc.canvas.encode('png');
 
     const { data: { text } } = await Tesseract.recognize(imageBuffer, 'spa', {
-      logger: () => {}
+      langPath: LANG_PATH, // usa spa.traineddata local — sin descarga CDN
+      gzip:     false,
+      logger:   () => {}
     });
 
     return text || '';
   } catch (err) {
     console.error(`Error OCR página ${pageIndex}:`, err.message);
     return '';
+  } finally {
+    // Liberar memoria explícitamente en cada página
+    if (cc)  cc.canvas.width = cc.canvas.height = 0;
+    if (doc) await doc.destroy().catch(() => {});
   }
 }
 
