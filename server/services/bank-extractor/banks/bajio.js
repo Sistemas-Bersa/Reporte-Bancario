@@ -3,8 +3,8 @@
 const { BankExtractorBase } = require('../base');
 
 class BajioExtractor extends BankExtractorBase {
-  constructor(pdfPath) {
-    super(pdfPath);
+  constructor(pdfPath, logger, pageTexts) {
+    super(pdfPath, logger, pageTexts);
     this.bankName = 'Bajio';
   }
 

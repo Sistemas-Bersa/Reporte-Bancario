@@ -8,6 +8,7 @@ const fs       = require('fs');
 const {
   detectBank,
   extractTransactions,
+  extractTransactionsFromText,
   exportToBuffer
 } = require('../../services/bank-extractor');
 
@@ -322,6 +323,91 @@ app.http('preview', {
       };
     } finally {
       if (tempPath && fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
+    }
+  }
+});
+
+// ── POST /api/bank-extractor/extract-from-text ───────────────────────────────
+// Recibe el TEXTO por página (OCR hecho en el navegador) y solo parsea + genera
+// el Excel. Rápido (<2s) → evita el timeout de 45s de Static Web Apps.
+app.http('extractFromText', {
+  methods:   ['POST'],
+  authLevel: 'anonymous',
+  route:     'bank-extractor/extract-from-text',
+  handler:   async (request, context) => {
+    const log    = (...a) => context.log('[extract-from-text]', ...a);
+    const logErr = (...a) => context.error('[extract-from-text]', ...a);
+    try {
+      const body = await request.json();
+      const { filename, pages, usedOcr } = body || {};
+      log(`Recibido: ${filename}, ${Array.isArray(pages) ? pages.length : 0} páginas, usedOcr=${!!usedOcr}`);
+
+      if (!filename || !Array.isArray(pages) || !pages.length) {
+        return { status: 400, jsonBody: { error: 'Faltan filename o pages.' } };
+      }
+      const bank = detectBank(filename);
+      if (!bank) {
+        return { status: 400, jsonBody: { error: `Banco no identificado: ${filename}` } };
+      }
+
+      const transactions = await extractTransactionsFromText(filename, pages, {
+        usedOcr,
+        logger: context.log.bind(context)
+      });
+      log(`Transacciones: ${transactions.length}`);
+
+      if (!transactions.length) {
+        return { status: 422, jsonBody: { error: 'No se encontraron transacciones.' } };
+      }
+
+      const buffer   = await exportToBuffer(transactions);
+      const xlsxName = path.basename(filename, '.pdf') + '.xlsx';
+      return {
+        status:  200,
+        body:    buffer,
+        headers: {
+          'Content-Type':        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'Content-Disposition': `attachment; filename="${xlsxName}"`
+        }
+      };
+    } catch (err) {
+      logErr('ERROR:', err.message, err.stack);
+      return {
+        status:   500,
+        jsonBody: { error: err.message || 'Error interno', stack: err.stack }
+      };
+    }
+  }
+});
+
+// ── POST /api/bank-extractor/preview-from-text ───────────────────────────────
+// Igual que extract-from-text pero devuelve JSON con las transacciones (vista previa).
+app.http('previewFromText', {
+  methods:   ['POST'],
+  authLevel: 'anonymous',
+  route:     'bank-extractor/preview-from-text',
+  handler:   async (request, context) => {
+    try {
+      const body = await request.json();
+      const { filename, pages, usedOcr } = body || {};
+      if (!filename || !Array.isArray(pages) || !pages.length) {
+        return { status: 400, jsonBody: { error: 'Faltan filename o pages.' } };
+      }
+      const bank = detectBank(filename);
+      if (!bank) {
+        return { status: 400, jsonBody: { error: `Banco no identificado: ${filename}` } };
+      }
+      const transactions = await extractTransactionsFromText(filename, pages, {
+        usedOcr,
+        logger: context.log.bind(context)
+      });
+      if (!transactions.length) {
+        return { status: 422, jsonBody: { error: 'No se encontraron transacciones.' } };
+      }
+      return { status: 200, jsonBody: { bank, count: transactions.length, transactions } };
+    } catch (err) {
+      context.error('[preview-from-text]', err.message, err.stack);
+      return { status: 500, jsonBody: { error: err.message || 'Error interno', stack: err.stack } };
     }
   }
 });

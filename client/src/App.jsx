@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
+import JSZip from 'jszip';
 import FileUploader from './components/FileUploader';
 import ResultsTable from './components/ResultsTable';
+import { extractFilePages } from './lib/pdfText';
 import styles from './App.module.css';
 
 const BANKS      = ['BBVA', 'SANTANDER', 'BANAMEX', 'BAJIO', 'BANORTE'];
@@ -119,18 +121,30 @@ export default function App() {
     }, 0);
   }
 
-  // ── Vista previa ─────────────────────────────────────────────────────────
+  // ── Progreso de OCR en navegador ─────────────────────────────────────────
+  function makeProgress(fileName) {
+    return ({ page, total, phase }) => {
+      const tag = phase === 'ocr' ? '🔍 OCR' : '📄 Texto';
+      setStatusMsg(`${tag} ${fileName} — página ${page}/${total}`);
+    };
+  }
+
+  // ── Vista previa (OCR en navegador → API solo parsea) ────────────────────
   async function handlePreview(entry) {
     setEstimated(EST_SECONDS[entry.bank] ?? EST_SECONDS.DEFAULT);
     setStatus('loading');
-    setStatusMsg(`Extrayendo: ${entry.file.name}…`);
+    setStatusMsg(`Leyendo: ${entry.file.name}…`);
     setPreview(null);
 
     try {
-      const form = new FormData();
-      form.append('pdf', entry.file);
+      const { pages, usedOcr } = await extractFilePages(entry.file, makeProgress(entry.file.name));
+      setStatusMsg('Generando vista previa…');
 
-      const res  = await fetch('/api/bank-extractor/preview', { method: 'POST', body: form });
+      const res  = await fetch('/api/bank-extractor/preview-from-text', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ filename: entry.file.name, pages, usedOcr })
+      });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Error desconocido');
 
@@ -159,42 +173,78 @@ export default function App() {
     setPreview(null);
 
     try {
-      const form = new FormData();
-      validFiles.forEach(e => form.append('pdfs', e.file));
+      const xlsxResults = [];   // { name, blob }
+      const errors      = [];   // { name, error }
 
-      const res = await fetch('/api/bank-extractor/extract-multiple', {
-        method: 'POST',
-        body:   form
-      });
+      // Procesar archivo por archivo: OCR en navegador → API solo parsea
+      for (const entry of validFiles) {
+        try {
+          const { pages, usedOcr } = await extractFilePages(entry.file, makeProgress(entry.file.name));
+          setStatusMsg(`Generando Excel: ${entry.file.name}…`);
 
-      if (!res.ok) {
-        let errorMsg = `Error del servidor (${res.status})`;
-        try { const d = await res.json(); errorMsg = d.error || errorMsg; } catch {}
-        throw new Error(errorMsg);
+          const res = await fetch('/api/bank-extractor/extract-from-text', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ filename: entry.file.name, pages, usedOcr })
+          });
+
+          if (!res.ok) {
+            let msg = `Error del servidor (${res.status})`;
+            try { const d = await res.json(); msg = d.error || msg; } catch {}
+            throw new Error(msg);
+          }
+
+          const blob     = await res.blob();
+          const cd       = res.headers.get('Content-Disposition') || '';
+          const match    = cd.match(/filename="?([^"]+)"?/);
+          const xlsxName = match ? match[1] : entry.file.name.replace(/\.pdf$/i, '.xlsx');
+          xlsxResults.push({ name: xlsxName, blob });
+        } catch (e) {
+          errors.push({ name: entry.file.name, error: e.message });
+        }
       }
 
-      const blob        = await res.blob();
-      const isZip       = blob.type === 'application/zip';
-      const defaultName = isZip
-        ? 'estados_de_cuenta.zip'
-        : validFiles[0].file.name.replace('.pdf', '.xlsx');
-      const cd       = res.headers.get('Content-Disposition') || '';
-      const match    = cd.match(/filename="?([^"]+)"?/);
-      const fileName = match ? match[1] : defaultName;
+      if (!xlsxResults.length) {
+        throw new Error(
+          'Ningún archivo generó transacciones.' +
+          (errors.length ? ' ' + errors.map(e => `${e.name}: ${e.error}`).join(' · ') : '')
+        );
+      }
 
-      const url = URL.createObjectURL(blob);
-      const a   = document.createElement('a');
-      a.href     = url;
-      a.download = fileName;
-      a.click();
-      URL.revokeObjectURL(url);
-
-      setStatus('done');
-      setStatusMsg(`✅ ${isZip ? `ZIP con ${validFiles.length} archivos` : 'Excel'} descargado`);
+      // Un solo Excel → descarga directa; varios → ZIP en el navegador
+      if (xlsxResults.length === 1 && !errors.length) {
+        triggerDownload(xlsxResults[0].blob, xlsxResults[0].name);
+        setStatus('done');
+        setStatusMsg('✅ Excel descargado');
+      } else {
+        setStatusMsg('Empaquetando ZIP…');
+        const zip = new JSZip();
+        for (const r of xlsxResults) zip.file(r.name, r.blob);
+        if (errors.length) {
+          zip.file('_errores.txt', errors.map(e => `${e.name}: ${e.error}`).join('\n'));
+        }
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        triggerDownload(zipBlob, 'estados_de_cuenta.zip');
+        setStatus('done');
+        setStatusMsg(
+          `✅ ZIP con ${xlsxResults.length} archivo(s)` +
+          (errors.length ? ` (${errors.length} con error)` : '')
+        );
+      }
     } catch (err) {
       setStatus('error');
       setStatusMsg(err.message);
     }
+  }
+
+  // ── Disparar descarga de un blob ──────────────────────────────────────────
+  function triggerDownload(blob, fileName) {
+    const url = URL.createObjectURL(blob);
+    const a   = document.createElement('a');
+    a.href     = url;
+    a.download = fileName;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   const validCount   = files.filter(e => e.bank).length;

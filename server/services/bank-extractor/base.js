@@ -3,7 +3,13 @@
 const fs = require('fs');
 
 class BankExtractorBase {
-  constructor(pdfPath, logger = console.log) {
+  /**
+   * @param {string}        pdfPath   Ruta al PDF (o solo el nombre si pageTexts viene dado)
+   * @param {Function}      logger    Función de log
+   * @param {string[]|null} pageTexts Si se provee, se OMITE pdfjs+OCR y se usan
+   *                                   estos textos por página (OCR hecho en el cliente)
+   */
+  constructor(pdfPath, logger = console.log, pageTexts = null) {
     this.pdfPath = pdfPath;
     this.transactions = [];
     this.usedOcr = false;
@@ -11,14 +17,24 @@ class BankExtractorBase {
     this.onOcrPageCallback = null;
     this._logger = logger;
     this._log = (...args) => logger('[bank-extractor]', ...args);
+    this._pageTexts = Array.isArray(pageTexts) ? pageTexts : null;
 
-    if (!fs.existsSync(pdfPath)) {
+    // Solo exigimos el archivo cuando vamos a leerlo (modo OCR servidor).
+    if (!this._pageTexts && !fs.existsSync(pdfPath)) {
       throw new Error(`El archivo no existe: ${pdfPath}`);
     }
   }
 
   async *iteratePages() {
     const TAG = `[base][${require('path').basename(this.pdfPath)}]`;
+
+    // ── Modo texto provisto (OCR hecho en el navegador) ──────────────────────
+    if (this._pageTexts) {
+      this._log(`${TAG} Modo texto-provisto: ${this._pageTexts.length} páginas (sin OCR servidor)`);
+      for (const text of this._pageTexts) yield text || '';
+      return;
+    }
+
     this._log(`${TAG} iteratePages() — cargando pdfjs-dist…`);
 
     let pdfjsLib;

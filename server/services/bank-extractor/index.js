@@ -64,6 +64,32 @@ async function extractTransactions(pdfPath, logger = console.log) {
 }
 
 /**
+ * Extrae transacciones a partir de TEXTO ya extraído por página
+ * (típicamente OCR realizado en el navegador). NO usa pdfjs ni OCR en servidor,
+ * por lo que es rápido (<2s) y evita el timeout de Static Web Apps.
+ *
+ * @param {string}   filename   Nombre del archivo (para detectar banco)
+ * @param {string[]} pageTexts  Texto reconstruido por página
+ * @param {object}   opts       { usedOcr, logger }
+ * @returns {Promise<object[]>}
+ */
+async function extractTransactionsFromText(filename, pageTexts, opts = {}) {
+  const { usedOcr = false, logger = console.log } = opts;
+  const bankKey = detectBank(filename);
+  if (!bankKey) {
+    throw new Error(`No se pudo detectar el banco para: ${path.basename(filename)}`);
+  }
+  if (!Array.isArray(pageTexts) || !pageTexts.length) {
+    throw new Error('No se recibió texto de páginas para procesar.');
+  }
+  const ExtractorClass = BANK_MAP[bankKey];
+  const extractor = new ExtractorClass(filename, logger, pageTexts);
+  // El OCR se hizo en el cliente → aplicar correcciones OCR si corresponde
+  extractor.usedOcr = !!usedOcr;
+  return extractor.extractTransactions();
+}
+
+/**
  * Exporta transacciones a un archivo .xlsx en disco.
  * @param {object[]} transactions
  * @param {string}   outputPath   Ruta completa del archivo de salida
@@ -136,6 +162,7 @@ function _buildWorkbook(transactions) {
 module.exports = {
   detectBank,
   extractTransactions,
+  extractTransactionsFromText,
   exportToFile,
   exportToBuffer,
   processFile

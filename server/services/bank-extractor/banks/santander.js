@@ -40,8 +40,8 @@ function formatAmount(n) {
 }
 
 class SantanderExtractor extends BankExtractorBase {
-  constructor(pdfPath, logger) {
-    super(pdfPath, logger);
+  constructor(pdfPath, logger, pageTexts) {
+    super(pdfPath, logger, pageTexts);
     this.bankName = 'Santander';
   }
 
