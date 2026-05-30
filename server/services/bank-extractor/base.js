@@ -9,6 +9,7 @@ class BankExtractorBase {
     this.usedOcr = false;
     this.onOcrCallback = null;
     this.onOcrPageCallback = null;
+    this._logger = logger;
     this._log = (...args) => logger('[bank-extractor]', ...args);
 
     if (!fs.existsSync(pdfPath)) {
@@ -104,7 +105,7 @@ class BankExtractorBase {
             results = await Promise.all(
               batch.map(idx => {
                 if (this.onOcrPageCallback) this.onOcrPageCallback(idx + 1, totalPages);
-                return ocrPage(this.pdfPath, idx);
+                return ocrPage(this.pdfPath, idx, this._logger);
               })
             );
             batch.forEach((idx, j) => {
