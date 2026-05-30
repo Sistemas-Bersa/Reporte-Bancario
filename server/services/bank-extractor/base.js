@@ -40,23 +40,28 @@ class BankExtractorBase {
       console.log(`OCR activado: ${ocrIndexes.length} páginas escaneadas en ${this.pdfPath}`);
       if (this.onOcrCallback) this.onOcrCallback();
 
-      const { ocrPage } = require('./ocr-utils');
-      // En Azure Functions reducimos la concurrencia para no exceder la
-      // memoria disponible (cada página requiere ~20 MB de canvas + pdfjs).
+      const { ocrPage, terminateOcrWorker } = require('./ocr-utils');
+      // En Azure Functions: batch=1 (1 página a la vez) para no exceder RAM.
+      // Local: batch=4 (~4× más rápido).
       const BATCH = process.env.FUNCTIONS_WORKER_RUNTIME ? 1 : 4;
 
-      for (let b = 0; b < ocrIndexes.length; b += BATCH) {
-        const batch = ocrIndexes.slice(b, b + BATCH);
-        console.log(`  OCR páginas ${batch.map(x => x + 1).join(', ')} / ${totalPages}…`);
+      try {
+        for (let b = 0; b < ocrIndexes.length; b += BATCH) {
+          const batch = ocrIndexes.slice(b, b + BATCH);
+          console.log(`  OCR páginas ${batch.map(x => x + 1).join(', ')} / ${totalPages}…`);
 
-        const results = await Promise.all(
-          batch.map(idx => {
-            if (this.onOcrPageCallback) this.onOcrPageCallback(idx + 1, totalPages);
-            return ocrPage(this.pdfPath, idx);
-          })
-        );
+          const results = await Promise.all(
+            batch.map(idx => {
+              if (this.onOcrPageCallback) this.onOcrPageCallback(idx + 1, totalPages);
+              return ocrPage(this.pdfPath, idx);
+            })
+          );
 
-        batch.forEach((idx, j) => { pageTexts[idx] = results[j]; });
+          batch.forEach((idx, j) => { pageTexts[idx] = results[j]; });
+        }
+      } finally {
+        // Liberar el worker Tesseract al terminar todo el lote
+        await terminateOcrWorker();
       }
     }
 
