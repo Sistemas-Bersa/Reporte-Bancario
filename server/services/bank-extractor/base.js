@@ -16,9 +16,36 @@ class BankExtractorBase {
   }
 
   async *iteratePages() {
-    const pdfjsLib = require('pdfjs-dist/legacy/build/pdf.js');
-    const data = new Uint8Array(fs.readFileSync(this.pdfPath));
-    const doc  = await pdfjsLib.getDocument({ data }).promise;
+    const TAG = `[base][${require('path').basename(this.pdfPath)}]`;
+    console.log(`${TAG} iteratePages() — cargando pdfjs-dist…`);
+
+    let pdfjsLib;
+    try {
+      pdfjsLib = require('pdfjs-dist/legacy/build/pdf.js');
+      console.log(`${TAG} pdfjs-dist cargado OK`);
+    } catch (e) {
+      console.error(`${TAG} ERROR al cargar pdfjs-dist:`, e.message, e.stack);
+      throw e;
+    }
+
+    let data;
+    try {
+      data = new Uint8Array(fs.readFileSync(this.pdfPath));
+      console.log(`${TAG} Archivo leído: ${data.length} bytes`);
+    } catch (e) {
+      console.error(`${TAG} ERROR al leer el archivo:`, e.message);
+      throw e;
+    }
+
+    let doc;
+    try {
+      doc = await pdfjsLib.getDocument({ data }).promise;
+      console.log(`${TAG} PDF abierto: ${doc.numPages} páginas`);
+    } catch (e) {
+      console.error(`${TAG} ERROR en getDocument():`, e.message, e.stack);
+      throw e;
+    }
+
     const totalPages = doc.numPages;
 
     // ── Paso 1: extraer texto digital de todas las páginas (rápido) ──────────
@@ -26,42 +53,72 @@ class BankExtractorBase {
     const ocrIndexes = [];
 
     for (let i = 0; i < totalPages; i++) {
-      const page = await doc.getPage(i + 1);
-      const tc   = await page.getTextContent();
-      const text = reconstructText(tc);
-      pageTexts[i] = text;
-      if (text.trim().length < 50) ocrIndexes.push(i);
+      try {
+        const page = await doc.getPage(i + 1);
+        const tc   = await page.getTextContent();
+        const text = reconstructText(tc);
+        pageTexts[i] = text;
+        const len = text.trim().length;
+        if (len < 50) {
+          ocrIndexes.push(i);
+          console.log(`${TAG} Página ${i + 1}: texto digital insuficiente (${len} chars) → OCR pendiente`);
+        } else {
+          console.log(`${TAG} Página ${i + 1}: ${len} chars de texto digital`);
+        }
+      } catch (e) {
+        console.error(`${TAG} ERROR en página ${i + 1}:`, e.message);
+        throw e;
+      }
     }
     await doc.destroy();
+    console.log(`${TAG} PDF liberado. Páginas OCR necesarias: ${ocrIndexes.length}`);
 
     // ── Paso 2: OCR en paralelo (lotes de 4 páginas) — ~4x más rápido ───────
     if (ocrIndexes.length > 0) {
       this.usedOcr = true;
-      console.log(`OCR activado: ${ocrIndexes.length} páginas escaneadas en ${this.pdfPath}`);
+      console.log(`${TAG} OCR activado: ${ocrIndexes.length} páginas escaneadas`);
       if (this.onOcrCallback) this.onOcrCallback();
 
-      const { ocrPage, terminateOcrWorker } = require('./ocr-utils');
+      let ocrPage, terminateOcrWorker;
+      try {
+        ({ ocrPage, terminateOcrWorker } = require('./ocr-utils'));
+        console.log(`${TAG} ocr-utils cargado OK`);
+      } catch (e) {
+        console.error(`${TAG} ERROR al cargar ocr-utils:`, e.message, e.stack);
+        throw e;
+      }
+
       // En Azure Functions: batch=1 (1 página a la vez) para no exceder RAM.
       // Local: batch=4 (~4× más rápido).
       const BATCH = process.env.FUNCTIONS_WORKER_RUNTIME ? 1 : 4;
+      console.log(`${TAG} BATCH OCR = ${BATCH} (FUNCTIONS_WORKER_RUNTIME=${process.env.FUNCTIONS_WORKER_RUNTIME || 'no'})`);
 
       try {
         for (let b = 0; b < ocrIndexes.length; b += BATCH) {
           const batch = ocrIndexes.slice(b, b + BATCH);
-          console.log(`  OCR páginas ${batch.map(x => x + 1).join(', ')} / ${totalPages}…`);
+          console.log(`${TAG} OCR páginas ${batch.map(x => x + 1).join(', ')} / ${totalPages}…`);
 
-          const results = await Promise.all(
-            batch.map(idx => {
-              if (this.onOcrPageCallback) this.onOcrPageCallback(idx + 1, totalPages);
-              return ocrPage(this.pdfPath, idx);
-            })
-          );
-
-          batch.forEach((idx, j) => { pageTexts[idx] = results[j]; });
+          let results;
+          try {
+            results = await Promise.all(
+              batch.map(idx => {
+                if (this.onOcrPageCallback) this.onOcrPageCallback(idx + 1, totalPages);
+                return ocrPage(this.pdfPath, idx);
+              })
+            );
+            batch.forEach((idx, j) => {
+              pageTexts[idx] = results[j];
+              console.log(`${TAG} OCR página ${idx + 1}: ${(results[j] || '').trim().length} chars`);
+            });
+          } catch (e) {
+            console.error(`${TAG} ERROR en OCR batch [${batch.map(x => x + 1).join(',')}]:`, e.message, e.stack);
+            throw e;
+          }
         }
       } finally {
         // Liberar el worker Tesseract al terminar todo el lote
         await terminateOcrWorker();
+        console.log(`${TAG} Worker Tesseract terminado`);
       }
     }
 

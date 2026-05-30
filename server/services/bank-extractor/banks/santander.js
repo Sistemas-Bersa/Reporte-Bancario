@@ -46,6 +46,8 @@ class SantanderExtractor extends BankExtractorBase {
   }
 
   async extractTransactions() {
+    const TAG = `[santander][${require('path').basename(this.pdfPath)}]`;
+    console.log(`${TAG} Inicio extractTransactions()`);
     this.transactions = [];
 
     const datePattern = /(\d{2}-[A-Z]{3}-\d{4})/i;
@@ -74,9 +76,14 @@ class SantanderExtractor extends BankExtractorBase {
     ];
 
     try {
+      console.log(`${TAG} Llamando iteratePages()…`);
       let currentTx = null;
+      let pageCount = 0;
 
       for await (const text of this.iteratePages()) {
+        pageCount++;
+        console.log(`${TAG} Procesando página ${pageCount} (${(text || '').trim().length} chars)`);
+
         if (!text) continue;
 
         for (const line of text.split('\n')) {
@@ -238,10 +245,15 @@ class SantanderExtractor extends BankExtractorBase {
         this.transactions = this._correctOcrAmounts(this.transactions);
       }
 
+      console.log(`${TAG} Páginas procesadas: ${pageCount}. Transacciones encontradas: ${this.transactions.length}`);
+
     } catch (err) {
-      console.error(`Error procesando Santander ${this.pdfPath}:`, err.message);
+      console.error(`${TAG} ERROR en extractTransactions():`, err.message);
+      console.error(`${TAG} Stack:`, err.stack);
+      throw err;
     }
 
+    console.log(`${TAG} Fin extractTransactions() — total: ${this.transactions.length} tx`);
     return this.transactions;
   }
 
