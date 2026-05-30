@@ -171,12 +171,49 @@
   border-radius: var(--radius);
   font-size: .9rem;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 8px;
 }
 .statusLoading { background: #e6f0fa; color: var(--primary); }
-.statusOk      { background: #dff6dd; color: var(--success); }
-.statusError   { background: #fde7e9; color: var(--warning); }
+.statusOk      { background: #dff6dd; color: var(--success); flex-direction: row; align-items: center; }
+.statusError   { background: #fde7e9; color: var(--warning); flex-direction: row; align-items: center; }
+
+/* Barra de progreso */
+.progressWrap {
+  width: 100%;
+  height: 6px;
+  background: rgba(0,80,180,.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progressBar {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 3px;
+  transition: width .8s ease;
+  min-width: 4px;
+}
+
+/* Fila spinner + texto + tiempo */
+.loadingRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .9rem;
+}
+.elapsed {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: .85rem;
+  opacity: .8;
+}
+.loadingHint {
+  font-size: .8rem;
+  opacity: .75;
+  margin: 0;
+  padding-top: 2px;
+}
 
 .spinner {
   width: 16px; height: 16px;

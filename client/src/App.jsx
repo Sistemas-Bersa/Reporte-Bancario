@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import FileUploader from './components/FileUploader';
 import ResultsTable from './components/ResultsTable';
 import styles from './App.module.css';
 
-const BANKS     = ['BBVA', 'SANTANDER', 'BANAMEX', 'BAJIO', 'BANORTE'];
+const BANKS      = ['BBVA', 'SANTANDER', 'BANAMEX', 'BAJIO', 'BANORTE'];
 const BANK_COLOR = {
   BBVA:      '#004481',
   SANTANDER: '#ec0000',
@@ -11,8 +11,18 @@ const BANK_COLOR = {
   BAJIO:     '#e8312a',
   BANORTE:   '#e31837'
 };
-
 const BANK_ALIASES = { 'SANTADER': 'SANTANDER', 'SANTANER': 'SANTANDER', 'BNORTE': 'BANORTE' };
+
+// Tiempo estimado de procesamiento por banco (segundos)
+// PDFs escaneados toman más; digitales son rápidos.
+const EST_SECONDS = {
+  BBVA:      15,
+  BANORTE:   20,
+  BANAMEX:   40,
+  BAJIO:     5,
+  SANTANDER: 90,   // puede ser escaneado (hasta 56 págs OCR)
+  DEFAULT:   30
+};
 
 function detectBank(filename) {
   const upper = filename.toUpperCase();
@@ -24,17 +34,61 @@ function detectBank(filename) {
   return null;
 }
 
-export default function App() {
-  const [files, setFiles]           = useState([]);       // [{ file, bank }]
-  const [status, setStatus]         = useState('idle');   // idle|loading|done|error
-  const [statusMsg, setStatusMsg]   = useState('');
-  const [preview, setPreview]       = useState(null);     // { bank, count, transactions }
+// ── Hook: cronómetro ──────────────────────────────────────────────────────────
+function useTimer(running) {
+  const [elapsed, setElapsed] = useState(0);
+  const ref = useRef(null);
 
-  // ── Selección de archivos ─────────────────────────────────────────────────
+  useEffect(() => {
+    if (running) {
+      setElapsed(0);
+      ref.current = setInterval(() => setElapsed(s => s + 1), 1000);
+    } else {
+      clearInterval(ref.current);
+    }
+    return () => clearInterval(ref.current);
+  }, [running]);
+
+  return elapsed;
+}
+
+function fmtTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return m > 0 ? `${m}:${String(s).padStart(2, '0')} min` : `${s} seg`;
+}
+
+// ── Barra de progreso animada ─────────────────────────────────────────────────
+function ProgressBar({ elapsed, estimated }) {
+  // La barra llega al 90% en el tiempo estimado, luego crece lento
+  const pct = Math.min(90, Math.round((elapsed / estimated) * 90));
+  const over = elapsed > estimated;
+
+  return (
+    <div className={styles.progressWrap}>
+      <div
+        className={styles.progressBar}
+        style={{ width: `${over ? 90 + Math.min(9, elapsed - estimated) : pct}%` }}
+      />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+export default function App() {
+  const [files, setFiles]         = useState([]);
+  const [status, setStatus]       = useState('idle');   // idle|loading|done|error
+  const [statusMsg, setStatusMsg] = useState('');
+  const [preview, setPreview]     = useState(null);
+  const [estimated, setEstimated] = useState(30);       // segundos estimados
+
+  const isLoading = status === 'loading';
+  const elapsed   = useTimer(isLoading);
+
+  // ── Selección de archivos ────────────────────────────────────────────────
   function handleFilesSelect(newFiles) {
     const entries = newFiles.map(f => ({ file: f, bank: detectBank(f.name) }));
     setFiles(prev => {
-      // Evitar duplicados por nombre
       const existing = new Set(prev.map(e => e.file.name));
       const added    = entries.filter(e => !existing.has(e.file.name));
       return [...prev, ...added];
@@ -57,8 +111,17 @@ export default function App() {
     setStatusMsg('');
   }
 
-  // ── Vista previa (solo para un archivo) ──────────────────────────────────
+  // ── Calcular tiempo estimado según los archivos seleccionados ────────────
+  function getEstimated(validFiles) {
+    return validFiles.reduce((acc, e) => {
+      const t = EST_SECONDS[e.bank] ?? EST_SECONDS.DEFAULT;
+      return acc + t;
+    }, 0);
+  }
+
+  // ── Vista previa ─────────────────────────────────────────────────────────
   async function handlePreview(entry) {
+    setEstimated(EST_SECONDS[entry.bank] ?? EST_SECONDS.DEFAULT);
     setStatus('loading');
     setStatusMsg(`Extrayendo: ${entry.file.name}…`);
     setPreview(null);
@@ -73,14 +136,14 @@ export default function App() {
 
       setPreview(data);
       setStatus('done');
-      setStatusMsg(`Vista previa: ${data.count} transacciones encontradas en ${entry.file.name}`);
+      setStatusMsg(`Vista previa: ${data.count} transacciones en ${entry.file.name}`);
     } catch (err) {
       setStatus('error');
       setStatusMsg(err.message);
     }
   }
 
-  // ── Procesar todos → ZIP (o xlsx si es uno solo) ─────────────────────────
+  // ── Descargar Excel / ZIP ────────────────────────────────────────────────
   async function handleDownloadAll() {
     if (!files.length) return;
     const validFiles = files.filter(e => e.bank);
@@ -90,6 +153,7 @@ export default function App() {
       return;
     }
 
+    setEstimated(getEstimated(validFiles));
     setStatus('loading');
     setStatusMsg(`Procesando ${validFiles.length} archivo(s)…`);
     setPreview(null);
@@ -100,24 +164,20 @@ export default function App() {
 
       const res = await fetch('/api/bank-extractor/extract-multiple', {
         method: 'POST',
-        body: form
+        body:   form
       });
 
       if (!res.ok) {
         let errorMsg = `Error del servidor (${res.status})`;
-        try {
-          const data = await res.json();
-          errorMsg = data.error || errorMsg;
-        } catch { /* respuesta no era JSON */ }
+        try { const d = await res.json(); errorMsg = d.error || errorMsg; } catch {}
         throw new Error(errorMsg);
       }
 
       const blob        = await res.blob();
       const isZip       = blob.type === 'application/zip';
-      const ext         = isZip ? '.zip' : '.xlsx';
-      const defaultName = isZip ? 'estados_de_cuenta.zip'
-                                : validFiles[0].file.name.replace('.pdf', '.xlsx');
-
+      const defaultName = isZip
+        ? 'estados_de_cuenta.zip'
+        : validFiles[0].file.name.replace('.pdf', '.xlsx');
       const cd       = res.headers.get('Content-Disposition') || '';
       const match    = cd.match(/filename="?([^"]+)"?/);
       const fileName = match ? match[1] : defaultName;
@@ -129,9 +189,8 @@ export default function App() {
       a.click();
       URL.revokeObjectURL(url);
 
-      const label = isZip ? `ZIP con ${validFiles.length} archivos descargado` : 'Excel descargado';
       setStatus('done');
-      setStatusMsg(`✅ ${label}`);
+      setStatusMsg(`✅ ${isZip ? `ZIP con ${validFiles.length} archivos` : 'Excel'} descargado`);
     } catch (err) {
       setStatus('error');
       setStatusMsg(err.message);
@@ -140,7 +199,6 @@ export default function App() {
 
   const validCount   = files.filter(e => e.bank).length;
   const invalidCount = files.filter(e => !e.bank).length;
-  const isLoading    = status === 'loading';
 
   return (
     <div className={styles.layout}>
@@ -154,8 +212,6 @@ export default function App() {
       </header>
 
       <main className={styles.main}>
-
-        {/* ── Card carga ── */}
         <div className={styles.card}>
           <h2 className={styles.cardTitle}>Cargar estados de cuenta</h2>
           <p className={styles.cardDesc}>
@@ -164,7 +220,7 @@ export default function App() {
 
           <FileUploader onFilesSelect={handleFilesSelect} disabled={isLoading} />
 
-          {/* Lista de archivos seleccionados */}
+          {/* Lista de archivos */}
           {files.length > 0 && (
             <div className={styles.fileList}>
               <div className={styles.fileListHeader}>
@@ -177,37 +233,24 @@ export default function App() {
               {files.map((entry, i) => (
                 <div key={entry.file.name + i} className={styles.fileRow}>
                   <span className={styles.fileRowIcon}>📄</span>
-
                   {entry.bank
                     ? <span className={styles.bankTag} style={{ background: BANK_COLOR[entry.bank] }}>
                         {entry.bank}
                       </span>
                     : <span className={styles.bankTagWarn}>⚠ Sin banco</span>
                   }
-
                   <span className={styles.fileRowName} title={entry.file.name}>
                     {entry.file.name}
                   </span>
-
                   <div className={styles.fileRowActions}>
                     {entry.bank && (
-                      <button
-                        className={styles.btnPreview}
+                      <button className={styles.btnPreview}
                         onClick={() => handlePreview(entry)}
-                        disabled={isLoading}
-                        title="Vista previa de transacciones"
-                      >
-                        👁
-                      </button>
+                        disabled={isLoading} title="Vista previa">👁</button>
                     )}
-                    <button
-                      className={styles.btnRemove}
+                    <button className={styles.btnRemove}
                       onClick={() => removeFile(i)}
-                      disabled={isLoading}
-                      title="Quitar archivo"
-                    >
-                      ✕
-                    </button>
+                      disabled={isLoading} title="Quitar">✕</button>
                   </div>
                 </div>
               ))}
@@ -223,45 +266,43 @@ export default function App() {
           {/* Botón principal */}
           {validCount > 0 && (
             <div className={styles.actions}>
-              <button
-                className={styles.btnPrimary}
-                onClick={handleDownloadAll}
-                disabled={isLoading}
-              >
+              <button className={styles.btnPrimary}
+                onClick={handleDownloadAll} disabled={isLoading}>
                 {isLoading
                   ? '⏳ Procesando…'
                   : validCount === 1
                     ? '⬇ Descargar Excel'
-                    : `⬇ Procesar ${validCount} archivos → ZIP`
-                }
+                    : `⬇ Procesar ${validCount} archivos → ZIP`}
               </button>
             </div>
           )}
 
-          {/* Estado */}
-          {status === 'loading' && (
+          {/* ── Estado de carga con progreso ── */}
+          {isLoading && (
             <div className={styles.statusLoading}>
-              <span className={styles.spinner} /> {statusMsg}
+              <ProgressBar elapsed={elapsed} estimated={estimated} />
+              <div className={styles.loadingRow}>
+                <span className={styles.spinner} />
+                <span>{statusMsg}</span>
+                <span className={styles.elapsed}>{fmtTime(elapsed)}</span>
+              </div>
+              {elapsed > 15 && (
+                <p className={styles.loadingHint}>
+                  ⏱ PDFs escaneados pueden tardar hasta {fmtTime(estimated)} — no cierres la pestaña.
+                </p>
+              )}
             </div>
           )}
-          {status === 'done' && (
-            <div className={styles.statusOk}>{statusMsg}</div>
-          )}
-          {status === 'error' && (
-            <div className={styles.statusError}>❌ {statusMsg}</div>
-          )}
+          {status === 'done'  && <div className={styles.statusOk}>{statusMsg}</div>}
+          {status === 'error' && <div className={styles.statusError}>❌ {statusMsg}</div>}
         </div>
 
-        {/* ── Vista previa ── */}
+        {/* Vista previa */}
         {preview && (
           <div className={styles.card}>
-            <ResultsTable
-              transactions={preview.transactions}
-              bank={preview.bank}
-            />
+            <ResultsTable transactions={preview.transactions} bank={preview.bank} />
           </div>
         )}
-
       </main>
     </div>
   );
