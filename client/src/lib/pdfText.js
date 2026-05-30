@@ -10,7 +10,7 @@
 
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
 import pdfWorkerUrl from 'pdfjs-dist/legacy/build/pdf.worker.min.js?url';
-import { createWorker } from 'tesseract.js';
+import { createWorker, createScheduler } from 'tesseract.js';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 
@@ -18,8 +18,16 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 // se considera escaneada y se manda a OCR.
 const MIN_DIGITAL_CHARS = 50;
 
-// Escala de render para OCR. PDF base = 72dpi; ×2 ≈ 144dpi (buena precisión).
-const OCR_SCALE = 2;
+// Escala de render para OCR. PDF base = 72dpi; ×1.5 ≈ 108dpi.
+// Suficiente para estados de cuenta y ~1.8× más rápido que ×2.
+const OCR_SCALE = 1.5;
+
+// Nº de workers Tesseract en paralelo. Se ajusta a los cores del dispositivo,
+// dejando uno libre para la UI. Tope de 4 para no saturar memoria del navegador.
+const OCR_CONCURRENCY = Math.max(
+  2,
+  Math.min(4, (navigator.hardwareConcurrency || 4) - 1)
+);
 
 /**
  * Reconstruye el texto de una página preservando el espaciado de columnas.
@@ -79,19 +87,34 @@ function reconstructText(textContent) {
   return lines.join('\n');
 }
 
-// Worker Tesseract compartido (lazy) — se crea una vez por sesión.
-let _ocrWorker = null;
-async function getOcrWorker() {
-  if (_ocrWorker) return _ocrWorker;
-  _ocrWorker = await createWorker('spa');
-  return _ocrWorker;
+// Scheduler Tesseract compartido (lazy) con un pool de workers para procesar
+// varias páginas en paralelo. Se crea una vez por sesión y se reutiliza.
+let _scheduler  = null;
+let _schedInit  = null;
+
+async function getScheduler() {
+  if (_scheduler) return _scheduler;
+  if (_schedInit) return _schedInit;          // evitar doble init concurrente
+
+  _schedInit = (async () => {
+    const scheduler = createScheduler();
+    const workers = await Promise.all(
+      Array.from({ length: OCR_CONCURRENCY }, () => createWorker('spa'))
+    );
+    workers.forEach(w => scheduler.addWorker(w));
+    _scheduler = scheduler;
+    return scheduler;
+  })();
+
+  return _schedInit;
 }
 
-/** Libera el worker Tesseract (opcional, al terminar todo). */
+/** Libera el pool de workers Tesseract (opcional, al terminar todo). */
 export async function terminateOcr() {
-  if (_ocrWorker) {
-    try { await _ocrWorker.terminate(); } catch { /* noop */ }
-    _ocrWorker = null;
+  if (_scheduler) {
+    try { await _scheduler.terminate(); } catch { /* noop */ }
+    _scheduler = null;
+    _schedInit = null;
   }
 }
 
@@ -121,30 +144,54 @@ export async function extractFilePages(file, onProgress = () => {}) {
   const total = doc.numPages;
 
   const pages   = new Array(total).fill('');
+  const ocrJobs = [];   // índices de páginas que requieren OCR
   let   usedOcr = false;
 
   try {
+    // ── Paso 1: texto digital de todas las páginas (rápido, secuencial) ──────
     for (let i = 0; i < total; i++) {
       const page = await doc.getPage(i + 1);
       const tc   = await page.getTextContent();
       const text = reconstructText(tc);
+      await page.cleanup();
 
       if (text.trim().length >= MIN_DIGITAL_CHARS) {
-        // Página con texto digital → no requiere OCR
         pages[i] = text;
-        onProgress({ page: i + 1, total, phase: 'text' });
       } else {
-        // Página escaneada → OCR en el navegador
-        usedOcr = true;
-        onProgress({ page: i + 1, total, phase: 'ocr' });
-        const canvas = await renderPageToCanvas(page, OCR_SCALE);
-        const worker = await getOcrWorker();
-        const { data: { text: ocrText } } = await worker.recognize(canvas);
-        pages[i] = ocrText || '';
-        // Liberar el canvas
-        canvas.width = canvas.height = 0;
+        ocrJobs.push(i);
       }
-      await page.cleanup();
+    }
+
+    // ── Paso 2: OCR con CONCURRENCIA ACOTADA (render + recognize por slot) ────
+    // Limitar a OCR_CONCURRENCY slots evita tener 56 canvas en memoria a la vez:
+    // cada slot renderiza una página, la OCRea y pasa a la siguiente.
+    if (ocrJobs.length > 0) {
+      usedOcr = true;
+      const scheduler = await getScheduler();
+
+      let done = 0;
+      let next = 0;
+      onProgress({ page: 0, total: ocrJobs.length, phase: 'ocr' });
+
+      async function runSlot() {
+        while (next < ocrJobs.length) {
+          const i = ocrJobs[next++];
+          const page   = await doc.getPage(i + 1);
+          const canvas = await renderPageToCanvas(page, OCR_SCALE);
+          await page.cleanup();
+
+          const { data: { text: ocrText } } = await scheduler.addJob('recognize', canvas);
+          pages[i] = ocrText || '';
+          canvas.width = canvas.height = 0;   // liberar memoria
+
+          done++;
+          onProgress({ page: done, total: ocrJobs.length, phase: 'ocr' });
+        }
+      }
+
+      await Promise.all(
+        Array.from({ length: Math.min(OCR_CONCURRENCY, ocrJobs.length) }, runSlot)
+      );
     }
   } finally {
     await doc.destroy().catch(() => {});

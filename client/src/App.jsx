@@ -124,8 +124,11 @@ export default function App() {
   // ── Progreso de OCR en navegador ─────────────────────────────────────────
   function makeProgress(fileName) {
     return ({ page, total, phase }) => {
-      const tag = phase === 'ocr' ? '🔍 OCR' : '📄 Texto';
-      setStatusMsg(`${tag} ${fileName} — página ${page}/${total}`);
+      if (phase === 'ocr') {
+        setStatusMsg(`🔍 OCR ${fileName} — ${page}/${total} páginas escaneadas`);
+      } else {
+        setStatusMsg(`📄 Leyendo ${fileName}…`);
+      }
     };
   }
 
