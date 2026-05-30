@@ -53,13 +53,13 @@ function detectBank(filename) {
  * @param {string} pdfPath  Ruta absoluta al PDF
  * @returns {Promise<object[]>}  Array de transacciones
  */
-async function extractTransactions(pdfPath) {
+async function extractTransactions(pdfPath, logger = console.log) {
   const bankKey = detectBank(pdfPath);
   if (!bankKey) {
     throw new Error(`No se pudo detectar el banco para: ${path.basename(pdfPath)}`);
   }
   const ExtractorClass = BANK_MAP[bankKey];
-  const extractor = new ExtractorClass(pdfPath);
+  const extractor = new ExtractorClass(pdfPath, logger);
   return extractor.extractTransactions();
 }
 

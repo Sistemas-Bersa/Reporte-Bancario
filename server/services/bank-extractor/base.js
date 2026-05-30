@@ -3,12 +3,13 @@
 const fs = require('fs');
 
 class BankExtractorBase {
-  constructor(pdfPath) {
+  constructor(pdfPath, logger = console.log) {
     this.pdfPath = pdfPath;
     this.transactions = [];
     this.usedOcr = false;
     this.onOcrCallback = null;
     this.onOcrPageCallback = null;
+    this._log = (...args) => logger('[bank-extractor]', ...args);
 
     if (!fs.existsSync(pdfPath)) {
       throw new Error(`El archivo no existe: ${pdfPath}`);
@@ -17,32 +18,32 @@ class BankExtractorBase {
 
   async *iteratePages() {
     const TAG = `[base][${require('path').basename(this.pdfPath)}]`;
-    console.log(`${TAG} iteratePages() — cargando pdfjs-dist…`);
+    this._log(`${TAG} iteratePages() — cargando pdfjs-dist…`);
 
     let pdfjsLib;
     try {
       pdfjsLib = require('pdfjs-dist/legacy/build/pdf.js');
-      console.log(`${TAG} pdfjs-dist cargado OK`);
+      this._log(`${TAG} pdfjs-dist cargado OK`);
     } catch (e) {
-      console.error(`${TAG} ERROR al cargar pdfjs-dist:`, e.message, e.stack);
+      this._log(`${TAG} ERROR al cargar pdfjs-dist: ${e.message} ${e.stack}`);
       throw e;
     }
 
     let data;
     try {
       data = new Uint8Array(fs.readFileSync(this.pdfPath));
-      console.log(`${TAG} Archivo leído: ${data.length} bytes`);
+      this._log(`${TAG} Archivo leído: ${data.length} bytes`);
     } catch (e) {
-      console.error(`${TAG} ERROR al leer el archivo:`, e.message);
+      this._log(`${TAG} ERROR al leer el archivo: ${e.message}`);
       throw e;
     }
 
     let doc;
     try {
       doc = await pdfjsLib.getDocument({ data }).promise;
-      console.log(`${TAG} PDF abierto: ${doc.numPages} páginas`);
+      this._log(`${TAG} PDF abierto: ${doc.numPages} páginas`);
     } catch (e) {
-      console.error(`${TAG} ERROR en getDocument():`, e.message, e.stack);
+      this._log(`${TAG} ERROR en getDocument(): ${e.message} ${e.stack}`);
       throw e;
     }
 
@@ -61,42 +62,42 @@ class BankExtractorBase {
         const len = text.trim().length;
         if (len < 50) {
           ocrIndexes.push(i);
-          console.log(`${TAG} Página ${i + 1}: texto digital insuficiente (${len} chars) → OCR pendiente`);
+          this._log(`${TAG} Página ${i + 1}: texto digital insuficiente (${len} chars) → OCR pendiente`);
         } else {
-          console.log(`${TAG} Página ${i + 1}: ${len} chars de texto digital`);
+          this._log(`${TAG} Página ${i + 1}: ${len} chars de texto digital`);
         }
       } catch (e) {
-        console.error(`${TAG} ERROR en página ${i + 1}:`, e.message);
+        this._log(`${TAG} ERROR en página ${i + 1}: ${e.message}`);
         throw e;
       }
     }
     await doc.destroy();
-    console.log(`${TAG} PDF liberado. Páginas OCR necesarias: ${ocrIndexes.length}`);
+    this._log(`${TAG} PDF liberado. Páginas OCR necesarias: ${ocrIndexes.length}`);
 
     // ── Paso 2: OCR en paralelo (lotes de 4 páginas) — ~4x más rápido ───────
     if (ocrIndexes.length > 0) {
       this.usedOcr = true;
-      console.log(`${TAG} OCR activado: ${ocrIndexes.length} páginas escaneadas`);
+      this._log(`${TAG} OCR activado: ${ocrIndexes.length} páginas escaneadas`);
       if (this.onOcrCallback) this.onOcrCallback();
 
       let ocrPage, terminateOcrWorker;
       try {
         ({ ocrPage, terminateOcrWorker } = require('./ocr-utils'));
-        console.log(`${TAG} ocr-utils cargado OK`);
+        this._log(`${TAG} ocr-utils cargado OK`);
       } catch (e) {
-        console.error(`${TAG} ERROR al cargar ocr-utils:`, e.message, e.stack);
+        this._log(`${TAG} ERROR al cargar ocr-utils: ${e.message} ${e.stack}`);
         throw e;
       }
 
       // En Azure Functions: batch=1 (1 página a la vez) para no exceder RAM.
       // Local: batch=4 (~4× más rápido).
       const BATCH = process.env.FUNCTIONS_WORKER_RUNTIME ? 1 : 4;
-      console.log(`${TAG} BATCH OCR = ${BATCH} (FUNCTIONS_WORKER_RUNTIME=${process.env.FUNCTIONS_WORKER_RUNTIME || 'no'})`);
+      this._log(`${TAG} BATCH OCR = ${BATCH} (FUNCTIONS_WORKER_RUNTIME=${process.env.FUNCTIONS_WORKER_RUNTIME || 'no'})`);
 
       try {
         for (let b = 0; b < ocrIndexes.length; b += BATCH) {
           const batch = ocrIndexes.slice(b, b + BATCH);
-          console.log(`${TAG} OCR páginas ${batch.map(x => x + 1).join(', ')} / ${totalPages}…`);
+          this._log(`${TAG} OCR páginas ${batch.map(x => x + 1).join(', ')} / ${totalPages}…`);
 
           let results;
           try {
@@ -108,17 +109,17 @@ class BankExtractorBase {
             );
             batch.forEach((idx, j) => {
               pageTexts[idx] = results[j];
-              console.log(`${TAG} OCR página ${idx + 1}: ${(results[j] || '').trim().length} chars`);
+              this._log(`${TAG} OCR página ${idx + 1}: ${(results[j] || '').trim().length} chars`);
             });
           } catch (e) {
-            console.error(`${TAG} ERROR en OCR batch [${batch.map(x => x + 1).join(',')}]:`, e.message, e.stack);
+            this._log(`${TAG} ERROR en OCR batch [${batch.map(x => x + 1).join(',')}]: ${e.message} ${e.stack}`);
             throw e;
           }
         }
       } finally {
         // Liberar el worker Tesseract al terminar todo el lote
         await terminateOcrWorker();
-        console.log(`${TAG} Worker Tesseract terminado`);
+        this._log(`${TAG} Worker Tesseract terminado`);
       }
     }
 

@@ -150,7 +150,7 @@ app.http('extractMultiple', {
 
           step = 'extract-transactions';
           log('Extrayendo transacciones…');
-          const transactions = await extractTransactions(tempPath);
+          const transactions = await extractTransactions(tempPath, context.log.bind(context));
           log(`Transacciones extraídas: ${transactions.length}`);
 
           if (!transactions.length) {
