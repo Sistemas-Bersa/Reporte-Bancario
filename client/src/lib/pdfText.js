@@ -22,11 +22,12 @@ const MIN_DIGITAL_CHARS = 50;
 // Suficiente para estados de cuenta y ~1.8× más rápido que ×2.
 const OCR_SCALE = 1.5;
 
-// Nº de workers Tesseract en paralelo. Se ajusta a los cores del dispositivo,
-// dejando uno libre para la UI. Tope de 4 para no saturar memoria del navegador.
-const OCR_CONCURRENCY = Math.max(
+// Nº MÁXIMO de workers Tesseract en paralelo. Se ajusta a los cores del
+// dispositivo, dejando uno libre para la UI. Cada worker carga ~30 MB de WASM,
+// así que topamos en 6 para no saturar la memoria del navegador.
+const OCR_MAX_WORKERS = Math.max(
   2,
-  Math.min(4, (navigator.hardwareConcurrency || 4) - 1)
+  Math.min(6, (navigator.hardwareConcurrency || 4) - 1)
 );
 
 /**
@@ -127,32 +128,45 @@ export async function detectBankFromContent(file) {
 
 // Scheduler Tesseract compartido (lazy) con un pool de workers para procesar
 // varias páginas en paralelo. Se crea una vez por sesión y se reutiliza.
-let _scheduler  = null;
-let _schedInit  = null;
+let _scheduler   = null;
+let _workerCount = 0;
+let _growLock    = null;   // serializa el crecimiento del pool
 
-async function getScheduler() {
-  if (_scheduler) return _scheduler;
-  if (_schedInit) return _schedInit;          // evitar doble init concurrente
+/**
+ * Devuelve el scheduler asegurando que tenga al menos `want` workers
+ * (tope OCR_MAX_WORKERS). Crea los workers de forma incremental: un PDF con
+ * pocas páginas escaneadas no levanta 6 cores; uno grande sí escala.
+ */
+async function getScheduler(want = 1) {
+  const target = Math.min(OCR_MAX_WORKERS, Math.max(1, want));
 
-  _schedInit = (async () => {
-    const scheduler = createScheduler();
-    const workers = await Promise.all(
-      Array.from({ length: OCR_CONCURRENCY }, () => createWorker('spa'))
-    );
-    workers.forEach(w => scheduler.addWorker(w));
-    _scheduler = scheduler;
-    return scheduler;
-  })();
+  if (!_scheduler) _scheduler = createScheduler();
 
-  return _schedInit;
+  // Serializar para no crear de más si se llama en paralelo
+  while (_growLock) await _growLock;
+
+  if (_workerCount < target) {
+    _growLock = (async () => {
+      const toAdd = target - _workerCount;
+      const newWorkers = await Promise.all(
+        Array.from({ length: toAdd }, () => createWorker('spa'))
+      );
+      newWorkers.forEach(w => _scheduler.addWorker(w));
+      _workerCount += newWorkers.length;
+    })();
+    try { await _growLock; } finally { _growLock = null; }
+  }
+
+  return _scheduler;
 }
 
 /** Libera el pool de workers Tesseract (opcional, al terminar todo). */
 export async function terminateOcr() {
   if (_scheduler) {
     try { await _scheduler.terminate(); } catch { /* noop */ }
-    _scheduler = null;
-    _schedInit = null;
+    _scheduler   = null;
+    _workerCount = 0;
+    _growLock    = null;
   }
 }
 
@@ -201,11 +215,13 @@ export async function extractFilePages(file, onProgress = () => {}) {
     }
 
     // ── Paso 2: OCR con CONCURRENCIA ACOTADA (render + recognize por slot) ────
-    // Limitar a OCR_CONCURRENCY slots evita tener 56 canvas en memoria a la vez:
-    // cada slot renderiza una página, la OCRea y pasa a la siguiente.
+    // Nº de slots = nº de páginas a OCR, topado en OCR_MAX_WORKERS. Así un PDF
+    // con 2 páginas escaneadas usa 2 workers, y uno de 56 usa el máximo.
+    // Limitar los slots evita además tener decenas de canvas en memoria a la vez.
     if (ocrJobs.length > 0) {
       usedOcr = true;
-      const scheduler = await getScheduler();
+      const slots     = Math.min(OCR_MAX_WORKERS, ocrJobs.length);
+      const scheduler = await getScheduler(slots);
 
       let done = 0;
       let next = 0;
@@ -227,9 +243,7 @@ export async function extractFilePages(file, onProgress = () => {}) {
         }
       }
 
-      await Promise.all(
-        Array.from({ length: Math.min(OCR_CONCURRENCY, ocrJobs.length) }, runSlot)
-      );
+      await Promise.all(Array.from({ length: slots }, runSlot));
     }
   } finally {
     await doc.destroy().catch(() => {});

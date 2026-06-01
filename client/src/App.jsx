@@ -258,6 +258,9 @@ export default function App() {
     setStatusMsg(`Procesando ${validFiles.length} archivo(s)…`);
     setPreview(null);
 
+    const t0 = Date.now();
+    const fmtDone = () => fmtTime(Math.round((Date.now() - t0) / 1000));
+
     try {
       const xlsxResults = [];   // { name, blob }
       const errors      = [];   // { name, error }
@@ -283,7 +286,7 @@ export default function App() {
       if (xlsxResults.length === 1 && !errors.length) {
         triggerDownload(xlsxResults[0].blob, xlsxResults[0].name);
         setStatus('done');
-        setStatusMsg('✅ Excel descargado');
+        setStatusMsg(`✅ Excel descargado en ${fmtDone()}`);
       } else {
         setStatusMsg('Empaquetando ZIP…');
         const zip = new JSZip();
@@ -295,7 +298,7 @@ export default function App() {
         triggerDownload(zipBlob, 'estados_de_cuenta.zip');
         setStatus('done');
         setStatusMsg(
-          `✅ ZIP con ${xlsxResults.length} archivo(s)` +
+          `✅ ZIP con ${xlsxResults.length} archivo(s) en ${fmtDone()}` +
           (errors.length ? ` (${errors.length} con error)` : '')
         );
       }
