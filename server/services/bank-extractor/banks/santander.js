@@ -243,6 +243,9 @@ class SantanderExtractor extends BankExtractorBase {
       // Para PDFs escaneados: corregir montos que OCR confundió con el saldo
       if (this.usedOcr && this.transactions.length > 0) {
         this.transactions = this._correctOcrAmounts(this.transactions);
+        // Reclasificar depósito/retiro por el delta del SALDO corrido: señal
+        // robusta ante la confusión de columnas típica del OCR.
+        this.transactions = this._classifyBySaldo(this.transactions);
       }
 
       this._log(`${TAG} Páginas procesadas: ${pageCount}. Transacciones encontradas: ${this.transactions.length}`);
@@ -255,6 +258,60 @@ class SantanderExtractor extends BankExtractorBase {
 
     this._log(`${TAG} Fin extractTransactions() — total: ${this.transactions.length} tx`);
     return this.transactions;
+  }
+
+  /**
+   * Reclasifica depósito/retiro usando el delta del SALDO corrido.
+   *
+   * Problema: en escaneos, el OCR pierde el espaciado de columnas y el parser
+   * a veces pone un monto en la columna equivocada (retiro↔depósito).
+   * Señal robusta: si el SALDO de la fila SUBE respecto al anterior → fue un
+   * DEPÓSITO; si BAJA → fue un RETIRO, por el monto de la diferencia.
+   *
+   * Estrategia conservadora:
+   *  - Sólo reasigna la COLUMNA (signo) según el delta; conserva el monto
+   *    capturado si coincide con |delta| dentro de tolerancia.
+   *  - Si el monto capturado no coincide con |delta|, usa |delta| (el saldo
+   *    corrido suele ser más confiable que un monto suelto mal leído).
+   *  - Si no hay saldo válido (fila o anterior), deja la fila como estaba.
+   */
+  _classifyBySaldo(transactions) {
+    let prevSaldo = null;
+    let reclasificados = 0;
+
+    for (const tx of transactions) {
+      const cur    = toFloat(tx['SALDO']);
+      const hasCur = !!tx['SALDO'] && cur > 0;
+
+      if (prevSaldo !== null && hasCur) {
+        const delta = cur - prevSaldo;
+        if (Math.abs(delta) >= 0.01) {
+          const M       = toFloat(tx['MONTO DEPOSITOS']) || toFloat(tx['MONTO RETIROS']);
+          // Si el monto capturado cuadra con |delta| (±1%), conservarlo; si no, usar |delta|
+          const tol     = Math.max(0.5, Math.abs(delta) * 0.01);
+          const amount  = (M > 0 && Math.abs(M - Math.abs(delta)) <= tol) ? M : Math.abs(delta);
+
+          const eraDeposito = !!tx['MONTO DEPOSITOS'];
+          const debeDeposito = delta > 0;
+          if (eraDeposito !== debeDeposito) reclasificados++;
+
+          if (debeDeposito) {
+            tx['MONTO DEPOSITOS'] = formatAmount(amount);
+            tx['MONTO RETIROS']   = '';
+          } else {
+            tx['MONTO RETIROS']   = formatAmount(amount);
+            tx['MONTO DEPOSITOS'] = '';
+          }
+        }
+      }
+
+      if (hasCur) prevSaldo = cur;
+    }
+
+    if (reclasificados > 0) {
+      this._log(`  [saldo-fix] ${reclasificados} fila(s) reclasificadas por delta de saldo.`);
+    }
+    return transactions;
   }
 
   /**
