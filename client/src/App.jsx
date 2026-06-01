@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import JSZip from 'jszip';
 import FileUploader from './components/FileUploader';
 import ResultsTable from './components/ResultsTable';
-import { extractFilePages } from './lib/pdfText';
+import { extractFilePages, detectBankFromContent } from './lib/pdfText';
 import styles from './App.module.css';
 
 const BANKS      = ['BBVA', 'SANTANDER', 'BANAMEX', 'BAJIO', 'BANORTE'];
@@ -94,15 +94,50 @@ export default function App() {
 
   // ── Selección de archivos ────────────────────────────────────────────────
   function handleFilesSelect(newFiles) {
-    const entries = newFiles.map(f => ({ file: f, bank: detectBank(f.name) }));
+    // 1) Detección inmediata por nombre. `source` indica de dónde salió el banco.
+    const entries = newFiles.map(f => {
+      const byName = detectBank(f.name);
+      return {
+        file:   f,
+        bank:   byName || '',
+        source: byName ? 'nombre' : 'pendiente',   // nombre | contenido | manual | pendiente
+        manual: false                               // true si el usuario lo eligió
+      };
+    });
+
+    let addedFiles = [];
     setFiles(prev => {
       const existing = new Set(prev.map(e => e.file.name));
-      const added    = entries.filter(e => !existing.has(e.file.name));
-      return [...prev, ...added];
+      addedFiles     = entries.filter(e => !existing.has(e.file.name));
+      return [...prev, ...addedFiles];
     });
     setStatus('idle');
     setStatusMsg('');
     setPreview(null);
+
+    // 2) Detección por CONTENIDO en segundo plano (no bloquea la UI).
+    //    Sólo rellena si el usuario no lo ha puesto manualmente.
+    for (const entry of addedFiles) {
+      detectBankFromContent(entry.file).then(byContent => {
+        if (!byContent) return;
+        setFiles(prev => prev.map(e => {
+          if (e.file.name !== entry.file.name) return e;
+          if (e.manual) return e;                 // respetar elección manual
+          // El contenido es más confiable que el nombre → actualiza si difiere
+          if (e.bank === byContent && e.source === 'nombre') return e;
+          return { ...e, bank: byContent, source: 'contenido' };
+        }));
+      }).catch(() => {});
+    }
+  }
+
+  // ── Cambio manual de banco desde el dropdown ──────────────────────────────
+  function setBankForFile(index, bank) {
+    setFiles(prev => prev.map((e, i) =>
+      i === index ? { ...e, bank, source: bank ? 'manual' : 'pendiente', manual: !!bank } : e
+    ));
+    setStatus('idle');
+    setStatusMsg('');
   }
 
   function removeFile(index) {
@@ -148,12 +183,13 @@ export default function App() {
       res = await fetch('/api/bank-extractor/extract-from-text', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ filename: entry.file.name, pages, usedOcr })
+        body:    JSON.stringify({ filename: entry.file.name, pages, usedOcr, bank: entry.bank })
       });
     } else {
       setStatusMsg(`Procesando en servidor: ${entry.file.name}…`);
       const form = new FormData();
       form.append('pdf', entry.file);
+      form.append('bank', entry.bank);
       res = await fetch('/api/bank-extractor/extract', { method: 'POST', body: form });
     }
 
@@ -184,7 +220,7 @@ export default function App() {
         const res = await fetch('/api/bank-extractor/preview-from-text', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ filename: entry.file.name, pages, usedOcr })
+          body:    JSON.stringify({ filename: entry.file.name, pages, usedOcr, bank: entry.bank })
         });
         data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Error desconocido');
@@ -192,6 +228,7 @@ export default function App() {
         setStatusMsg(`Procesando en servidor: ${entry.file.name}…`);
         const form = new FormData();
         form.append('pdf', entry.file);
+        form.append('bank', entry.bank);
         const res = await fetch('/api/bank-extractor/preview', { method: 'POST', body: form });
         data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Error desconocido');
@@ -314,12 +351,35 @@ export default function App() {
               {files.map((entry, i) => (
                 <div key={entry.file.name + i} className={styles.fileRow}>
                   <span className={styles.fileRowIcon}>📄</span>
-                  {entry.bank
-                    ? <span className={styles.bankTag} style={{ background: BANK_COLOR[entry.bank] }}>
-                        {entry.bank}
+
+                  {/* Selector de banco — precargado por nombre/contenido, editable */}
+                  <span
+                    className={styles.bankSelectWrap}
+                    style={{ borderColor: entry.bank ? BANK_COLOR[entry.bank] : '#d33' }}
+                  >
+                    <select
+                      className={styles.bankSelect}
+                      style={entry.bank ? { color: BANK_COLOR[entry.bank], fontWeight: 700 } : { color: '#d33' }}
+                      value={entry.bank}
+                      disabled={isLoading}
+                      onChange={e => setBankForFile(i, e.target.value)}
+                      title={
+                        entry.source === 'contenido' ? 'Detectado por el contenido del PDF'
+                        : entry.source === 'nombre'   ? 'Detectado por el nombre del archivo'
+                        : entry.source === 'manual'   ? 'Elegido manualmente'
+                        : 'Selecciona el banco'
+                      }
+                    >
+                      <option value="">⚠ Elegir banco…</option>
+                      {BANKS.map(b => <option key={b} value={b}>{b}</option>)}
+                    </select>
+                    {entry.source && entry.source !== 'pendiente' && (
+                      <span className={styles.bankSource}>
+                        {entry.source === 'contenido' ? '🔎' : entry.source === 'manual' ? '✋' : '🏷️'}
                       </span>
-                    : <span className={styles.bankTagWarn}>⚠ Sin banco</span>
-                  }
+                    )}
+                  </span>
+
                   <span className={styles.fileRowName} title={entry.file.name}>
                     {entry.file.name}
                   </span>
@@ -338,7 +398,7 @@ export default function App() {
 
               {invalidCount > 0 && (
                 <p className={styles.warnMsg}>
-                  ⚠ {invalidCount} archivo(s) sin banco identificado serán omitidos.
+                  ⚠ {invalidCount} archivo(s) sin banco — elige el banco en el menú para incluirlos.
                 </p>
               )}
             </div>

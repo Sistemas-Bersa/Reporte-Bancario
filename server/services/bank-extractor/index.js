@@ -53,8 +53,16 @@ function detectBank(filename) {
  * @param {string} pdfPath  Ruta absoluta al PDF
  * @returns {Promise<object[]>}  Array de transacciones
  */
-async function extractTransactions(pdfPath, logger = console.log) {
-  const bankKey = detectBank(pdfPath);
+// Resuelve el banco: usa el override si es válido, si no detecta por nombre.
+function resolveBank(nameOrPath, override) {
+  if (override && BANK_MAP[String(override).toUpperCase()]) {
+    return String(override).toUpperCase();
+  }
+  return detectBank(nameOrPath);
+}
+
+async function extractTransactions(pdfPath, logger = console.log, bankOverride = null) {
+  const bankKey = resolveBank(pdfPath, bankOverride);
   if (!bankKey) {
     throw new Error(`No se pudo detectar el banco para: ${path.basename(pdfPath)}`);
   }
@@ -74,8 +82,8 @@ async function extractTransactions(pdfPath, logger = console.log) {
  * @returns {Promise<object[]>}
  */
 async function extractTransactionsFromText(filename, pageTexts, opts = {}) {
-  const { usedOcr = false, logger = console.log } = opts;
-  const bankKey = detectBank(filename);
+  const { usedOcr = false, logger = console.log, bank = null } = opts;
+  const bankKey = resolveBank(filename, bank);
   if (!bankKey) {
     throw new Error(`No se pudo detectar el banco para: ${path.basename(filename)}`);
   }
@@ -161,6 +169,7 @@ function _buildWorkbook(transactions) {
 
 module.exports = {
   detectBank,
+  resolveBank,
   extractTransactions,
   extractTransactionsFromText,
   exportToFile,

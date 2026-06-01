@@ -87,6 +87,44 @@ function reconstructText(textContent) {
   return lines.join('\n');
 }
 
+// Palabras clave para detectar el banco por el CONTENIDO del PDF (emisor).
+// Orden = prioridad. Sólo usa texto digital de las primeras páginas (rápido);
+// para PDFs escaneados sin texto, se cae al nombre del archivo / selector manual.
+const BANK_CONTENT_KEYWORDS = [
+  ['BBVA',      ['BBVA', 'BANCOMER']],
+  ['SANTANDER', ['SANTANDER']],
+  ['BANAMEX',   ['CITIBANAMEX', 'BANAMEX', 'BANCO NACIONAL DE MEXICO']],
+  ['BAJIO',     ['BANBAJIO', 'BANCO DEL BAJIO', 'BAJIO']],
+  ['BANORTE',   ['BANORTE', 'MERCANTIL DEL NORTE']],
+];
+
+/**
+ * Detecta el banco leyendo el texto de las primeras páginas del PDF.
+ * @param {File} file
+ * @returns {Promise<string|null>}  Clave del banco o null si no se reconoce.
+ */
+export async function detectBankFromContent(file) {
+  try {
+    const data = new Uint8Array(await file.arrayBuffer());
+    const doc  = await pdfjsLib.getDocument({ data }).promise;
+    let text = '';
+    const n = Math.min(2, doc.numPages);
+    for (let i = 1; i <= n; i++) {
+      const page = await doc.getPage(i);
+      const tc   = await page.getTextContent();
+      text += ' ' + tc.items.map(it => (typeof it.str === 'string' ? it.str : '')).join(' ');
+      await page.cleanup();
+    }
+    await doc.destroy();
+
+    const upper = text.toUpperCase();
+    for (const [bank, kws] of BANK_CONTENT_KEYWORDS) {
+      if (kws.some(k => upper.includes(k))) return bank;
+    }
+  } catch { /* ignorar: se usará nombre/selector */ }
+  return null;
+}
+
 // Scheduler Tesseract compartido (lazy) con un pool de workers para procesar
 // varias páginas en paralelo. Se crea una vez por sesión y se reutiliza.
 let _scheduler  = null;

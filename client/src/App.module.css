@@ -99,6 +99,29 @@
   border-radius: 10px;
 }
 
+/* Selector de banco por archivo */
+.bankSelectWrap {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border: 1.5px solid #d33;
+  border-radius: 10px;
+  padding: 1px 4px 1px 2px;
+  background: #fff;
+}
+.bankSelect {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: .74rem;
+  letter-spacing: .03em;
+  padding: 2px 2px;
+  cursor: pointer;
+}
+.bankSelect:disabled { cursor: default; opacity: .7; }
+.bankSource { font-size: .7rem; opacity: .8; }
+
 .fileRowName {
   flex: 1;
   font-size: .85rem;

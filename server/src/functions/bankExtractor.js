@@ -7,6 +7,7 @@ const os       = require('os');
 const fs       = require('fs');
 const {
   detectBank,
+  resolveBank,
   extractTransactions,
   extractTransactionsFromText,
   exportToBuffer
@@ -249,7 +250,7 @@ app.http('extract', {
         return { status: 400, jsonBody: { error: 'Solo se permiten archivos PDF.' } };
       }
 
-      const bank = detectBank(pdfFile.name);
+      const bank = resolveBank(pdfFile.name, formData.get('bank'));
       if (!bank) {
         return {
           status: 400,
@@ -261,7 +262,7 @@ app.http('extract', {
       }
 
       tempPath = await saveUploadedFile(pdfFile);
-      const transactions = await extractTransactions(tempPath);
+      const transactions = await extractTransactions(tempPath, context.log.bind(context), bank);
 
       if (!transactions.length) {
         return { status: 422, jsonBody: { error: 'No se encontraron transacciones en el PDF.' } };
@@ -303,13 +304,13 @@ app.http('preview', {
       if (!pdfFile || typeof pdfFile === 'string') {
         return { status: 400, jsonBody: { error: 'No se recibió archivo PDF.' } };
       }
-      const bank = detectBank(pdfFile.name);
+      const bank = resolveBank(pdfFile.name, formData.get('bank'));
       if (!bank) {
         return { status: 400, jsonBody: { error: `Banco no identificado: ${pdfFile.name}` } };
       }
 
       tempPath = await saveUploadedFile(pdfFile);
-      const transactions = await extractTransactions(tempPath);
+      const transactions = await extractTransactions(tempPath, context.log.bind(context), bank);
 
       if (!transactions.length) {
         return { status: 422, jsonBody: { error: 'No se encontraron transacciones.' } };
@@ -339,19 +340,20 @@ app.http('extractFromText', {
     const logErr = (...a) => context.error('[extract-from-text]', ...a);
     try {
       const body = await request.json();
-      const { filename, pages, usedOcr } = body || {};
-      log(`Recibido: ${filename}, ${Array.isArray(pages) ? pages.length : 0} páginas, usedOcr=${!!usedOcr}`);
+      const { filename, pages, usedOcr, bank: bankOverride } = body || {};
+      log(`Recibido: ${filename}, ${Array.isArray(pages) ? pages.length : 0} páginas, usedOcr=${!!usedOcr}, banco=${bankOverride || 'auto'}`);
 
       if (!filename || !Array.isArray(pages) || !pages.length) {
         return { status: 400, jsonBody: { error: 'Faltan filename o pages.' } };
       }
-      const bank = detectBank(filename);
+      const bank = resolveBank(filename, bankOverride);
       if (!bank) {
         return { status: 400, jsonBody: { error: `Banco no identificado: ${filename}` } };
       }
 
       const transactions = await extractTransactionsFromText(filename, pages, {
         usedOcr,
+        bank,
         logger: context.log.bind(context)
       });
       log(`Transacciones: ${transactions.length}`);
@@ -389,16 +391,17 @@ app.http('previewFromText', {
   handler:   async (request, context) => {
     try {
       const body = await request.json();
-      const { filename, pages, usedOcr } = body || {};
+      const { filename, pages, usedOcr, bank: bankOverride } = body || {};
       if (!filename || !Array.isArray(pages) || !pages.length) {
         return { status: 400, jsonBody: { error: 'Faltan filename o pages.' } };
       }
-      const bank = detectBank(filename);
+      const bank = resolveBank(filename, bankOverride);
       if (!bank) {
         return { status: 400, jsonBody: { error: `Banco no identificado: ${filename}` } };
       }
       const transactions = await extractTransactionsFromText(filename, pages, {
         usedOcr,
+        bank,
         logger: context.log.bind(context)
       });
       if (!transactions.length) {
