@@ -286,12 +286,13 @@ class SantanderExtractor extends BankExtractorBase {
       if (prevSaldo !== null && hasCur) {
         const delta = cur - prevSaldo;
         if (Math.abs(delta) >= 0.01) {
-          const M       = toFloat(tx['MONTO DEPOSITOS']) || toFloat(tx['MONTO RETIROS']);
-          // Si el monto capturado cuadra con |delta| (±1%), conservarlo; si no, usar |delta|
-          const tol     = Math.max(0.5, Math.abs(delta) * 0.01);
-          const amount  = (M > 0 && Math.abs(M - Math.abs(delta)) <= tol) ? M : Math.abs(delta);
+          // CONSERVADOR: conservar SIEMPRE el monto capturado (más seguro que
+          // confiar en |delta|, que se infla si el SALDO viene mal leído).
+          // Sólo si no hay monto capturado usamos |delta| como último recurso.
+          const M      = toFloat(tx['MONTO DEPOSITOS']) || toFloat(tx['MONTO RETIROS']);
+          const amount = M > 0 ? M : Math.abs(delta);
 
-          const eraDeposito = !!tx['MONTO DEPOSITOS'];
+          const eraDeposito  = !!tx['MONTO DEPOSITOS'];
           const debeDeposito = delta > 0;
           if (eraDeposito !== debeDeposito) reclasificados++;
 

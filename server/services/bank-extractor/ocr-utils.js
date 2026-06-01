@@ -87,7 +87,10 @@ async function ocrPage(pdfPath, pageIndex, logger = console.log) {
 
     // Escala según entorno. En Azure (RAM limitada) usamos 1.5 para evitar OOM
     // en el render del canvas; local 3 para máxima calidad.
-    const scale    = process.env.FUNCTIONS_WORKER_RUNTIME ? 1.5 : 3;
+    // Override opcional con OCR_SCALE (útil para pruebas comparables al navegador).
+    const scale = process.env.OCR_SCALE
+      ? Number(process.env.OCR_SCALE)
+      : (process.env.FUNCTIONS_WORKER_RUNTIME ? 1.5 : 3);
     const viewport = page.getViewport({ scale });
     log(`Página ${pageIndex + 1}: render scale=${scale} ${Math.round(viewport.width)}x${Math.round(viewport.height)}px`);
     cc             = canvasFactory.create(viewport.width, viewport.height);
