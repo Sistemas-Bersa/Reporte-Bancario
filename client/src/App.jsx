@@ -462,7 +462,7 @@ export default function App() {
               </div>
               {elapsed > 15 && (
                 <p className={styles.loadingHint}>
-                  ⏱ Los PDFs escaneados pueden tardar hasta 3 minutos — no cierres la pestaña.
+                  ⏱ Los PDFs escaneados pueden tardar hasta 5 minutos — no cierres la pestaña.
                 </p>
               )}
             </div>

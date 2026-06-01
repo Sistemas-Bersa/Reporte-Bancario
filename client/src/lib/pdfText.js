@@ -18,11 +18,11 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 // se considera escaneada y se manda a OCR.
 const MIN_DIGITAL_CHARS = 50;
 
-// Escala de render para OCR. PDF base = 72dpi; ×2.5 ≈ 180dpi.
-// Mayor resolución = tesseract lee mejor los dígitos y conserva el espaciado de
-// columnas (clave para separar depósito/retiro/saldo). Es más lento que ×1.5
+// Escala de render para OCR. PDF base = 72dpi; ×3 ≈ 216dpi.
+// A ×3 el OCR captura más renglones (menos filas perdidas) y conserva mejor el
+// espaciado de columnas → totales más cercanos al impreso. Más lento que ×2.5
 // pero la PRECISIÓN es prioritaria en un extractor bancario.
-const OCR_SCALE = 2.5;
+const OCR_SCALE = 3;
 
 // Nº MÁXIMO de workers Tesseract en paralelo. Se ajusta a los cores del
 // dispositivo, dejando uno libre para la UI. Cada worker carga ~30 MB de WASM,
