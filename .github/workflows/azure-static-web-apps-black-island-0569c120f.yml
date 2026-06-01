@@ -41,9 +41,11 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_ISLAND_0569C120F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "client"
+          # Apuntar directo a dist (1.7 MB) para NO subir client/node_modules
+          # (~112 MB), que junto al API excedía el límite de 250 MB del plan Free.
+          app_location: "client/dist"
           api_location: "server"
-          output_location: "dist"
+          output_location: ""
           skip_app_build: true
 
   close_pull_request_job:
