@@ -15,6 +15,11 @@ const BANK_COLOR = {
 };
 const BANK_ALIASES = { 'SANTADER': 'SANTANDER', 'SANTANER': 'SANTANDER', 'BNORTE': 'BANORTE' };
 
+// Bancos cuyos extractores trabajan con TEXTO → soportan OCR en el navegador.
+// Los demás (BBVA/BANAMEX/BANORTE) usan coordenadas X del PDF, así que se
+// procesan en el servidor (son digitales y rápidos: no sufren el timeout de 45s).
+const TEXT_PATH_BANKS = new Set(['SANTANDER', 'BAJIO']);
+
 // Tiempo estimado de procesamiento por banco (segundos)
 // PDFs escaneados toman más; digitales son rápidos.
 const EST_SECONDS = {
@@ -132,7 +137,39 @@ export default function App() {
     };
   }
 
-  // ── Vista previa (OCR en navegador → API solo parsea) ────────────────────
+  // ── Genera el Excel (blob) de un archivo, enrutando por banco ────────────
+  // SANTANDER/BAJIO → OCR en navegador + extract-from-text (evita timeout 45s).
+  // BBVA/BANAMEX/BANORTE → endpoint original del servidor (usan coordenadas X).
+  async function getXlsxForEntry(entry) {
+    let res;
+    if (TEXT_PATH_BANKS.has(entry.bank)) {
+      const { pages, usedOcr } = await extractFilePages(entry.file, makeProgress(entry.file.name));
+      setStatusMsg(`Generando Excel: ${entry.file.name}…`);
+      res = await fetch('/api/bank-extractor/extract-from-text', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ filename: entry.file.name, pages, usedOcr })
+      });
+    } else {
+      setStatusMsg(`Procesando en servidor: ${entry.file.name}…`);
+      const form = new FormData();
+      form.append('pdf', entry.file);
+      res = await fetch('/api/bank-extractor/extract', { method: 'POST', body: form });
+    }
+
+    if (!res.ok) {
+      let msg = `Error del servidor (${res.status})`;
+      try { const d = await res.json(); msg = d.error || msg; } catch {}
+      throw new Error(msg);
+    }
+    const blob     = await res.blob();
+    const cd       = res.headers.get('Content-Disposition') || '';
+    const match    = cd.match(/filename="?([^"]+)"?/);
+    const xlsxName = match ? match[1] : entry.file.name.replace(/\.pdf$/i, '.xlsx');
+    return { name: xlsxName, blob };
+  }
+
+  // ── Vista previa (enruta por banco igual que la descarga) ─────────────────
   async function handlePreview(entry) {
     setEstimated(EST_SECONDS[entry.bank] ?? EST_SECONDS.DEFAULT);
     setStatus('loading');
@@ -140,16 +177,25 @@ export default function App() {
     setPreview(null);
 
     try {
-      const { pages, usedOcr } = await extractFilePages(entry.file, makeProgress(entry.file.name));
-      setStatusMsg('Generando vista previa…');
-
-      const res  = await fetch('/api/bank-extractor/preview-from-text', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ filename: entry.file.name, pages, usedOcr })
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Error desconocido');
+      let data;
+      if (TEXT_PATH_BANKS.has(entry.bank)) {
+        const { pages, usedOcr } = await extractFilePages(entry.file, makeProgress(entry.file.name));
+        setStatusMsg('Generando vista previa…');
+        const res = await fetch('/api/bank-extractor/preview-from-text', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ filename: entry.file.name, pages, usedOcr })
+        });
+        data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Error desconocido');
+      } else {
+        setStatusMsg(`Procesando en servidor: ${entry.file.name}…`);
+        const form = new FormData();
+        form.append('pdf', entry.file);
+        const res = await fetch('/api/bank-extractor/preview', { method: 'POST', body: form });
+        data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Error desconocido');
+      }
 
       setPreview(data);
       setStatus('done');
@@ -179,29 +225,11 @@ export default function App() {
       const xlsxResults = [];   // { name, blob }
       const errors      = [];   // { name, error }
 
-      // Procesar archivo por archivo: OCR en navegador → API solo parsea
+      // Procesar archivo por archivo, enrutando por banco (ver getXlsxForEntry)
       for (const entry of validFiles) {
         try {
-          const { pages, usedOcr } = await extractFilePages(entry.file, makeProgress(entry.file.name));
-          setStatusMsg(`Generando Excel: ${entry.file.name}…`);
-
-          const res = await fetch('/api/bank-extractor/extract-from-text', {
-            method:  'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body:    JSON.stringify({ filename: entry.file.name, pages, usedOcr })
-          });
-
-          if (!res.ok) {
-            let msg = `Error del servidor (${res.status})`;
-            try { const d = await res.json(); msg = d.error || msg; } catch {}
-            throw new Error(msg);
-          }
-
-          const blob     = await res.blob();
-          const cd       = res.headers.get('Content-Disposition') || '';
-          const match    = cd.match(/filename="?([^"]+)"?/);
-          const xlsxName = match ? match[1] : entry.file.name.replace(/\.pdf$/i, '.xlsx');
-          xlsxResults.push({ name: xlsxName, blob });
+          const result = await getXlsxForEntry(entry);
+          xlsxResults.push(result);
         } catch (e) {
           errors.push({ name: entry.file.name, error: e.message });
         }
