@@ -79,6 +79,21 @@
 
 .fileRowIcon { font-size: 1rem; flex-shrink: 0; }
 
+.reconcileBox {
+  margin-top: 12px;
+  padding: 11px 14px;
+  background: #fff4ce;
+  border: 1px solid #f0d060;
+  border-radius: 8px;
+  color: #6b4e00;
+  font-size: .82rem;
+}
+.reconcileList {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+.reconcileList li { margin: 2px 0; }
+
 .bankTag {
   flex-shrink: 0;
   font-size: .72rem;

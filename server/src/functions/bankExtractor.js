@@ -8,6 +8,7 @@ const fs       = require('fs');
 const {
   detectBank,
   resolveBank,
+  reconcileTotals,
   extractTransactions,
   extractTransactionsFromText,
   exportToBuffer
@@ -364,14 +365,19 @@ app.http('extractFromText', {
 
       const buffer   = await exportToBuffer(transactions);
       const xlsxName = path.basename(filename, '.pdf') + '.xlsx';
-      return {
-        status:  200,
-        body:    buffer,
-        headers: {
-          'Content-Type':        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-          'Content-Disposition': `attachment; filename="${xlsxName}"`
-        }
+
+      // Reconciliación con el TOTAL impreso → header para que el front avise
+      const reconcile = reconcileTotals(transactions, pages);
+      if (reconcile) log(`Reconciliación: ${reconcile.status} (extraído dep ${reconcile.extractedDep.toFixed(2)} vs impreso ${reconcile.printedDep.toFixed(2)})`);
+
+      const headers = {
+        'Content-Type':        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'Content-Disposition': `attachment; filename="${xlsxName}"`,
+        'Access-Control-Expose-Headers': 'X-Reconcile'
       };
+      if (reconcile) headers['X-Reconcile'] = JSON.stringify(reconcile);
+
+      return { status: 200, body: buffer, headers };
     } catch (err) {
       logErr('ERROR:', err.message, err.stack);
       return {
@@ -407,7 +413,8 @@ app.http('previewFromText', {
       if (!transactions.length) {
         return { status: 422, jsonBody: { error: 'No se encontraron transacciones.' } };
       }
-      return { status: 200, jsonBody: { bank, count: transactions.length, transactions } };
+      const reconcile = reconcileTotals(transactions, pages);
+      return { status: 200, jsonBody: { bank, count: transactions.length, transactions, reconcile } };
     } catch (err) {
       context.error('[preview-from-text]', err.message, err.stack);
       return { status: 500, jsonBody: { error: err.message || 'Error interno', stack: err.stack } };

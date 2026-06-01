@@ -65,6 +65,19 @@ function fmtTime(sec) {
   return m > 0 ? `${m}:${String(s).padStart(2, '0')} min` : `${s} seg`;
 }
 
+function fmtMoney(n) {
+  return Number(n || 0).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// Construye un texto de alerta si la reconciliación no cuadra. null si cuadra.
+function reconcileWarning(name, r) {
+  if (!r || r.status === 'ok') return null;
+  const parts = [];
+  if (!r.okDep) parts.push(`depósitos extraído ${fmtMoney(r.extractedDep)} vs total impreso ${fmtMoney(r.printedDep)}`);
+  if (!r.okRet) parts.push(`retiros extraído ${fmtMoney(r.extractedRet)} vs total impreso ${fmtMoney(r.printedRet)}`);
+  return `${name}: ${parts.join(' · ')}`;
+}
+
 // ── Barra de progreso animada ─────────────────────────────────────────────────
 function ProgressBar({ elapsed, estimated }) {
   // La barra llega al 90% en el tiempo estimado, luego crece lento
@@ -88,6 +101,7 @@ export default function App() {
   const [statusMsg, setStatusMsg] = useState('');
   const [preview, setPreview]     = useState(null);
   const [estimated, setEstimated] = useState(30);       // segundos estimados
+  const [alerts, setAlerts]       = useState([]);       // avisos de reconciliación
 
   const isLoading = status === 'loading';
   const elapsed   = useTimer(isLoading);
@@ -202,7 +216,14 @@ export default function App() {
     const cd       = res.headers.get('Content-Disposition') || '';
     const match    = cd.match(/filename="?([^"]+)"?/);
     const xlsxName = match ? match[1] : entry.file.name.replace(/\.pdf$/i, '.xlsx');
-    return { name: xlsxName, blob };
+
+    let reconcile = null;
+    try {
+      const rh = res.headers.get('X-Reconcile');
+      if (rh) reconcile = JSON.parse(rh);
+    } catch { /* sin reconciliación */ }
+
+    return { name: xlsxName, blob, reconcile };
   }
 
   // ── Vista previa (enruta por banco igual que la descarga) ─────────────────
@@ -235,6 +256,8 @@ export default function App() {
       }
 
       setPreview(data);
+      const w = reconcileWarning(entry.file.name, data.reconcile);
+      setAlerts(w ? [w] : []);
       setStatus('done');
       setStatusMsg(`Vista previa: ${data.count} transacciones en ${entry.file.name}`);
     } catch (err) {
@@ -257,6 +280,7 @@ export default function App() {
     setStatus('loading');
     setStatusMsg(`Procesando ${validFiles.length} archivo(s)…`);
     setPreview(null);
+    setAlerts([]);
 
     const t0 = Date.now();
     const fmtDone = () => fmtTime(Math.round((Date.now() - t0) / 1000));
@@ -281,6 +305,12 @@ export default function App() {
           (errors.length ? ' ' + errors.map(e => `${e.name}: ${e.error}`).join(' · ') : '')
         );
       }
+
+      // Avisos de reconciliación (totales que no cuadran con el TOTAL del PDF)
+      const warnings = xlsxResults
+        .map(r => reconcileWarning(r.name, r.reconcile))
+        .filter(Boolean);
+      setAlerts(warnings);
 
       // Un solo Excel → descarga directa; varios → ZIP en el navegador
       if (xlsxResults.length === 1 && !errors.length) {
@@ -439,6 +469,16 @@ export default function App() {
           )}
           {status === 'done'  && <div className={styles.statusOk}>{statusMsg}</div>}
           {status === 'error' && <div className={styles.statusError}>❌ {statusMsg}</div>}
+
+          {/* Alertas de reconciliación: los totales no cuadran con el PDF */}
+          {alerts.length > 0 && (
+            <div className={styles.reconcileBox}>
+              <strong>⚠ Revisa estos archivos — el total no coincide con el del PDF (posible error de OCR):</strong>
+              <ul className={styles.reconcileList}>
+                {alerts.map((a, i) => <li key={i}>{a}</li>)}
+              </ul>
+            </div>
+          )}
         </div>
 
         {/* Vista previa */}

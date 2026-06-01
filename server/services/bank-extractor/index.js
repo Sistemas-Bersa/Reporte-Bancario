@@ -97,6 +97,61 @@ async function extractTransactionsFromText(filename, pageTexts, opts = {}) {
   return extractor.extractTransactions();
 }
 
+// Convierte "1,234.56" → 1234.56
+function _toNum(s) {
+  if (!s) return 0;
+  return parseFloat(String(s).replace(/,/g, '')) || 0;
+}
+
+/**
+ * Reconciliación: compara la suma de depósitos/retiros EXTRAÍDA con el TOTAL
+ * IMPRESO en el estado de cuenta (buscado en el texto de las páginas). Sirve
+ * para avisar al usuario cuándo el OCR de un escaneo no cuadra al 100%.
+ *
+ * @param {object[]} transactions
+ * @param {string[]} pageTexts   Texto por página (para hallar la línea TOTAL)
+ * @returns {object|null} { extractedDep, extractedRet, printedDep, printedRet,
+ *                          okDep, okRet, status } | null si no se halló TOTAL
+ */
+function reconcileTotals(transactions, pageTexts) {
+  const extractedDep = transactions.reduce((a, t) => a + _toNum(t['MONTO DEPOSITOS']), 0);
+  const extractedRet = transactions.reduce((a, t) => a + _toNum(t['MONTO RETIROS']), 0);
+
+  // Buscar la línea de TOTAL con 2 importes grandes (≥ 1,000) en las páginas.
+  const AMT = /\d{1,3}(?:,\d{3})*\.\d{2}/g;
+  let printedDep = null, printedRet = null;
+
+  const lines = (pageTexts || []).join('\n').split('\n');
+  for (const line of lines) {
+    if (!/\bTOTAL\b/i.test(line)) continue;
+    // Importes con decimales en la línea (los folios no tienen ".dd" → se excluyen)
+    const amts = (line.match(AMT) || []).map(_toNum);
+    if (amts.length >= 2) {
+      // Última línea TOTAL con ≥2 importes gana (el resumen suele ir al final).
+      // Tomamos los dos ÚLTIMOS importes (dep, ret) por si hay cifras previas.
+      printedDep = amts[amts.length - 2];
+      printedRet = amts[amts.length - 1];
+    }
+  }
+
+  if (printedDep === null) return null;
+
+  // Tolerancia: 0.1% relativo o $1, lo que sea mayor
+  const within = (a, b) => {
+    const tol = Math.max(1, Math.abs(b) * 0.001);
+    return Math.abs(a - b) <= tol;
+  };
+  const okDep = within(extractedDep, printedDep);
+  const okRet = within(extractedRet, printedRet);
+
+  return {
+    extractedDep, extractedRet,
+    printedDep,   printedRet,
+    okDep, okRet,
+    status: (okDep && okRet) ? 'ok' : 'mismatch'
+  };
+}
+
 /**
  * Exporta transacciones a un archivo .xlsx en disco.
  * @param {object[]} transactions
@@ -170,6 +225,7 @@ function _buildWorkbook(transactions) {
 module.exports = {
   detectBank,
   resolveBank,
+  reconcileTotals,
   extractTransactions,
   extractTransactionsFromText,
   exportToFile,
