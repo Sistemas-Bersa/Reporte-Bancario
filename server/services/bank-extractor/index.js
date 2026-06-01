@@ -121,16 +121,23 @@ function reconcileTotals(transactions, pageTexts) {
   const AMT = /\d{1,3}(?:,\d{3})*\.\d{2}/g;
   let printedDep = null, printedRet = null;
 
+  // Entre todas las líneas con "TOTAL" y ≥2 importes, elegir la del GRAN TOTAL
+  // (la de mayor suma dep+ret). Así evitamos líneas tipo "TOTAL ... 0.00 0.00"
+  // o subtotales de sección que pisarían al total real.
   const lines = (pageTexts || []).join('\n').split('\n');
+  let bestSum = -1;
   for (const line of lines) {
     if (!/\bTOTAL\b/i.test(line)) continue;
     // Importes con decimales en la línea (los folios no tienen ".dd" → se excluyen)
     const amts = (line.match(AMT) || []).map(_toNum);
-    if (amts.length >= 2) {
-      // Última línea TOTAL con ≥2 importes gana (el resumen suele ir al final).
-      // Tomamos los dos ÚLTIMOS importes (dep, ret) por si hay cifras previas.
-      printedDep = amts[amts.length - 2];
-      printedRet = amts[amts.length - 1];
+    if (amts.length < 2) continue;
+    const dep = amts[amts.length - 2];
+    const ret = amts[amts.length - 1];
+    const sum = dep + ret;
+    if (sum > 0 && sum > bestSum) {
+      bestSum    = sum;
+      printedDep = dep;
+      printedRet = ret;
     }
   }
 
