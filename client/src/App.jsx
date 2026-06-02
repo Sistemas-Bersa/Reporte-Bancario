@@ -473,7 +473,7 @@ export default function App() {
           {/* Alertas de reconciliación: los totales no cuadran con el PDF */}
           {alerts.length > 0 && (
             <div className={styles.reconcileBox}>
-              <strong>⚠ Revisa estos archivos — el total no coincide con el del PDF (posible error de OCR):</strong>
+              <strong>⚠ Revisa estos archivos — el total no coincide con el del PDF (posible error de OCR). Las filas a revisar están resaltadas en amarillo dentro del Excel:</strong>
               <ul className={styles.reconcileList}>
                 {alerts.map((a, i) => <li key={i}>{a}</li>)}
               </ul>

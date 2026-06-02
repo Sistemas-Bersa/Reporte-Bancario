@@ -208,12 +208,47 @@ function _buildWorkbook(transactions) {
   const sheet    = workbook.addWorksheet('Transacciones');
 
   // Encabezados en mayúsculas
-  const headers = Object.keys(transactions[0]).map(k => k.toUpperCase());
+  const keys      = Object.keys(transactions[0]);
+  const headers   = keys.map(k => k.toUpperCase());
   const headerRow = sheet.addRow(headers);
   headerRow.font = { bold: true };
 
+  // Índices de columnas para verificar consistencia por saldo
+  const depIdx = keys.indexOf('MONTO DEPOSITOS');
+  const retIdx = keys.indexOf('MONTO RETIROS');
+  const salIdx = keys.indexOf('SALDO');
+  const canCheck = depIdx >= 0 && retIdx >= 0 && salIdx >= 0;
+
+  // Resaltado de filas a revisar: cuando el SALDO no cuadra con el movimiento
+  // (depósito − retiro) capturado → el OCR probablemente leyó mal un número.
+  const SUSPECT_FILL = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFE08A' } };
+  let prevSaldo = null;
+  let suspectCount = 0;
+
   for (const tx of transactions) {
-    sheet.addRow(Object.values(tx));
+    const values = Object.values(tx);
+    const row    = sheet.addRow(values);
+
+    if (canCheck) {
+      const cur    = _toNum(values[salIdx]);
+      const hasCur = !!values[salIdx] && cur !== 0;
+      if (prevSaldo !== null && hasCur) {
+        const movimiento = _toNum(values[depIdx]) - _toNum(values[retIdx]); // dep sube, ret baja
+        const delta      = cur - prevSaldo;
+        const tol        = Math.max(1, Math.abs(delta) * 0.01);
+        if (Math.abs(delta - movimiento) > tol) {
+          row.eachCell({ includeEmpty: true }, c => { c.fill = SUSPECT_FILL; });
+          suspectCount++;
+        }
+      }
+      if (hasCur) prevSaldo = cur;
+    }
+  }
+
+  // Nota/leyenda al final cuando hay filas marcadas
+  if (suspectCount > 0) {
+    const note = sheet.addRow([`⚠ ${suspectCount} fila(s) resaltadas: el saldo no cuadra con el monto — revisar (posible error de OCR).`]);
+    note.font = { italic: true, color: { argb: 'FF8A6D00' } };
   }
 
   // Ajuste automático de ancho de columna
