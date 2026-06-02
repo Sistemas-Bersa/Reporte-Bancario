@@ -277,7 +277,8 @@ class SantanderExtractor extends BankExtractorBase {
    */
   _classifyBySaldo(transactions) {
     let prevSaldo = null;
-    let reclasificados = 0;
+    let reclasificados = 0;   // sólo cambió de columna
+    let reconstruidos  = 0;   // se corrigió el MONTO desde el delta del saldo
 
     for (const tx of transactions) {
       const cur    = toFloat(tx['SALDO']);
@@ -286,15 +287,28 @@ class SantanderExtractor extends BankExtractorBase {
       if (prevSaldo !== null && hasCur) {
         const delta = cur - prevSaldo;
         if (Math.abs(delta) >= 0.01) {
-          // CONSERVADOR: conservar SIEMPRE el monto capturado (más seguro que
-          // confiar en |delta|, que se infla si el SALDO viene mal leído).
-          // Sólo si no hay monto capturado usamos |delta| como último recurso.
-          const M      = toFloat(tx['MONTO DEPOSITOS']) || toFloat(tx['MONTO RETIROS']);
-          const amount = M > 0 ? M : Math.abs(delta);
-
-          const eraDeposito  = !!tx['MONTO DEPOSITOS'];
+          const M = toFloat(tx['MONTO DEPOSITOS']) || toFloat(tx['MONTO RETIROS']);
           const debeDeposito = delta > 0;
+          const absDelta     = Math.abs(delta);
+
+          // ── Decidir el MONTO (SOLO acciones seguras) ────────────────────
+          // - Sin monto capturado → recuperar desde el delta del saldo (monto
+          //   que el OCR perdió). Cierra retiros faltantes sin inventar nada.
+          // - Con monto capturado → conservarlo SIEMPRE (no reescribir desde el
+          //   saldo: no se puede distinguir un monto mal leído de un saldo mal
+          //   leído, y un número "corregido" equivocado es peor que un hueco
+          //   señalado por la alerta de reconciliación).
+          let amount;
+          let viaDelta = false;
+          if (M <= 0) {
+            amount = absDelta; viaDelta = true;   // recuperación segura
+          } else {
+            amount = M;                           // conservar capturado
+          }
+
+          const eraDeposito = !!tx['MONTO DEPOSITOS'];
           if (eraDeposito !== debeDeposito) reclasificados++;
+          if (viaDelta) reconstruidos++;
 
           if (debeDeposito) {
             tx['MONTO DEPOSITOS'] = formatAmount(amount);
@@ -309,8 +323,8 @@ class SantanderExtractor extends BankExtractorBase {
       if (hasCur) prevSaldo = cur;
     }
 
-    if (reclasificados > 0) {
-      this._log(`  [saldo-fix] ${reclasificados} fila(s) reclasificadas por delta de saldo.`);
+    if (reclasificados || reconstruidos) {
+      this._log(`  [saldo-fix] ${reclasificados} reclasificada(s), ${reconstruidos} monto(s) reconstruido(s) por delta de saldo.`);
     }
     return transactions;
   }
