@@ -18,11 +18,11 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 // se considera escaneada y se manda a OCR.
 const MIN_DIGITAL_CHARS = 50;
 
-// Escala de render para OCR. PDF base = 72dpi; ×4 ≈ 288dpi.
-// ×4 es el ÓPTIMO empírico: a menos resolución se pierden renglones; a más (×6)
-// tesseract sobre-segmenta y lee ruido como dígitos (totales peores). Medido
-// contra el TOTAL impreso del estado de cuenta.
-const OCR_SCALE = 4;
+// Escala de render para OCR. PDF base = 72dpi; ×3 ≈ 216dpi.
+// ×3 fue el mejor resultado MEDIDO EN EL NAVEGADOR (dep +2.6% / ret −1.3%).
+// Nota: el OCR del navegador (modelo de idioma desde CDN) NO se comporta igual
+// que el del servidor, así que esta escala se calibró con corridas reales aquí.
+const OCR_SCALE = 3;
 
 // Nº MÁXIMO de workers Tesseract en paralelo. Se ajusta a los cores del
 // dispositivo, dejando uno libre para la UI. Cada worker carga ~30 MB de WASM,
@@ -153,10 +153,8 @@ async function getScheduler(want = 1) {
       const newWorkers = await Promise.all(
         Array.from({ length: toAdd }, () => createWorker('spa'))
       );
-      // Preservar el espaciado entre columnas (clave para el parser).
-      await Promise.all(newWorkers.map(w =>
-        w.setParameters({ preserve_interword_spaces: '1' }).catch(() => {})
-      ));
+      // NOTA: NO usar preserve_interword_spaces aquí — en el navegador rompió la
+      // separación de columnas de depósitos (−18%). El default da mejor cuadre.
       newWorkers.forEach(w => _scheduler.addWorker(w));
       _workerCount += newWorkers.length;
     })();
