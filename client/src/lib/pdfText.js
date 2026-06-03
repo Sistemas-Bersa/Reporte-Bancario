@@ -151,7 +151,12 @@ async function getScheduler(want = 1) {
     _growLock = (async () => {
       const toAdd = target - _workerCount;
       const newWorkers = await Promise.all(
-        Array.from({ length: toAdd }, () => createWorker('spa'))
+        Array.from({ length: toAdd }, () =>
+          // Usar el MISMO modelo que el servidor (spa.traineddata local, no el
+          // CDN) → el OCR del navegador coincide con el laboratorio offline,
+          // haciendo el resultado reproducible y afinarle de forma confiable.
+          createWorker('spa', 1, { langPath: '/tessdata', gzip: false })
+        )
       );
       // NOTA: NO usar preserve_interword_spaces aquí — en el navegador rompió la
       // separación de columnas de depósitos (−18%). El default da mejor cuadre.
