@@ -173,36 +173,20 @@ export async function terminateOcr() {
 }
 
 /**
- * Preprocesa la imagen para mejorar la precisión del OCR:
- * convierte a escala de grises y aplica una curva de contraste que blanquea el
- * fondo y oscurece el texto, sin un umbral duro (más robusto a escaneos
- * con iluminación despareja). Mejora notablemente la lectura de dígitos.
+ * Renderiza una página del PDF a un canvas y lo devuelve.
+ *
+ * NOTA: NO preprocesamos la imagen (grises/contraste). Tesseract ya hace su
+ * propia binarización (Otsu) internamente; darle una imagen pre-contrastada
+ * lo confunde y pierde renglones. En pruebas, la imagen CRUDA a escala 3
+ * dio ~−2% vs total impreso, mientras que con preprocesado caía a ~−19%.
  */
-function preprocessForOcr(ctx, w, h) {
-  const img  = ctx.getImageData(0, 0, w, h);
-  const d    = img.data;
-  // Contraste tipo sigmoide ligero alrededor de un punto medio.
-  const MID  = 165;   // umbral suave: pixeles más claros → blanco
-  const GAIN = 0.045; // pendiente del contraste
-  for (let i = 0; i < d.length; i += 4) {
-    // Luminancia (BT.601)
-    const lum = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
-    // Curva logística: empuja a 0 (negro) o 255 (blanco)
-    const v = 255 / (1 + Math.exp(-GAIN * (lum - MID)));
-    d[i] = d[i + 1] = d[i + 2] = v;
-  }
-  ctx.putImageData(img, 0, 0);
-}
-
-/** Renderiza una página del PDF a un canvas (con preprocesado) y lo devuelve. */
 async function renderPageToCanvas(page, scale) {
   const viewport = page.getViewport({ scale });
   const canvas   = document.createElement('canvas');
   canvas.width   = Math.ceil(viewport.width);
   canvas.height  = Math.ceil(viewport.height);
-  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  const ctx = canvas.getContext('2d');
   await page.render({ canvasContext: ctx, viewport }).promise;
-  preprocessForOcr(ctx, canvas.width, canvas.height);
   return canvas;
 }
 
