@@ -46,6 +46,9 @@ async function _getWorker() {
     gzip:     false,
     logger:   () => {}
   });
+  // Preservar el espaciado entre columnas (clave para el parser, que separa
+  // FECHA/CONCEPTO/DEPÓSITO/RETIRO/SALDO por bloques de espacios).
+  await _worker.setParameters({ preserve_interword_spaces: '1' });
   return _worker;
 }
 

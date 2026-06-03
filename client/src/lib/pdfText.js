@@ -18,11 +18,11 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 // se considera escaneada y se manda a OCR.
 const MIN_DIGITAL_CHARS = 50;
 
-// Escala de render para OCR. PDF base = 72dpi; ×3 ≈ 216dpi.
-// A ×3 el OCR captura más renglones (menos filas perdidas) y conserva mejor el
-// espaciado de columnas → totales más cercanos al impreso. Más lento que ×2.5
-// pero la PRECISIÓN es prioritaria en un extractor bancario.
-const OCR_SCALE = 3;
+// Escala de render para OCR. PDF base = 72dpi; ×4 ≈ 288dpi.
+// ×4 es el ÓPTIMO empírico: a menos resolución se pierden renglones; a más (×6)
+// tesseract sobre-segmenta y lee ruido como dígitos (totales peores). Medido
+// contra el TOTAL impreso del estado de cuenta.
+const OCR_SCALE = 4;
 
 // Nº MÁXIMO de workers Tesseract en paralelo. Se ajusta a los cores del
 // dispositivo, dejando uno libre para la UI. Cada worker carga ~30 MB de WASM,
@@ -153,6 +153,10 @@ async function getScheduler(want = 1) {
       const newWorkers = await Promise.all(
         Array.from({ length: toAdd }, () => createWorker('spa'))
       );
+      // Preservar el espaciado entre columnas (clave para el parser).
+      await Promise.all(newWorkers.map(w =>
+        w.setParameters({ preserve_interword_spaces: '1' }).catch(() => {})
+      ));
       newWorkers.forEach(w => _scheduler.addWorker(w));
       _workerCount += newWorkers.length;
     })();

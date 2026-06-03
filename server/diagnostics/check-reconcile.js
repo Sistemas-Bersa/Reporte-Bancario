@@ -28,6 +28,11 @@ function list(d){const o=[];for(const n of fs.readdirSync(d)){const f=path.join(
   const tx = await e.extractTransactions();
   console.log(`Listo en ${((Date.now()-t0)/1000).toFixed(0)}s — ${tx.length} transacciones`);
 
+  // Cachear el texto OCR por página para poder experimentar sin re-OCR
+  const cacheFile = path.join(__dirname, `texts-${bank}-${(filter||'pdf').replace(/\W+/g,'_')}.json`);
+  fs.writeFileSync(cacheFile, JSON.stringify({ name, bank, pages: captured }));
+  console.log(`Texto OCR cacheado en ${path.basename(cacheFile)}`);
+
   const r = s.reconcileTotals(tx, captured);
   if (!r) { console.log('No se halló línea TOTAL.'); process.exit(0); }
   const f = n => Number(n).toLocaleString('en-US',{minimumFractionDigits:2});

@@ -103,6 +103,11 @@ function _toNum(s) {
   return parseFloat(String(s).replace(/,/g, '')) || 0;
 }
 
+// 1234.5 → "1,234.50"
+function _fmtMoney(n) {
+  return Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
 /**
  * Reconciliación: compara la suma de depósitos/retiros EXTRAÍDA con el TOTAL
  * IMPRESO en el estado de cuenta (buscado en el texto de las páginas). Sirve
@@ -239,6 +244,12 @@ function _buildWorkbook(transactions) {
         if (Math.abs(delta - movimiento) > tol) {
           row.eachCell({ includeEmpty: true }, c => { c.fill = SUSPECT_FILL; });
           suspectCount++;
+          // Sugerencia: el movimiento implícito por el saldo (sirve cuando el
+          // monto fue mal leído; ignorar si el saldo es el que está mal).
+          const signo  = delta > 0 ? 'depósito' : 'retiro';
+          const colIdx = (delta > 0 ? depIdx : retIdx) + 1; // 1-based
+          const cell   = row.getCell(colIdx);
+          cell.note = `El saldo sugiere un ${signo} de ${_fmtMoney(Math.abs(delta))}. Verifica contra el PDF.`;
         }
       }
       if (hasCur) prevSaldo = cur;
